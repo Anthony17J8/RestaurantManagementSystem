@@ -13,22 +13,22 @@ CREATE TABLE `restaurant`
 (
   `id`         int(11) NOT NULL AUTO_INCREMENT,
   `name`       varchar(128) DEFAULT NULL,
-  `address_id` int(11)      DEFAULT NULL,
+  restaurant_detail_id int(11)      DEFAULT NULL,
   primary key (`id`),
   UNIQUE KEY `name_unique` (`name`),
-  KEY `fk_address_idx` (`address_id`),
-  CONSTRAINT `fk_address` FOREIGN KEY (`address_id`) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  KEY `fk_address_idx` (restaurant_detail_id),
+  CONSTRAINT `fk_address` FOREIGN KEY (restaurant_detail_id) REFERENCES `address` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for `address`
+-- Table structure for `restaurant_detail`
 --
 
-DROP TABLE IF EXISTS `address`;
+DROP TABLE IF EXISTS `restaurant_detail`;
 
-CREATE TABLE `address`
+CREATE TABLE `restaurant_detail`
 (
   `id`     int(11) NOT NULL AUTO_INCREMENT,
   `city`   varchar(128) DEFAULT NULL,
