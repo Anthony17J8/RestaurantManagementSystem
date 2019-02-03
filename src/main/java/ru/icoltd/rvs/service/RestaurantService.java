@@ -1,0 +1,10 @@
+package ru.icoltd.rvs.service;
+
+import ru.icoltd.rvs.entity.Restaurant;
+
+import java.util.List;
+
+public interface RestaurantService {
+
+    List<Restaurant> getRestaurants();
+}

@@ -8,25 +8,29 @@ public class RestaurantDetail {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JoinColumn(name = "id")
+    @Column(name = "id")
     private int id;
 
-    @JoinColumn(name = "city")
+    @Column(name = "country")
+    private String country;
+
+    @Column(name = "city")
     private String city;
 
-    @JoinColumn(name = "street")
+    @Column(name = "street")
     private String street;
 
-    @JoinColumn(name = "phone")
+    @Column(name = "phone")
     private String phone;
 
-    @JoinColumn(name = "email")
+    @Column(name = "email")
     private String email;
 
     public RestaurantDetail() {
     }
 
-    public RestaurantDetail(String city, String street, String phone, String email) {
+    public RestaurantDetail(String country, String city, String street, String phone, String email) {
+        this.country = country;
         this.city = city;
         this.street = street;
         this.phone = phone;
@@ -39,6 +43,14 @@ public class RestaurantDetail {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
     }
 
     public String getCity() {
@@ -77,6 +89,7 @@ public class RestaurantDetail {
     public String toString() {
         return "RestaurantDetail{" +
                 "id=" + id +
+                ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", phone='" + phone + '\'' +

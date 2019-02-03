@@ -15,7 +15,7 @@ public class Restaurant {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_detail_id")
     private RestaurantDetail restaurantDetail;
 
