@@ -12,22 +12,32 @@
 </head>
 
 <body>
-<form:form modelAttribute="restaurants">
-    <c:forEach var="restaurant" items="${restaurants}">
-        <td>Restaurant :</td>
 
-        <td>${restaurant.name}</td>
-        <br>
-        <td>Details:</td>
-        <c:set var="detail" value="${restaurant.restaurantDetail}"/>
-        <tr>${detail.country}</tr>
-        <tr>${detail.city}</tr>
-        <tr>${detail.email}</tr>
-        <tr>${detail.phone}</tr>
-        <tr>${detail.street}</tr>
-        <br><br>
-    </c:forEach>
-</form:form>
+<h3>Restaurant List: </h3>
+
+<table border="1" cellpadding="20">
+    <th align="left">Restaurant</th>
+    <th align="left">Details</th>
+    <th align="left">Menu</th>
+    <form:form modelAttribute="restaurants">
+        <c:forEach var="restaurant" items="${restaurants}">
+
+            <c:set var="detail" value="${restaurant.restaurantDetail}"/>
+
+
+            <tr>
+                <td>${restaurant.name}</td>
+                <td>    ${detail.country}<br>
+                        ${detail.city}<br>
+                        ${detail.email}<br>
+                        ${detail.phone}<br>
+                        ${detail.street}</td>
+                <td><a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/showMenus">Show menu</a>
+                </td>
+            </tr>
+        </c:forEach>
+    </form:form>
+</table>
 </body>
 
 </html>

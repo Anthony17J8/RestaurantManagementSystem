@@ -23,4 +23,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<Restaurant> getRestaurants() {
         return restaurantDAO.getRestaurants();
     }
+
+    @Override
+    @Transactional
+    public Restaurant getRestaurant(int restaurantId) {
+        return restaurantDAO.findById(restaurantId);
+    }
 }

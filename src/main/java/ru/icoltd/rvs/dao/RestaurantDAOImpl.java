@@ -2,6 +2,7 @@ package ru.icoltd.rvs.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Restaurant;
@@ -24,5 +25,15 @@ public class RestaurantDAOImpl implements RestaurantDAO {
         Session currentSession = sessionFactory.getCurrentSession();
 
         return currentSession.createQuery("from Restaurant r JOIN fetch r.restaurantDetail", Restaurant.class).getResultList();
+    }
+
+    @Override
+    public Restaurant findById(int restaurantId) {
+
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Restaurant> query = currentSession.createQuery("from Restaurant r join fetch r.menus where r.id=:restaurantId", Restaurant.class);
+        query.setParameter("restaurantId", restaurantId);
+
+        return query.getSingleResult();
     }
 }

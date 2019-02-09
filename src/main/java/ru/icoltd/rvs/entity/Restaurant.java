@@ -19,7 +19,7 @@ public class Restaurant {
     @JoinColumn(name = "restaurant_detail_id")
     private RestaurantDetail restaurantDetail;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")
     private List<Menu> menus;
 
     public Restaurant() {
@@ -52,6 +52,14 @@ public class Restaurant {
 
     public void setRestaurantDetail(RestaurantDetail address) {
         this.restaurantDetail = address;
+    }
+
+    public List<Menu> getMenus() {
+        return menus;
+    }
+
+    public void setMenus(List<Menu> menus) {
+        this.menus = menus;
     }
 
     @Override
