@@ -9,20 +9,25 @@
 
 <body>
 
-<h3>Menus:</h3>
+<h3>Menus</h3>
+<hr>
 
 <table border="1" cellpadding="20">
-
-    <th>Name</th>
-    <th>Date</th>
-    <th>Cast</th>
-
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Date</th>
+        <th>Cast</th>
+    </tr>
+    </thead>
     <c:forEach var="menu" items="${menus}">
+        <tbody>
         <tr>
-            <td>${menu.name}</td>
+            <td><a href="${pageContext.request.contextPath}/menu/${menu.id}/showDetails">${menu.name}</a></td>
             <td>${menu.date}</td>
             <td>${menu.cast}</td>
         </tr>
+        </tbody>
     </c:forEach>
 
 </table>

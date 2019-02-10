@@ -3,6 +3,7 @@ package ru.icoltd.rvs.entity;
 import javax.persistence.*;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "menu")
@@ -26,11 +27,11 @@ public class Menu {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "menu")
-    private List<Dish> dishes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    private Set<Dish> dishes;
 
-    @OneToMany(mappedBy = "menu")
-    private List<Vote> votes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    private Set<Vote> votes;
 
     public Menu() {
     }
@@ -66,12 +67,20 @@ public class Menu {
         this.restaurant = restaurant;
     }
 
-    public List<Dish> getDishes() {
+    public Set<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(List<Dish> dishes) {
+    public void setDishes(Set<Dish> dishes) {
         this.dishes = dishes;
+    }
+
+    public Set<Vote> getVotes() {
+        return votes;
+    }
+
+    public void setVotes(Set<Vote> votes) {
+        this.votes = votes;
     }
 
     public Date getDate() {
@@ -88,14 +97,6 @@ public class Menu {
 
     public void setCast(double cast) {
         this.cast = cast;
-    }
-
-    public List<Vote> getVotes() {
-        return votes;
-    }
-
-    public void setVotes(List<Vote> votes) {
-        this.votes = votes;
     }
 
     @Override

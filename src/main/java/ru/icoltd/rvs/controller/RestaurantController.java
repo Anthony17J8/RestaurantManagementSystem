@@ -1,4 +1,4 @@
-package ru.icoltd.rvs;
+package ru.icoltd.rvs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
