@@ -9,6 +9,8 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Vote;
 import ru.icoltd.rvs.service.MenuService;
 
+import java.time.LocalDateTime;
+
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
@@ -44,8 +46,7 @@ public class MenuController {
 
     @PostMapping("/{menuId}/addVote")
     public String voteForMenu(@ModelAttribute("menu") Menu menu) {
-        Vote vote = new Vote();
-        vote.setMenu(menu);
+        Vote vote = new Vote(menu, LocalDateTime.now());
         voteDAO.saveVote(vote);
 
         return "redirect:/menu/{menuId}/showDetails";

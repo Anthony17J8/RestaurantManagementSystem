@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vote")
@@ -19,12 +20,20 @@ public class Vote {
     @JoinColumn(name = "menu_id")
     private Menu menu;
 
+    @Column(name = "date")
+    private LocalDateTime dateTime;
+
     public Vote() {
     }
 
     public Vote(User user, Menu menu) {
         this.user = user;
         this.menu = menu;
+    }
+
+    public Vote(Menu menu, LocalDateTime dateTime) {
+        this.menu = menu;
+        this.dateTime = dateTime;
     }
 
     public int getId() {
@@ -51,12 +60,21 @@ public class Vote {
         this.menu = menu;
     }
 
+    public LocalDateTime getDateTime() {
+        return dateTime;
+    }
+
+    public void setDateTime(LocalDateTime dateTime) {
+        this.dateTime = dateTime;
+    }
+
     @Override
     public String toString() {
         return "Vote{" +
                 "id=" + id +
                 ", user=" + user +
                 ", menu=" + menu +
+                ", dateTime=" + dateTime +
                 '}';
     }
 }
