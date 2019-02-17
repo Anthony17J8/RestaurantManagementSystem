@@ -12,23 +12,25 @@
 <h3>Menu Details</h3>
 <hr>
 
-</body>
 ${menu.name}
 <br>
-<c:forEach var="dish" items="${menu.dishes}">
+<c:forEach var="dish" items="${dishes}">
     <li>
             ${dish.name}
     </li>
 </c:forEach>
 
-<br><br>
-Votes: ${menu.votes.size()}
-<br><br>
+<br>
+Votes: ${menu.voteCount}
+<br>
 
 <form:form method="post" modelAttribute="menu" action="${pageContext.request.contextPath}/menu/${menu.id}/addVote">
     <form:hidden path="id"/>
     <input type="submit" value="Vote">
 </form:form>
+<br><br>
 
+<a href="${pageContext.request.contextPath}/restaurant/${menu.restaurant.id}/showMenus">Back to Menu list</a>
 
+</body>
 </html>

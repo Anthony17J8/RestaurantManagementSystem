@@ -2,7 +2,6 @@ package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -97,6 +96,10 @@ public class Menu {
 
     public void setCast(double cast) {
         this.cast = cast;
+    }
+
+    public int getVoteCount() {
+        return votes.size();
     }
 
     @Override

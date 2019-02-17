@@ -31,7 +31,8 @@
     </c:forEach>
 
 </table>
-
+<br><br>
+<a href="${pageContext.request.contextPath}/restaurant/list">Back to Restaurant list</a>
 </body>
 
 </html>
