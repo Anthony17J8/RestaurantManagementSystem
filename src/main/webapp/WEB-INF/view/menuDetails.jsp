@@ -21,6 +21,14 @@ ${menu.name}
     </li>
 </c:forEach>
 
+<br><br>
 Votes: ${menu.votes.size()}
+<br><br>
+
+<form:form method="post" modelAttribute="menu" action="${pageContext.request.contextPath}/menu/${menu.id}/addVote">
+    <form:hidden path="id"/>
+    <input type="submit" value="Vote">
+</form:form>
+
 
 </html>
