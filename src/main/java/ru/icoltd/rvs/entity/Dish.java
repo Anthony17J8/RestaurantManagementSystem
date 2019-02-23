@@ -3,7 +3,7 @@ package ru.icoltd.rvs.entity;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "dish")
+@Table(name = "dishes")
 public class Dish {
 
     @Id
