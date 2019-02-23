@@ -36,4 +36,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
 
         return query.getSingleResult();
     }
+
+    @Override
+    public void saveRestaurant(Restaurant restaurant) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.saveOrUpdate(restaurant);
+    }
 }

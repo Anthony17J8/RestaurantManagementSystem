@@ -3,11 +3,11 @@ package ru.icoltd.rvs.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
+import ru.icoltd.rvs.entity.RestaurantDetail;
 import ru.icoltd.rvs.service.RestaurantService;
 
 import java.util.List;
@@ -29,7 +29,7 @@ public class RestaurantController {
         List<Restaurant> restaurants = service.getRestaurants();
         model.addAttribute("restaurants", restaurants);
 
-        return "restaurants";
+        return "resaurant-list";
     }
 
     @GetMapping("/{restaurantId}/showMenus")
@@ -40,5 +40,26 @@ public class RestaurantController {
         model.addAttribute("menus", menus);
 
         return "menus";
+    }
+
+    @GetMapping("/showAddRestaurantForm")
+    public String showAddRestaurantForm(ModelMap theModel) {
+
+        Restaurant theRestaurant = new Restaurant();
+        RestaurantDetail theDetail = new RestaurantDetail();
+        theModel.addAttribute("detail", theDetail);
+        theModel.addAttribute("restaurant", theRestaurant);
+
+        return "restaurant-form";
+    }
+
+    @PostMapping("/addRestaurant")
+    public String addRestaurant(@ModelAttribute("restaurant") Restaurant restaurant,
+                                @ModelAttribute("detail") RestaurantDetail detail) {
+
+        restaurant.setRestaurantDetail(detail);
+        service.saveRestaurant(restaurant);
+
+        return "redirect:/restaurant/list";
     }
 }

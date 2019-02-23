@@ -15,6 +15,10 @@
 <h3>Restaurant List</h3>
 <hr>
 
+<input type="button" value="Add Restaurant"
+       onclick="window.location.href='showAddRestaurantForm'; return false"/>
+<br><br>
+
 <table border="1" cellpadding="20">
     <thead>
     <tr>

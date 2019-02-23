@@ -29,4 +29,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     public Restaurant getRestaurant(int restaurantId) {
         return restaurantDAO.findById(restaurantId);
     }
+
+    @Override
+    @Transactional
+    public void saveRestaurant(Restaurant restaurant) {
+        restaurantDAO.saveRestaurant(restaurant);
+    }
 }

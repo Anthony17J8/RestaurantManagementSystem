@@ -9,4 +9,6 @@ public interface RestaurantService {
     List<Restaurant> getRestaurants();
 
     Restaurant getRestaurant(int restaurantId);
+
+    void saveRestaurant(Restaurant restaurant);
 }

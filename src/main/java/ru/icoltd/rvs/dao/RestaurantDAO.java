@@ -9,4 +9,6 @@ public interface RestaurantDAO {
     List<Restaurant> getRestaurants();
 
     Restaurant findById(int restaurantId);
+
+    void saveRestaurant(Restaurant restaurant);
 }

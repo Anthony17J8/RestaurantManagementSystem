@@ -9,7 +9,7 @@ public class RestaurantDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private int detailId;
 
     @Column(name = "country")
     private String country;
@@ -37,12 +37,12 @@ public class RestaurantDetail {
         this.email = email;
     }
 
-    public int getId() {
-        return id;
+    public int getDetailId() {
+        return detailId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setDetailId(int id) {
+        this.detailId = id;
     }
 
     public String getCountry() {
@@ -88,7 +88,7 @@ public class RestaurantDetail {
     @Override
     public String toString() {
         return "RestaurantDetail{" +
-                "id=" + id +
+                "id=" + detailId +
                 ", country='" + country + '\'' +
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
