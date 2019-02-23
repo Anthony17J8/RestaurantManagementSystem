@@ -21,4 +21,10 @@ public class MenuServiceImpl implements MenuService {
     public Menu getMenu(int menuId) {
         return dao.findById(menuId);
     }
+
+    @Override
+    @Transactional
+    public void saveMenu(Menu menu) {
+        dao.saveMenu(menu);
+    }
 }

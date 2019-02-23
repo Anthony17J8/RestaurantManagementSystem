@@ -5,4 +5,6 @@ import ru.icoltd.rvs.entity.Menu;
 public interface MenuService {
 
     Menu getMenu(int menuId);
+
+    void saveMenu(Menu menu);
 }

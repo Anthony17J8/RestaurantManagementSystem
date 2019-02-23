@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.dao.VoteDAO;
 import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
+import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.Vote;
 import ru.icoltd.rvs.service.MenuService;
+import ru.icoltd.rvs.service.RestaurantService;
 
 import java.time.LocalDateTime;
 import java.util.Comparator;
@@ -19,13 +21,20 @@ import java.util.stream.Collectors;
 @RequestMapping("/menu")
 public class MenuController {
 
-    private MenuService service;
+    private MenuService menuService;
+
+    private RestaurantService restaurantService;
 
     private VoteDAO voteDAO;
 
     @Autowired
-    public void setService(MenuService service) {
-        this.service = service;
+    public void setMenuService(MenuService menuService) {
+        this.menuService = menuService;
+    }
+
+    @Autowired
+    public void setRestaurantService(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
     }
 
     @Autowired
@@ -36,7 +45,7 @@ public class MenuController {
     @GetMapping("/{menuId}/showDetails")
     public String showMenuDetails(@PathVariable("menuId") int menuId, Model model) {
 
-        Menu menu = service.getMenu(menuId);
+        Menu menu = menuService.getMenu(menuId);
         List<Dish> dishes = menu.getDishes().stream()
                 .sorted(Comparator.comparing(Dish::getName))
                 .collect(Collectors.toList());
@@ -45,14 +54,25 @@ public class MenuController {
         model.addAttribute("menu", menu);
         model.addAttribute("restaurant", menu.getRestaurant());
 
-        return "menuDetails";
+        return "menu-details";
     }
 
     @PostMapping("/{menuId}/addVote")
     public String voteForMenu(@ModelAttribute("menu") Menu menu) {
+
         Vote vote = new Vote(menu, LocalDateTime.now());
         voteDAO.saveVote(vote);
 
         return "redirect:/menu/{menuId}/showDetails";
+    }
+
+    @PostMapping("/addMenu")
+    public String addMenu(@ModelAttribute("menu") Menu menu, @RequestParam("restId") int restaurantId) {
+
+        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
+        menu.setRestaurant(restaurant);
+        menuService.saveMenu(menu);
+
+        return "redirect:/restaurant/" + restaurantId + "/menus";
     }
 }

@@ -12,6 +12,10 @@
 <h3>Menus</h3>
 <hr>
 
+<input type="button" value="Add Menu"
+       onclick="window.location.href='showAddMenuForm'; return false"/>
+<br><br>
+
 <table border="1" cellpadding="20">
     <thead>
     <tr>
@@ -25,7 +29,7 @@
         <tr>
             <td><a href="${pageContext.request.contextPath}/menu/${menu.id}/showDetails">${menu.name}</a></td>
             <td>${menu.date}</td>
-            <td>${menu.cast}</td>
+            <td>${menu.cost}</td>
         </tr>
         </tbody>
     </c:forEach>

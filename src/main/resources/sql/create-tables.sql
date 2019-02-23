@@ -53,7 +53,7 @@ CREATE TABLE `menu`
   `name`          varchar(45) DEFAULT NULL,
   `restaurant_id` int(11)     DEFAULT NULL,
   `date`          datetime    DEFAULT NULL,
-  `total_cast`    decimal     DEFAULT NULL,
+  `total_cost`    decimal     DEFAULT NULL,
   KEY `fk_restaurant_idx` (`restaurant_id`),
   CONSTRAINT `fk_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurant` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   PRIMARY KEY (`id`)

@@ -40,7 +40,7 @@
                         ${detail.email}<br>
                         ${detail.phone}<br>
                         ${detail.street}</td>
-                <td><a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/showMenus">Show menu</a>
+                <td><a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/menus">Show menu</a>
                 </td>
             </tr>
             </tbody>

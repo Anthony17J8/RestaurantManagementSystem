@@ -30,7 +30,7 @@ Votes: ${menu.voteCount}
 </form:form>
 <br><br>
 
-<a href="${pageContext.request.contextPath}/restaurant/${menu.restaurant.id}/showMenus">Back to Menu list</a>
+<a href="${pageContext.request.contextPath}/restaurant/${menu.restaurant.id}/menus">Back to Menu list</a>
 
 </body>
 </html>

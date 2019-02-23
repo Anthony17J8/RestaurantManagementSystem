@@ -19,8 +19,8 @@ public class Menu {
     @Column(name = "date")
     private Date date;
 
-    @Column(name = "total_cast")
-    private double cast;
+    @Column(name = "total_cost")
+    private double cost;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_id")
@@ -35,10 +35,10 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(String name, Date date, double cast, Restaurant restaurant) {
+    public Menu(String name, Date date, double cost, Restaurant restaurant) {
         this.name = name;
         this.date = date;
-        this.cast = cast;
+        this.cost = cost;
         this.restaurant = restaurant;
     }
 
@@ -90,12 +90,12 @@ public class Menu {
         this.date = date;
     }
 
-    public double getCast() {
-        return cast;
+    public double getCost() {
+        return cost;
     }
 
-    public void setCast(double cast) {
-        this.cast = cast;
+    public void setCost(double cast) {
+        this.cost = cast;
     }
 
     public int getVoteCount() {
@@ -108,7 +108,7 @@ public class Menu {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", date=" + date +
-                ", cast=" + cast +
+                ", cast=" + cost +
                 ", restaurant=" + restaurant +
                 ", dishes=" + dishes +
                 ", votes=" + votes +

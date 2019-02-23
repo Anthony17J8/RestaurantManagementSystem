@@ -29,17 +29,17 @@ public class RestaurantController {
         List<Restaurant> restaurants = service.getRestaurants();
         model.addAttribute("restaurants", restaurants);
 
-        return "resaurant-list";
+        return "restaurant-list";
     }
 
-    @GetMapping("/{restaurantId}/showMenus")
+    @GetMapping("/{restaurantId}/menus")
     public String listMenus(@PathVariable(name = "restaurantId") int restaurantId, Model model) {
 
         Restaurant restaurant = service.getRestaurant(restaurantId);
         List<Menu> menus = restaurant.getMenus();
         model.addAttribute("menus", menus);
 
-        return "menus";
+        return "menu-list";
     }
 
     @GetMapping("/showAddRestaurantForm")
@@ -61,5 +61,16 @@ public class RestaurantController {
         service.saveRestaurant(restaurant);
 
         return "redirect:/restaurant/list";
+    }
+
+    @GetMapping("/{restaurantId}/showAddMenuForm")
+    public String showAddMenuForm(@PathVariable("restaurantId") int restaurantId, Model model) {
+
+        Menu menu = new Menu();
+
+        model.addAttribute("menu", menu);
+        model.addAttribute("restaurantId", restaurantId);
+
+        return "menu-form";
     }
 }

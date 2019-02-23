@@ -28,4 +28,10 @@ public class MenuDAOImpl implements MenuDAO {
 
         return query.getSingleResult();
     }
+
+    @Override
+    public void saveMenu(Menu menu) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.saveOrUpdate(menu);
+    }
 }
