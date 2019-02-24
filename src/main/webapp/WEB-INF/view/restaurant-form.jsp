@@ -15,7 +15,7 @@
 <h3>Add Restaurant</h3>
 <hr>
 
-<form:form action="addRestaurant" method="post" modelAttribute="restaurant">
+<form:form action="save" method="post" modelAttribute="restaurant">
     <form:hidden path="id"/>
     <table>
         <tbody>

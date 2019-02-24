@@ -42,4 +42,10 @@ public class RestaurantDAOImpl implements RestaurantDAO {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(restaurant);
     }
+
+    @Override
+    public void deleteRestaurant(Restaurant restaurant) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.delete(restaurant);
+    }
 }

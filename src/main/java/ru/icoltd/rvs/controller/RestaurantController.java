@@ -1,6 +1,5 @@
 package ru.icoltd.rvs.controller;
 
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -63,7 +62,7 @@ public class RestaurantController {
         return "restaurant-form";
     }
 
-    @PostMapping("/addRestaurant")
+    @PostMapping("/save")
     public String addRestaurant(@ModelAttribute("restaurant") @Valid Restaurant restaurant,
                                 BindingResult restBindingResult,
                                 @ModelAttribute("detail") @Valid RestaurantDetail detail,
@@ -88,5 +87,14 @@ public class RestaurantController {
         model.addAttribute("restaurantId", restaurantId);
 
         return "menu-form";
+    }
+
+    @GetMapping("/delete")
+    public String delete(@RequestParam("restId") int restaurantId) {
+
+        Restaurant restaurant = service.getRestaurant(restaurantId);
+        service.deleteRestaurant(restaurant);
+
+        return "redirect:/restaurant/list";
     }
 }

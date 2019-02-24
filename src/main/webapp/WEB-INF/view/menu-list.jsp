@@ -22,6 +22,7 @@
         <th>Name</th>
         <th>Date</th>
         <th>Cast</th>
+        <th>Votes</th>
     </tr>
     </thead>
     <c:forEach var="menu" items="${menus}">
@@ -30,6 +31,7 @@
             <td><a href="${pageContext.request.contextPath}/menu/${menu.id}/showDetails">${menu.name}</a></td>
             <td>${menu.date}</td>
             <td>${menu.cost}</td>
+            <td>${menu.voteCount}</td>
         </tr>
         </tbody>
     </c:forEach>

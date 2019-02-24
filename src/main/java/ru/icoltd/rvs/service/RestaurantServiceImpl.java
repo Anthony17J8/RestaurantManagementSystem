@@ -35,4 +35,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     public void saveRestaurant(Restaurant restaurant) {
         restaurantDAO.saveRestaurant(restaurant);
     }
+
+    @Override
+    @Transactional
+    public void deleteRestaurant(Restaurant restaurant) {
+        restaurantDAO.deleteRestaurant(restaurant);
+    }
 }

@@ -11,4 +11,6 @@ public interface RestaurantService {
     Restaurant getRestaurant(int restaurantId);
 
     void saveRestaurant(Restaurant restaurant);
+
+    void deleteRestaurant(Restaurant restaurant);
 }

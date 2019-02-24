@@ -29,7 +29,7 @@ public class Menu {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
     private Set<Dish> dishes;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
     private Set<Vote> votes;
 
     public Menu() {

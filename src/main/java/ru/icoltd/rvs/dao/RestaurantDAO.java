@@ -11,4 +11,6 @@ public interface RestaurantDAO {
     Restaurant findById(int restaurantId);
 
     void saveRestaurant(Restaurant restaurant);
+
+    void deleteRestaurant(Restaurant restaurant);
 }

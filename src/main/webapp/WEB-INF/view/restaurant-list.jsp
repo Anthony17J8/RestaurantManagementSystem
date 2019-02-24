@@ -22,9 +22,10 @@
 <table border="1" cellpadding="20">
     <thead>
     <tr>
-        <th align="left">Restaurant</th>
-        <th align="left">Details</th>
-        <th align="left">Menu</th>
+        <th>Restaurant</th>
+        <th>Details</th>
+        <th>Menu</th>
+        <th>Action</th>
     </tr>
 
     </thead>
@@ -40,7 +41,19 @@
                         ${detail.email}<br>
                         ${detail.phone}<br>
                         ${detail.street}</td>
-                <td><a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/menus">Show menu</a>
+                <td><a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/menus">Show menu</a></td>
+                <td>
+                    <c:url var="updateLink" value="/restaurant/update">
+                        <c:param name="restId" value="${restaurant.id}"/>
+                    </c:url>
+
+                    <c:url var="deleteLink" value="/restaurant/delete">
+                        <c:param name="restId" value="${restaurant.id}"/>
+                    </c:url>
+
+                    <a href="${updateLink}">Update</a>
+                    |
+                    <a href="${deleteLink}">Delete</a>
                 </td>
             </tr>
             </tbody>
