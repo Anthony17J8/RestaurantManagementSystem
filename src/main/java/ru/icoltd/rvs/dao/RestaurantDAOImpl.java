@@ -31,7 +31,9 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     public Restaurant findById(int restaurantId) {
 
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<Restaurant> query = currentSession.createQuery("from Restaurant r left join fetch r.menus where r.id=:restaurantId", Restaurant.class);
+        Query<Restaurant> query = currentSession.createQuery(
+                "from Restaurant r left join fetch r.menus join fetch r.restaurantDetail where r.id=:restaurantId",
+                Restaurant.class);
         query.setParameter("restaurantId", restaurantId);
 
         return query.getSingleResult();

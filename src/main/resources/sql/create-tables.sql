@@ -35,7 +35,7 @@ CREATE TABLE `restaurant_details`
   `country` varchar(128) DEFAULT NULL,
   `street`  varchar(128) DEFAULT NULL,
   `phone`   varchar(128) DEFAULT NULL,
-  `email`   varchar(45)  DEFAULT NULL,
+  `site`   varchar(45)  DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
@@ -197,7 +197,7 @@ VALUES (1, 1),
 -- Data for table `restaurant_detail`
 --
 
-INSERT INTO `restaurant_details`(city, country, street, phone, email)
+INSERT INTO `restaurant_details`(city, country, street, phone, site)
 VALUES ('Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
        ('Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
        ('Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');

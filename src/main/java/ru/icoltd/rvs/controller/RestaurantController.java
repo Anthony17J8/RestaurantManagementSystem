@@ -97,4 +97,15 @@ public class RestaurantController {
 
         return "redirect:/restaurant/list";
     }
+
+    @GetMapping("/update")
+    public String update(@RequestParam("restId") int restaurantId, Model model) {
+
+        Restaurant restaurant = service.getRestaurant(restaurantId);
+
+        model.addAttribute("restaurant", restaurant);
+        model.addAttribute("detail", restaurant.getRestaurantDetail());
+
+        return "restaurant-form";
+    }
 }
