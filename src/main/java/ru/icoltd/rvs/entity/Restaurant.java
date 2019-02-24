@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -12,6 +13,7 @@ public class Restaurant {
     @Column(name = "id")
     private int id;
 
+    @NotNull(message = "Field is required")
     @Column(name = "name")
     private String name;
 

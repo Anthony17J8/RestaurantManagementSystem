@@ -1,6 +1,8 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "restaurant_details")
@@ -11,18 +13,24 @@ public class RestaurantDetail {
     @Column(name = "id")
     private int detailId;
 
+    @NotNull(message = "Field is required")
     @Column(name = "country")
     private String country;
 
+    @NotNull(message = "Field is required")
     @Column(name = "city")
     private String city;
 
+    @NotNull(message = "Field is required")
     @Column(name = "street")
     private String street;
 
+    @NotNull(message = "Field is required")
     @Column(name = "phone")
     private String phone;
 
+    @NotNull(message = "Field is required")
+    @Email(message = "email is invalid")
     @Column(name = "email")
     private String email;
 

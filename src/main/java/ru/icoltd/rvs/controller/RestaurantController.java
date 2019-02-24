@@ -1,15 +1,20 @@
 package ru.icoltd.rvs.controller;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
 import ru.icoltd.rvs.service.RestaurantService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -21,6 +26,11 @@ public class RestaurantController {
     @Autowired
     public void setService(RestaurantService service) {
         this.service = service;
+    }
+
+    @InitBinder
+    public void initDataBinder(WebDataBinder dataBinder) {
+        dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
     }
 
     @GetMapping("/list")
@@ -54,8 +64,14 @@ public class RestaurantController {
     }
 
     @PostMapping("/addRestaurant")
-    public String addRestaurant(@ModelAttribute("restaurant") Restaurant restaurant,
-                                @ModelAttribute("detail") RestaurantDetail detail) {
+    public String addRestaurant(@ModelAttribute("restaurant") @Valid Restaurant restaurant,
+                                BindingResult restBindingResult,
+                                @ModelAttribute("detail") @Valid RestaurantDetail detail,
+                                BindingResult detailBindingResult) {
+
+        if (restBindingResult.hasErrors() || detailBindingResult.hasErrors()) {
+            return "restaurant-form";
+        }
 
         restaurant.setRestaurantDetail(detail);
         service.saveRestaurant(restaurant);

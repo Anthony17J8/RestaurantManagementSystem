@@ -15,39 +15,44 @@
 <h3>Add Restaurant</h3>
 <hr>
 
-
 <form:form action="addRestaurant" method="post" modelAttribute="restaurant">
     <form:hidden path="id"/>
     <table>
         <tbody>
         <tr>
-            <td>Name:</td>
+            <td>Name (*):</td>
             <td><form:input path="name"/></td>
+            <td><form:errors path="name"/></td>
         </tr>
         <form:form action="addRestaurant" method="post" modelAttribute="detail">
             <form:hidden path="detailId"/>
             <tr>
-                <td>Country:</td>
+                <td>Country (*):</td>
                 <td><form:input path="country"/></td>
+                <td><form:errors path="country"/></td>
             </tr>
 
             <tr>
-                <td>City:</td>
+                <td>City (*):</td>
                 <td><form:input path="city"/></td>
+                <td><form:errors path="city"/></td>
             </tr>
 
             <tr>
-                <td>Street:</td>
+                <td>Street (*):</td>
                 <td><form:input path="street"/></td>
+                <td><form:errors path="street"/></td>
             </tr>
 
             <tr>
-                <td>Phone:</td>
+                <td>Phone (*):</td>
                 <td><form:input path="phone"/></td>
+                <td><form:errors path="phone"/></td>
             </tr>
 
-            <td>Email:</td>
+            <td>Email (*):</td>
             <td><form:input path="email"/></td>
+            <td><form:errors path="email"/></td>
 
         </form:form>
         <tr>
