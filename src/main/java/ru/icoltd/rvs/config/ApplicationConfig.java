@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
+import org.springframework.format.FormatterRegistry;
 import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
@@ -16,6 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import ru.icoltd.rvs.converters.LocalDateTimeFormatter;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -28,7 +30,6 @@ import java.util.Properties;
 @ComponentScan(basePackages = "ru.icoltd.rvs")
 @PropertySource("classpath:/properties/db.properties")
 public class ApplicationConfig implements WebMvcConfigurer {
-
 
     private Environment env;
 
@@ -105,5 +106,10 @@ public class ApplicationConfig implements WebMvcConfigurer {
         txManager.setSessionFactory(sessionFactory);
 
         return txManager;
+    }
+
+    @Override
+    public void addFormatters(FormatterRegistry registry) {
+        registry.addFormatter(new LocalDateTimeFormatter());
     }
 }

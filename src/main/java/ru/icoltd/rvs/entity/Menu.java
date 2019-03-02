@@ -1,7 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
@@ -17,7 +17,7 @@ public class Menu {
     private String name;
 
     @Column(name = "date")
-    private Date date;
+    private LocalDateTime date;
 
     @Column(name = "total_cost")
     private double cost;
@@ -35,7 +35,7 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(String name, Date date, double cost, Restaurant restaurant) {
+    public Menu(String name, LocalDateTime date, double cost, Restaurant restaurant) {
         this.name = name;
         this.date = date;
         this.cost = cost;
@@ -82,11 +82,11 @@ public class Menu {
         this.votes = votes;
     }
 
-    public Date getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 

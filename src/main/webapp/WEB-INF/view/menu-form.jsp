@@ -28,6 +28,11 @@
         </tr>
 
         <tr>
+            <td>Date:</td>
+            <td><form:input type="date" path="date"/></td>
+        </tr>
+
+        <tr>
             <td><label></label></td>
             <td><input type="submit" value="Save" class="save"/></td>
         </tr>

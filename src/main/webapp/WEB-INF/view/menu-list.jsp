@@ -29,7 +29,7 @@
         <tbody>
         <tr>
             <td><a href="${pageContext.request.contextPath}/menu/${menu.id}/showDetails">${menu.name}</a></td>
-            <td>${menu.date}</td>
+            <td>${menu.date.toLocalDate()} ${menu.date.toLocalTime()}</td>
             <td>${menu.cost}</td>
             <td>${menu.voteCount}</td>
         </tr>
