@@ -78,10 +78,10 @@ public class MenuController {
 
     @GetMapping("/delete")
     public String deleteMenu(@RequestParam("menuId") int menuId) {
-
         Menu menu = menuService.getMenu(menuId);
+        int restaurantId = menu.getRestaurant().getId();
         menuService.deleteMenu(menu);
-        return "redirect:/restaurant/" + menu.getRestaurant().getId() + "/menus";
+        return "redirect:/restaurant/" + restaurantId + "/menus";
 
     }
 }

@@ -28,10 +28,10 @@ public class Menu {
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu", cascade = CascadeType.ALL)
     private Set<Dish> dishes;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu")
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu", cascade = CascadeType.ALL)
     private Set<Vote> votes;
 
     public Menu() {
