@@ -84,4 +84,12 @@ public class MenuController {
         return "redirect:/restaurant/" + restaurantId + "/menus";
 
     }
+
+    @GetMapping("/update")
+    public String updateMenu(@RequestParam("menuId") int menuId, Model model) {
+        Menu menu = menuService.getMenu(menuId);
+        model.addAttribute("menu", menu);
+        model.addAttribute("restaurantId", menu.getRestaurant().getId());
+        return "menu-form";
+    }
 }

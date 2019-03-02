@@ -30,7 +30,7 @@
         <tbody>
         <tr>
             <td><a href="${pageContext.request.contextPath}/menu/${menu.id}/showDetails">${menu.name}</a></td>
-            <td>${menu.date.toLocalDate()} ${menu.date.toLocalTime()}</td>
+            <td>${menu.date.toLocalDate()}</td>
             <td>${menu.cost}</td>
             <td>${menu.voteCount}</td>
 
@@ -38,13 +38,13 @@
                 <c:param name="menuId" value="${menu.id}"/>
             </c:url>
 
-           <%-- <c:url var="updateLink" value="/menu/update">
+            <c:url var="updateLink" value="/menu/update">
                 <c:param name="menuId" value="${menu.id}"/>
-            </c:url>--%>
+            </c:url>
 
             <td>
-                <%--<a href="${updateLink}">Update</a>--%>
-                <%--|--%>
+                <a href="${updateLink}">Update</a>
+                |
                 <a href="${deleteLink}">Delete</a>
             </td>
         </tr>
