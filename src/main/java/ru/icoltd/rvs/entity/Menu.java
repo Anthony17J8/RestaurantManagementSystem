@@ -22,7 +22,9 @@ public class Menu {
     @Column(name = "total_cost")
     private double cost;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {
+            CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 

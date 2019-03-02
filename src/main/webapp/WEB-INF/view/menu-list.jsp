@@ -23,6 +23,7 @@
         <th>Date</th>
         <th>Cast</th>
         <th>Votes</th>
+        <th>Action</th>
     </tr>
     </thead>
     <c:forEach var="menu" items="${menus}">
@@ -32,6 +33,20 @@
             <td>${menu.date.toLocalDate()} ${menu.date.toLocalTime()}</td>
             <td>${menu.cost}</td>
             <td>${menu.voteCount}</td>
+
+            <c:url var="deleteLink" value="/menu/delete">
+                <c:param name="menuId" value="${menu.id}"/>
+            </c:url>
+
+           <%-- <c:url var="updateLink" value="/menu/update">
+                <c:param name="menuId" value="${menu.id}"/>
+            </c:url>--%>
+
+            <td>
+                <%--<a href="${updateLink}">Update</a>--%>
+                <%--|--%>
+                <a href="${deleteLink}">Delete</a>
+            </td>
         </tr>
         </tbody>
     </c:forEach>

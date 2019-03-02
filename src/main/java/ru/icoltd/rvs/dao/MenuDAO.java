@@ -7,4 +7,6 @@ public interface MenuDAO {
     Menu findById(int menuId);
 
     void saveMenu(Menu menu);
+
+    void deleteMenu(Menu menu);
 }

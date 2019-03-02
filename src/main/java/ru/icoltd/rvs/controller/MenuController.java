@@ -75,4 +75,13 @@ public class MenuController {
 
         return "redirect:/restaurant/" + restaurantId + "/menus";
     }
+
+    @GetMapping("/delete")
+    public String deleteMenu(@RequestParam("menuId") int menuId) {
+
+        Menu menu = menuService.getMenu(menuId);
+        menuService.deleteMenu(menu);
+        return "redirect:/restaurant/" + menu.getRestaurant().getId() + "/menus";
+
+    }
 }

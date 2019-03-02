@@ -27,4 +27,10 @@ public class MenuServiceImpl implements MenuService {
     public void saveMenu(Menu menu) {
         dao.saveMenu(menu);
     }
+
+    @Override
+    @Transactional
+    public void deleteMenu(Menu menu) {
+        dao.deleteMenu(menu);
+    }
 }

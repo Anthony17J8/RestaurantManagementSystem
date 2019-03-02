@@ -7,4 +7,6 @@ public interface MenuService {
     Menu getMenu(int menuId);
 
     void saveMenu(Menu menu);
+
+    void deleteMenu(Menu menu);
 }

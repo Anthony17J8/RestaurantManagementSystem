@@ -34,4 +34,10 @@ public class MenuDAOImpl implements MenuDAO {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(menu);
     }
+
+    @Override
+    public void deleteMenu(Menu menu) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.delete(menu);
+    }
 }
