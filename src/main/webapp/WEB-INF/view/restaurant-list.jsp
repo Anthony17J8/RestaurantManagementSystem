@@ -40,7 +40,8 @@
                         ${detail.city}<br>
                         ${detail.email}<br>
                         ${detail.phone}<br>
-                        ${detail.street}</td>
+                        ${detail.street}
+                </td>
                 <td><a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/menus">Show menu</a></td>
                 <td>
                     <c:url var="updateLink" value="/restaurant/update">

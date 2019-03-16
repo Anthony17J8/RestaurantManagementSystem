@@ -15,9 +15,11 @@
 <h3>Add Menu</h3>
 <hr>
 
-<c:set value="/menu/addMenu?restId=${restaurantId}" var="addMenu"/>
+<c:url var="addMenu" value="/menu/addMenu">
+    <c:param name="restId" value="${restaurantId}"/>
+</c:url>
 
-<form:form action="${pageContext.request.contextPath}${addMenu}" method="post" modelAttribute="menu">
+<form:form action="${addMenu}" method="post" modelAttribute="menu">
 
     <form:hidden path="id"/>
     <table>

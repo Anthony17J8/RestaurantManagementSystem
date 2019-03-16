@@ -1,4 +1,4 @@
-<p>Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) </p>
+<p>Design and implement API using Hibernate/Spring/SpringMVC (or Spring-Boot) </p>
 <p>The task is:</p>
 <p>Build a voting system for deciding where to have lunch.</p>
 <ul>
