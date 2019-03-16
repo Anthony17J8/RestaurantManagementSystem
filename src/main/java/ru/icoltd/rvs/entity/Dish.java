@@ -11,8 +11,8 @@ public class Dish {
     @Column(name = "id")
     private int id;
 
-    @Column(name = "name")
-    private String name;
+    @Column(name = "description")
+    private String description;
 
     @Column(name = "price")
     private double price;
@@ -24,8 +24,8 @@ public class Dish {
     public Dish() {
     }
 
-    public Dish(String name, double price, Menu menu) {
-        this.name = name;
+    public Dish(String description, double price, Menu menu) {
+        this.description = description;
         this.price = price;
         this.menu = menu;
     }
@@ -38,12 +38,12 @@ public class Dish {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDescription() {
+        return description;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public double getPrice() {
@@ -66,7 +66,7 @@ public class Dish {
     public String toString() {
         return "Dish{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
                 ", price=" + price +
                 ", menu=" + menu +
                 '}';

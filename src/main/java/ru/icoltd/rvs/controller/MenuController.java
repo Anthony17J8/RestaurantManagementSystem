@@ -47,7 +47,7 @@ public class MenuController {
 
         Menu menu = menuService.getMenu(menuId);
         List<Dish> dishes = menu.getDishes().stream()
-                .sorted(Comparator.comparing(Dish::getName))
+                .sorted(Comparator.comparing(Dish::getDescription))
                 .collect(Collectors.toList());
 
         model.addAttribute("dishes", dishes);
@@ -66,7 +66,7 @@ public class MenuController {
         return "redirect:/menu/{menuId}/showDetails";
     }
 
-    @PostMapping("/addMenu")
+    @PostMapping("/save")
     public String addMenu(@ModelAttribute("menu") Menu menu, @RequestParam("restId") int restaurantId) {
 
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);

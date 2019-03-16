@@ -24,7 +24,7 @@
             <td><form:input path="name"/></td>
             <td><form:errors path="name"/></td>
         </tr>
-        <form:form action="addRestaurant" method="post" modelAttribute="detail">
+        <form:form action="save" method="post" modelAttribute="detail">
             <form:hidden path="detailId"/>
             <tr>
                 <td>Country (*):</td>

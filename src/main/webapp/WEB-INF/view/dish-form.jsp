@@ -1,0 +1,54 @@
+<!doctype html>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<html>
+
+<head>
+    <title>
+        Add Dish
+    </title>
+</head>
+
+<body>
+
+<h3>Add Dish</h3>
+<hr>
+
+<table>
+    <tbody>
+
+    <c:url var="saveLink" value="/dish/save">
+        <c:param name="menuId" value="${menuId}"/>
+    </c:url>
+
+    <form:form action="${saveLink}" method="post" modelAttribute="dish">
+        <form:hidden path="id"/>
+
+        <tr>
+            <td>Description:</td>
+            <td><form:input path="description"/></td>
+        </tr>
+
+        <tr>
+            <td>Price:</td>
+            <td><form:input path="price"/></td>
+        </tr>
+
+        <tr>
+            <td><input type="submit" value="Save" class="save"/></td>
+        </tr>
+
+    </form:form>
+    </tbody>
+</table>
+<br><br>
+
+<c:url value="/menu/update" var="redirectLink">
+    <c:param name="menuId" value="${menuId}"/>
+</c:url>
+
+<a href="${redirectLink}">Back to Menu</a>
+
+</body>
+</html>

@@ -70,7 +70,7 @@ DROP TABLE IF EXISTS `dishes`;
 CREATE TABLE `dishes`
 (
   `id`      int(11) NOT NULL AUTO_INCREMENT,
-  `name`    varchar(255)   DEFAULT NULL,
+  `description`    varchar(255)   DEFAULT NULL,
   `price`   decimal(15, 2) DEFAULT NULL,
   `menu_id` int(11)        DEFAULT NULL,
   KEY `fk_menu_idx` (`menu_id`),
@@ -236,7 +236,7 @@ VALUES (1, 1, '2019-01-10'),
 -- Data for table `dish`
 --
 
-INSERT INTO `dishes`(name, price, menu_id)
+INSERT INTO `dishes`(description, price, menu_id)
 VALUES ('Lobster with double sauces, acidic and sweet', 90, 1),
        ('Branzino served with a modern hollandaise sauce', 90, 1),
        ('A singular interpretation of beef fillet alla Rossini with foie gras and caviar', 90, 1),
