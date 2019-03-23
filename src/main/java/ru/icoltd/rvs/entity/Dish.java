@@ -17,7 +17,9 @@ public class Dish {
     @Column(name = "price")
     private double price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {
+            CascadeType.DETACH, CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "menu_id")
     private Menu menu;
 

@@ -21,4 +21,16 @@ public class DishServiceImpl implements DishService {
     public void saveDish(Dish dish) {
         dao.saveDish(dish);
     }
+
+    @Override
+    @Transactional
+    public Dish getDish(int dishId) {
+        return dao.getDish(dishId);
+    }
+
+    @Override
+    @Transactional
+    public void deleteDish(Dish dish) {
+        dao.deleteDish(dish);
+    }
 }

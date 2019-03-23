@@ -20,6 +20,8 @@ import java.util.List;
 @RequestMapping("/restaurant")
 public class RestaurantController {
 
+    private static final String TITLE_NEW_MENU= "NEW";
+
     private RestaurantService service;
 
     @Autowired
@@ -82,7 +84,7 @@ public class RestaurantController {
     public String showAddMenuForm(@PathVariable("restaurantId") int restaurantId, Model model) {
 
         Menu menu = new Menu();
-
+        model.addAttribute("title", TITLE_NEW_MENU);
         model.addAttribute("menu", menu);
         model.addAttribute("restaurantId", restaurantId);
 

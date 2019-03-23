@@ -40,4 +40,19 @@ public class DishController {
         dishService.saveDish(dish);
         return "redirect:/menu/update?menuId=" + menuId;
     }
+
+    @GetMapping("/update")
+    public String updateDish(@RequestParam("menuId") int menuId, @RequestParam("dishId") int dishId, Model model) {
+        Dish dish = dishService.getDish(dishId);
+        model.addAttribute("dish", dish);
+        model.addAttribute("menuId", menuId);
+        return "dish-form";
+    }
+
+    @GetMapping("/delete")
+    public String deleteDish(@RequestParam("menuId") int menuId, @RequestParam("dishId") int dishId){
+        Dish dish = dishService.getDish(dishId);
+        dishService.deleteDish(dish);
+        return "redirect:/menu/update?menuId=" + menuId;
+    }
 }

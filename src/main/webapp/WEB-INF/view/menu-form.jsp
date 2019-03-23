@@ -34,15 +34,28 @@
             <td><form:input type="date" path="date"/></td>
         </tr>
 
-        <tr>
+        <c:if test="${title != 'NEW'}">
+
+            <tr>
             <td><h4>List dishes:</h4></td>
         </tr>
         <c:forEach items="${menu.dishes}" varStatus="status" var="dish">
+
+            <c:url value="/dish/update" var="updateLink">
+                <c:param name="menuId" value="${menu.id}"/>
+                <c:param name="dishId" value="${dish.id}"/>
+            </c:url>
+
+            <c:url value="/dish/delete" var="deleteLink">
+                <c:param name="menuId" value="${menu.id}"/>
+                <c:param name="dishId" value="${dish.id}"/>
+            </c:url>
+
             <tr>
                 <td>Dish #${status.index}</td>
                 <td>${dish.description}</td>
-                <td><a href="${pageContext.request.contextPath}/dish/update">Update</a></td>
-                <td><a href="${pageContext.request.contextPath}/dish/delete}">Delete</a></td>
+                <td><a href="${updateLink}">Update</a></td>
+                <td><a href="${deleteLink}">Delete</a></td>
             </tr>
         </c:forEach>
 
@@ -53,7 +66,7 @@
             <td></td>
             <td><a href="${showFormLink}">Add new dish</a></td>
         </tr>
-
+        </c:if>
         <tr>
             <td><input type="submit" value="Save" class="save"/></td>
         </tr>

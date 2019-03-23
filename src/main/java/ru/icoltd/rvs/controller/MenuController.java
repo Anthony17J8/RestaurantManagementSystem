@@ -44,7 +44,6 @@ public class MenuController {
 
     @GetMapping("/{menuId}/showDetails")
     public String showMenuDetails(@PathVariable("menuId") int menuId, Model model) {
-
         Menu menu = menuService.getMenu(menuId);
         List<Dish> dishes = menu.getDishes().stream()
                 .sorted(Comparator.comparing(Dish::getDescription))
@@ -53,26 +52,21 @@ public class MenuController {
         model.addAttribute("dishes", dishes);
         model.addAttribute("menu", menu);
         model.addAttribute("restaurant", menu.getRestaurant());
-
         return "menu-details";
     }
 
     @PostMapping("/{menuId}/addVote")
     public String voteForMenu(@ModelAttribute("menu") Menu menu) {
-
         Vote vote = new Vote(menu, LocalDateTime.now());
         voteDAO.saveVote(vote);
-
         return "redirect:/menu/{menuId}/showDetails";
     }
 
     @PostMapping("/save")
-    public String addMenu(@ModelAttribute("menu") Menu menu, @RequestParam("restId") int restaurantId) {
-
+    public String saveMenu(@ModelAttribute("menu") Menu menu, @RequestParam("restId") int restaurantId) {
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         menu.setRestaurant(restaurant);
         menuService.saveMenu(menu);
-
         return "redirect:/restaurant/" + restaurantId + "/menus";
     }
 
