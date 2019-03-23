@@ -21,7 +21,6 @@
     <tr>
         <th>Name</th>
         <th>Date</th>
-        <th>Cast</th>
         <th>Votes</th>
         <th>Action</th>
     </tr>
@@ -30,8 +29,7 @@
         <tbody>
         <tr>
             <td><a href="${pageContext.request.contextPath}/menu/${menu.id}/showDetails">${menu.name}</a></td>
-            <td>${menu.date.toLocalDate()}</td>
-            <td>${menu.cost}</td>
+            <td>${menu.date}</td>
             <td>${menu.voteCount}</td>
 
             <c:url var="deleteLink" value="/menu/delete">

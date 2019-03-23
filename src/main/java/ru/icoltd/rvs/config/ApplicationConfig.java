@@ -17,7 +17,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import ru.icoltd.rvs.converters.LocalDateTimeFormatter;
+import ru.icoltd.rvs.converters.LocalDateFormatter;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -110,6 +110,6 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
-        registry.addFormatter(new LocalDateTimeFormatter());
+        registry.addFormatter(new LocalDateFormatter());
     }
 }

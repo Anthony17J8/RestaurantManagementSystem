@@ -52,7 +52,7 @@
             </c:url>
 
             <tr>
-                <td>Dish #${status.index}</td>
+                <td>Dish #${status.index + 1}</td>
                 <td>${dish.description}</td>
                 <td><a href="${updateLink}">Update</a></td>
                 <td><a href="${deleteLink}">Delete</a></td>
@@ -77,7 +77,7 @@
 </form:form>
 
 <hr>
-<p>Total cost: </p>
+<p>Total cost: ${totalCost} </p>
 
 <p><a href="${pageContext.request.contextPath}/restaurant/${restaurantId}/menus">Back to restaurant list</a></p>
 

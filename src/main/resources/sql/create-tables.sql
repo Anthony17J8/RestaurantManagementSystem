@@ -53,7 +53,6 @@ CREATE TABLE `menus`
   `name`          varchar(45) DEFAULT NULL,
   `restaurant_id` int(11)     DEFAULT NULL,
   `date`          datetime    DEFAULT NULL,
-  `total_cost`    decimal     DEFAULT NULL,
   KEY `fk_restaurant_idx` (`restaurant_id`),
   CONSTRAINT `fk_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   PRIMARY KEY (`id`)
@@ -215,11 +214,11 @@ VALUES ('Osteria Francescana', 1),
 -- Data for table `menu`
 --
 
-INSERT INTO `menus`(name, restaurant_id, date, total_cost)
-VALUES ('Course', 1, '2019-02-15', 300),
-       ('Course', 1, '2019-02-10', 252),
-       ('Course', 2, '2019-02-05', 150),
-       ('Course', 3, '2019-02-13', 375);
+INSERT INTO `menus`(name, restaurant_id, date)
+VALUES ('Course', 1, '2019-02-15'),
+       ('Course', 1, '2019-02-10'),
+       ('Course', 2, '2019-02-05'),
+       ('Course', 3, '2019-02-13');
 
 --
 -- Data for table `vote`

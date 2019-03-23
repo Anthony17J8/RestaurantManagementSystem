@@ -13,9 +13,8 @@ import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
 
 import java.time.LocalDateTime;
-import java.util.Comparator;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/menu")
@@ -45,10 +44,7 @@ public class MenuController {
     @GetMapping("/{menuId}/showDetails")
     public String showMenuDetails(@PathVariable("menuId") int menuId, Model model) {
         Menu menu = menuService.getMenu(menuId);
-        List<Dish> dishes = menu.getDishes().stream()
-                .sorted(Comparator.comparing(Dish::getDescription))
-                .collect(Collectors.toList());
-
+        List<Dish> dishes = new ArrayList<>(menu.getDishes());
         model.addAttribute("dishes", dishes);
         model.addAttribute("menu", menu);
         model.addAttribute("restaurant", menu.getRestaurant());
@@ -83,7 +79,12 @@ public class MenuController {
     public String updateMenu(@RequestParam("menuId") int menuId, Model model) {
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
+        model.addAttribute("totalCost", getTotalCost(new ArrayList<>(menu.getDishes())));
         model.addAttribute("restaurantId", menu.getRestaurant().getId());
         return "menu-form";
+    }
+
+    private double getTotalCost(List<Dish> dishes){
+        return dishes.stream().mapToDouble(Dish::getPrice).sum();
     }
 }

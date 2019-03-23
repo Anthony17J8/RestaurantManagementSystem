@@ -1,7 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.Set;
 
 @Entity
@@ -17,10 +17,7 @@ public class Menu {
     private String name;
 
     @Column(name = "date")
-    private LocalDateTime date;
-
-    @Column(name = "total_cost")
-    private double cost;
+    private LocalDate date;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
@@ -37,10 +34,9 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(String name, LocalDateTime date, double cost, Restaurant restaurant) {
+    public Menu(String name, LocalDate date, Restaurant restaurant) {
         this.name = name;
         this.date = date;
-        this.cost = cost;
         this.restaurant = restaurant;
     }
 
@@ -84,20 +80,12 @@ public class Menu {
         this.votes = votes;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDate getDate() {
         return date;
     }
 
-    public void setDate(LocalDateTime date) {
+    public void setDate(LocalDate date) {
         this.date = date;
-    }
-
-    public double getCost() {
-        return cost;
-    }
-
-    public void setCost(double cast) {
-        this.cost = cast;
     }
 
     public int getVoteCount() {
@@ -110,7 +98,6 @@ public class Menu {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", date=" + date +
-                ", cast=" + cost +
                 ", restaurant=" + restaurant +
                 ", dishes=" + dishes +
                 ", votes=" + votes +
