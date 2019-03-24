@@ -4,13 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import ru.icoltd.rvs.dao.VoteDAO;
-import ru.icoltd.rvs.entity.Dish;
-import ru.icoltd.rvs.entity.Menu;
-import ru.icoltd.rvs.entity.Restaurant;
-import ru.icoltd.rvs.entity.Vote;
+import ru.icoltd.rvs.DateTimeUtils;
+import ru.icoltd.rvs.dao.UserDAO;
+import ru.icoltd.rvs.entity.*;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
+import ru.icoltd.rvs.service.VoteService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -24,7 +23,14 @@ public class MenuController {
 
     private RestaurantService restaurantService;
 
-    private VoteDAO voteDAO;
+    private VoteService voteService;
+
+    private UserDAO dao;
+
+    @Autowired
+    public void setDao(UserDAO dao) {
+        this.dao = dao;
+    }
 
     @Autowired
     public void setMenuService(MenuService menuService) {
@@ -37,15 +43,13 @@ public class MenuController {
     }
 
     @Autowired
-    public void setVoteDAO(VoteDAO voteDAO) {
-        this.voteDAO = voteDAO;
+    public void setVoteService(VoteService voteService) {
+        this.voteService = voteService;
     }
 
     @GetMapping("/{menuId}/showDetails")
     public String showMenuDetails(@PathVariable("menuId") int menuId, Model model) {
         Menu menu = menuService.getMenu(menuId);
-        List<Dish> dishes = new ArrayList<>(menu.getDishes());
-        model.addAttribute("dishes", dishes);
         model.addAttribute("menu", menu);
         model.addAttribute("restaurant", menu.getRestaurant());
         return "menu-details";
@@ -53,8 +57,20 @@ public class MenuController {
 
     @PostMapping("/{menuId}/addVote")
     public String voteForMenu(@ModelAttribute("menu") Menu menu) {
-        Vote vote = new Vote(menu, LocalDateTime.now());
-        voteDAO.saveVote(vote);
+        LocalDateTime now = LocalDateTime.now();
+        // check now.date <= menu.getDate()
+        if (now.toLocalDate().isBefore(menu.getDate())) {
+            // get vote by userId and latest
+            Vote latestVote = voteService.getLatestVoteByUserId(1);
+
+            // if it exist:
+            if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
+                latestVote.setMenu(menu);
+                voteService.saveVote(latestVote);
+            } else {
+                voteService.saveVote(new Vote(dao.getUser(1),menu, now));
+            }
+        }
         return "redirect:/menu/{menuId}/showDetails";
     }
 
@@ -72,7 +88,6 @@ public class MenuController {
         int restaurantId = menu.getRestaurant().getId();
         menuService.deleteMenu(menu);
         return "redirect:/restaurant/" + restaurantId + "/menus";
-
     }
 
     @GetMapping("/update")
@@ -84,7 +99,7 @@ public class MenuController {
         return "menu-form";
     }
 
-    private double getTotalCost(List<Dish> dishes){
+    private double getTotalCost(List<Dish> dishes) {
         return dishes.stream().mapToDouble(Dish::getPrice).sum();
     }
 }

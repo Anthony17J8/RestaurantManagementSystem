@@ -39,6 +39,12 @@ public class Vote {
         this.dateTime = dateTime;
     }
 
+    public Vote(User user, Menu menu, LocalDateTime dateTime) {
+        this.user = user;
+        this.menu = menu;
+        this.dateTime = dateTime;
+    }
+
     public int getId() {
         return id;
     }

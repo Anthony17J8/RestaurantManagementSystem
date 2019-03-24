@@ -14,7 +14,7 @@
 
 ${menu.name}
 <br>
-<c:forEach var="dish" items="${dishes}">
+<c:forEach var="dish" items="${menu.dishes}">
     <li>
             ${dish.description}
     </li>

@@ -37,35 +37,39 @@
         <c:if test="${title != 'NEW'}">
 
             <tr>
-            <td><h4>List dishes:</h4></td>
-        </tr>
-        <c:forEach items="${menu.dishes}" varStatus="status" var="dish">
-
-            <c:url value="/dish/update" var="updateLink">
-                <c:param name="menuId" value="${menu.id}"/>
-                <c:param name="dishId" value="${dish.id}"/>
-            </c:url>
-
-            <c:url value="/dish/delete" var="deleteLink">
-                <c:param name="menuId" value="${menu.id}"/>
-                <c:param name="dishId" value="${dish.id}"/>
-            </c:url>
-
-            <tr>
-                <td>Dish #${status.index + 1}</td>
-                <td>${dish.description}</td>
-                <td><a href="${updateLink}">Update</a></td>
-                <td><a href="${deleteLink}">Delete</a></td>
+                <td><h4>List dishes:</h4></td>
             </tr>
-        </c:forEach>
+            <c:forEach items="${menu.dishes}" varStatus="status" var="dish">
 
-        <c:url var="showFormLink" value="/dish/showFormForAdd">
-            <c:param name="menuId" value="${menu.id}"/>
-        </c:url>
-        <tr>
-            <td></td>
-            <td><a href="${showFormLink}">Add new dish</a></td>
-        </tr>
+                <c:url value="/dish/update" var="updateLink">
+                    <c:param name="menuId" value="${menu.id}"/>
+                    <c:param name="dishId" value="${dish.id}"/>
+                </c:url>
+
+                <c:url value="/dish/delete" var="deleteLink">
+                    <c:param name="menuId" value="${menu.id}"/>
+                    <c:param name="dishId" value="${dish.id}"/>
+                </c:url>
+
+                <tr>
+                    <td>Dish #${status.index + 1}</td>
+                    <td>${dish.description}</td>
+                    <td><a href="${updateLink}">Update</a></td>
+                    <td><a href="${deleteLink}">Delete</a></td>
+                </tr>
+            </c:forEach>
+
+            <c:url var="showFormLink" value="/dish/showFormForAdd">
+                <c:param name="menuId" value="${menu.id}"/>
+            </c:url>
+            <tr>
+                <td></td>
+                <td><a href="${showFormLink}">Add new dish</a></td>
+            </tr>
+            <tr>
+                <td>Total cost:</td>
+                <td>${totalCost}</td>
+            </tr>
         </c:if>
         <tr>
             <td><input type="submit" value="Save" class="save"/></td>
@@ -75,9 +79,6 @@
     </table>
 
 </form:form>
-
-<hr>
-<p>Total cost: ${totalCost} </p>
 
 <p><a href="${pageContext.request.contextPath}/restaurant/${restaurantId}/menus">Back to restaurant list</a></p>
 
