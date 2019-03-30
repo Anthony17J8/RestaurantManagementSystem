@@ -55,23 +55,32 @@ public class MenuController {
         return "menu-details";
     }
 
-    @PostMapping("/{menuId}/addVote")
-    public String voteForMenu(@ModelAttribute("menu") Menu menu) {
+    @PostMapping("/{restId}/{menuId}/addVote")
+    public String voteForMenu(@ModelAttribute("menu") Menu menu, Model model,
+                              @PathVariable("restId") int restId) {
         LocalDateTime now = LocalDateTime.now();
+
         // check now.date <= menu.getDate()
         if (now.toLocalDate().isBefore(menu.getDate())) {
-            // get vote by userId and latest
-            Vote latestVote = voteService.getLatestVoteByUserId(1);
-
-            // if it exist:
-            if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
-                latestVote.setMenu(menu);
-                voteService.saveVote(latestVote);
-            } else {
-                voteService.saveVote(new Vote(dao.getUser(1),menu, now));
-            }
+            saveOrUpdateVote(menu, now);
+        } else {
+            model.addAttribute("restId", restId);
+            return "error-page";
         }
-        return "redirect:/menu/{menuId}/showDetails";
+        return "redirect:/restaurant/" + restId + "/menus";
+    }
+
+    private void saveOrUpdateVote(Menu menu, LocalDateTime now) {
+        // get vote by userId and latest
+        Vote latestVote = voteService.getLatestVoteByUserId(1);
+
+        // if it exist:
+        if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
+            latestVote.setMenu(menu);
+            voteService.saveVote(latestVote);
+        } else {
+            voteService.saveVote(new Vote(dao.getUser(1), menu, now));
+        }
     }
 
     @PostMapping("/save")

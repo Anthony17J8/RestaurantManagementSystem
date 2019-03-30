@@ -94,7 +94,6 @@ CREATE TABLE `votes`
   PRIMARY KEY (`id`),
   CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  UNIQUE KEY(`user_id` ,`menu_id`),
   KEY `fk_user_idx` (`user_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1

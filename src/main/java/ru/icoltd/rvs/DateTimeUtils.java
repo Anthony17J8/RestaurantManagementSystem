@@ -5,6 +5,9 @@ import java.time.LocalTime;
 
 public class DateTimeUtils {
 
+    private DateTimeUtils() {
+    }
+
     private final static LocalTime TIME_BOUND = LocalTime.of(11, 0);
 
     public static boolean isBetween(LocalDateTime src, LocalDateTime current) {
