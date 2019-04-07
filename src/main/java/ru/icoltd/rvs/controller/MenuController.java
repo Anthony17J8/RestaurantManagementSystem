@@ -75,7 +75,7 @@ public class MenuController {
         } else {
             model.addAttribute("restId", restId);
             model.addAttribute("message",
-                    messageSource.getMessage("error.vote", new Object[] {menu.getName(), menu.getDate()}, null));
+                    messageSource.getMessage("error.vote.date", new Object[] {menu.getName(), menu.getDate()}, null));
             return "error-page";
         }
         return "redirect:/restaurant/" + restId + "/menus";
