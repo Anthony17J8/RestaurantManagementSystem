@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +15,7 @@ import ru.icoltd.rvs.service.VoteService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/menu")
@@ -26,6 +28,13 @@ public class MenuController {
     private VoteService voteService;
 
     private UserDAO dao;
+
+    private MessageSource messageSource;
+
+    @Autowired
+    public void setMessageSource(MessageSource messageSource) {
+        this.messageSource = messageSource;
+    }
 
     @Autowired
     public void setDao(UserDAO dao) {
@@ -65,6 +74,8 @@ public class MenuController {
             saveOrUpdateVote(menu, now);
         } else {
             model.addAttribute("restId", restId);
+            model.addAttribute("message",
+                    messageSource.getMessage("error.vote", new Object[] {menu.getName(), menu.getDate()}, null));
             return "error-page";
         }
         return "redirect:/restaurant/" + restId + "/menus";

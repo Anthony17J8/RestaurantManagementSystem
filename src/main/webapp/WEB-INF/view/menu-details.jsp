@@ -23,6 +23,7 @@ ${menu.name}
 <form:form method="post" modelAttribute="menu" action="${pageContext.request.contextPath}/menu/${restaurant.id}/${menu.id}/addVote">
     <form:hidden path="id"/>
     <form:hidden path="date"/>
+    <form:hidden path="name"/>
     <input type="submit" value="Vote">
 </form:form>
 <br><br>

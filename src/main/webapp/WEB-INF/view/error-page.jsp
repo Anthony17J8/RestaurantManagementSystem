@@ -4,12 +4,12 @@
 <html>
 
 <head>
-    <title>Confirmation page</title>
+    <title>Error page</title>
 </head>
 
 <body>
 
-<h3>You can't vote for menu with later date</h3>
+<h3>${message}</h3>
 
 <a href="${pageContext.request.contextPath}/restaurant/${restId}/menus">Back to Menu details</a>
 
