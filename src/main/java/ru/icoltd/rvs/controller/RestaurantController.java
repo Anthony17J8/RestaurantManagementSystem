@@ -20,6 +20,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/restaurant")
+@SessionAttributes("restaurant")
 public class RestaurantController {
 
     private static final String TITLE_NEW = "NEW";
@@ -45,21 +46,23 @@ public class RestaurantController {
         return "restaurant-list";
     }
 
-    @GetMapping("/{restaurantId}/menus")
-    public String listMenus(@PathVariable(name = "restaurantId") int restaurantId, Model model) {
-
-        Restaurant restaurant = Optional.ofNullable(service.getRestaurant(restaurantId))
-                .orElseThrow(
-                        () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
-                );
-
+    @GetMapping("/menus")
+    public String listMenus(@RequestParam(name = "restId") int restaurantId, Model model) {
+        Restaurant restaurant = getValidateRestaurant(restaurantId);
+        model.addAttribute("restaurant", restaurant);
         List<Menu> menus = restaurant.getMenus();
         model.addAttribute("menus", menus);
-
         return "menu-list";
     }
 
-    @GetMapping("/showAddRestaurantForm")
+    private Restaurant getValidateRestaurant(int restaurantId) {
+        return Optional.ofNullable(service.getRestaurant(restaurantId))
+                .orElseThrow(
+                        () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
+                );
+    }
+
+    @GetMapping("/showFormForAdd")
     public String showAddRestaurantForm(ModelMap model) {
         Restaurant theRestaurant = new Restaurant();
         RestaurantDetail theDetail = new RestaurantDetail();
@@ -85,16 +88,16 @@ public class RestaurantController {
         return "redirect:/restaurant/list";
     }
 
-    @GetMapping("/{restaurantId}/showAddMenuForm")
-    public String showAddMenuForm(@PathVariable("restaurantId") int restaurantId, Model model) {
-
-        Menu menu = new Menu();
-        model.addAttribute("title", TITLE_NEW);
-        model.addAttribute("menu", menu);
-        model.addAttribute("restaurantId", restaurantId);
-
-        return "menu-form";
-    }
+//    @GetMapping("/{restaurantId}/showAddMenuForm")
+//    public String showAddMenuForm(@PathVariable("restaurantId") int restaurantId, Model model) {
+//        Menu menu = new Menu();
+//        Restaurant restaurant = getValidateRestaurant(restaurantId);
+//        model.addAttribute("title", TITLE_NEW);
+//        model.addAttribute("menu", menu);
+//        model.addAttribute("restaurantId", restaurant.getId());
+//
+//        return "menu-form";
+//    }
 
     @GetMapping("/delete")
     public String delete(@RequestParam("restId") int restaurantId) {

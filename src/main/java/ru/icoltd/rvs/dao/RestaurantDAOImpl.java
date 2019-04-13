@@ -3,6 +3,8 @@ package ru.icoltd.rvs.dao;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Restaurant;
@@ -12,6 +14,8 @@ import java.util.List;
 
 @Repository
 public class RestaurantDAOImpl implements RestaurantDAO {
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(RestaurantDAOImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -42,7 +46,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
         try {
             result = query.getSingleResult();
         } catch (NoResultException exc) {
-            exc.printStackTrace();
+            LOGGER.warn("Entity 'Restaurant' is not found with id {}", restaurantId);
         }
 
         return result;

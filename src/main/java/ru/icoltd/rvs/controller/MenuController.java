@@ -5,25 +5,24 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.support.SessionStatus;
 import ru.icoltd.rvs.DateTimeUtils;
 import ru.icoltd.rvs.dao.UserDAO;
 import ru.icoltd.rvs.entity.*;
 import ru.icoltd.rvs.service.MenuService;
-import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.VoteService;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 @Controller
 @RequestMapping("/menu")
 public class MenuController {
 
-    private MenuService menuService;
+    private static final String TITLE_NEW = "NEW";
 
-    private RestaurantService restaurantService;
+    private MenuService menuService;
 
     private VoteService voteService;
 
@@ -44,11 +43,6 @@ public class MenuController {
     @Autowired
     public void setMenuService(MenuService menuService) {
         this.menuService = menuService;
-    }
-
-    @Autowired
-    public void setRestaurantService(RestaurantService restaurantService) {
-        this.restaurantService = restaurantService;
     }
 
     @Autowired
@@ -94,12 +88,22 @@ public class MenuController {
         }
     }
 
+    @GetMapping("/showFormForAdd")
+    public String showAddMenuForm(@SessionAttribute("restaurant") Restaurant restaurant, Model model) {
+        Menu menu = new Menu();
+        model.addAttribute("title", TITLE_NEW);
+        model.addAttribute("menu", menu);
+        model.addAttribute("restaurantId", restaurant.getId());
+        return "menu-form";
+    }
+
     @PostMapping("/save")
-    public String saveMenu(@ModelAttribute("menu") Menu menu, @RequestParam("restId") int restaurantId) {
-        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
+    public String saveMenu(@SessionAttribute("restaurant") Restaurant restaurant,
+                           @ModelAttribute("menu") Menu menu, SessionStatus status) {
         menu.setRestaurant(restaurant);
         menuService.saveMenu(menu);
-        return "redirect:/restaurant/" + restaurantId + "/menus";
+        status.setComplete();
+        return "redirect:/restaurant/menus?restId=" + restaurant.getId();
     }
 
     @GetMapping("/delete")

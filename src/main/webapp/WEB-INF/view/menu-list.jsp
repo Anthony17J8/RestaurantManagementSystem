@@ -12,8 +12,7 @@
 <h3>Menus</h3>
 <hr>
 
-<input type="button" value="Add Menu"
-       onclick="window.location.href='showAddMenuForm'; return false"/>
+<a href="${pageContext.request.contextPath}/menu/showFormForAdd">Add menu</a>
 <br><br>
 
 <table border="1" cellpadding="20">

@@ -16,7 +16,7 @@
 <hr>
 
 <input type="button" value="Add Restaurant"
-       onclick="window.location.href='showAddRestaurantForm'; return false"/>
+       onclick="window.location.href='showFormForAdd'; return false"/>
 <br><br>
 
 <table border="1" cellpadding="20">
@@ -42,7 +42,12 @@
                         ${detail.phone}<br>
                         ${detail.street}
                 </td>
-                <td><a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/menus">Show menu</a></td>
+                <td>
+                    <c:url var="menuList" value="/restaurant/menus">
+                        <c:param name="restId" value="${restaurant.id}"/>
+                    </c:url>
+                    <a href="${menuList}">Show menu</a>
+                </td>
                 <td>
                     <c:url var="updateLink" value="/restaurant/update">
                         <c:param name="restId" value="${restaurant.id}"/>
