@@ -6,13 +6,21 @@
 
 <head>
     <title>
-        Add Restaurant
+        Restaurant form
     </title>
 </head>
 
 <body>
 
-<h3>Add Restaurant</h3>
+<c:choose>
+    <c:when test="${title == 'NEW'}">
+        <h3>Add Restaurant</h3>
+    </c:when>
+    <c:otherwise>
+        <h3>Update Restaurant</h3>
+    </c:otherwise>
+</c:choose>
+
 <hr>
 
 <form:form action="save" method="post" modelAttribute="restaurant">

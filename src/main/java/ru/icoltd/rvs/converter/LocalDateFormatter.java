@@ -1,4 +1,4 @@
-package ru.icoltd.rvs.converters;
+package ru.icoltd.rvs.converter;
 
 import org.springframework.format.Formatter;
 

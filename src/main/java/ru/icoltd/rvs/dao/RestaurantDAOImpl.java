@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Restaurant;
 
+import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
@@ -36,7 +37,15 @@ public class RestaurantDAOImpl implements RestaurantDAO {
                 Restaurant.class);
         query.setParameter("restaurantId", restaurantId);
 
-        return query.getSingleResult();
+        Restaurant result = null;
+
+        try {
+            result = query.getSingleResult();
+        } catch (NoResultException exc) {
+            exc.printStackTrace();
+        }
+
+        return result;
     }
 
     @Override

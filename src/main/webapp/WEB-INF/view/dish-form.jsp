@@ -6,13 +6,21 @@
 
 <head>
     <title>
-        Add Dish
+        Dish form
     </title>
 </head>
 
 <body>
 
-<h3>Add Dish</h3>
+<c:choose>
+    <c:when test="${title == 'NEW'}">
+        <h3>Add Dish</h3>
+    </c:when>
+    <c:otherwise>
+        <h3>Update Dish</h3>
+    </c:otherwise>
+</c:choose>
+
 <hr>
 
 <table>

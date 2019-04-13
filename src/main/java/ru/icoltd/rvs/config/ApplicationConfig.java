@@ -19,7 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import ru.icoltd.rvs.converters.LocalDateFormatter;
+import ru.icoltd.rvs.converter.LocalDateFormatter;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;

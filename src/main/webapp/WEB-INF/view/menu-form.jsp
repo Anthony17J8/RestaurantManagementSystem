@@ -6,13 +6,19 @@
 
 <head>
     <title>
-        Add Menu
+        Menu form
     </title>
 </head>
 
 <body>
-
-<h3>Add Menu</h3>
+<c:choose>
+    <c:when test="${title == 'NEW'}">
+        <h3>Add Menu</h3>
+    </c:when>
+    <c:otherwise>
+        <h3>Update Menu</h3>
+    </c:otherwise>
+</c:choose>
 <hr>
 
 <c:url var="save" value="/menu/save">

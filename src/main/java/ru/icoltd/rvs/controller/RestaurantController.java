@@ -11,16 +11,18 @@ import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
+import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.service.RestaurantService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/restaurant")
 public class RestaurantController {
 
-    private static final String TITLE_NEW_MENU= "NEW";
+    private static final String TITLE_NEW = "NEW";
 
     private RestaurantService service;
 
@@ -46,7 +48,11 @@ public class RestaurantController {
     @GetMapping("/{restaurantId}/menus")
     public String listMenus(@PathVariable(name = "restaurantId") int restaurantId, Model model) {
 
-        Restaurant restaurant = service.getRestaurant(restaurantId);
+        Restaurant restaurant = Optional.ofNullable(service.getRestaurant(restaurantId))
+                .orElseThrow(
+                        () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
+                );
+
         List<Menu> menus = restaurant.getMenus();
         model.addAttribute("menus", menus);
 
@@ -54,13 +60,12 @@ public class RestaurantController {
     }
 
     @GetMapping("/showAddRestaurantForm")
-    public String showAddRestaurantForm(ModelMap theModel) {
-
+    public String showAddRestaurantForm(ModelMap model) {
         Restaurant theRestaurant = new Restaurant();
         RestaurantDetail theDetail = new RestaurantDetail();
-        theModel.addAttribute("detail", theDetail);
-        theModel.addAttribute("restaurant", theRestaurant);
-
+        model.addAttribute("title", TITLE_NEW);
+        model.addAttribute("detail", theDetail);
+        model.addAttribute("restaurant", theRestaurant);
         return "restaurant-form";
     }
 
@@ -84,7 +89,7 @@ public class RestaurantController {
     public String showAddMenuForm(@PathVariable("restaurantId") int restaurantId, Model model) {
 
         Menu menu = new Menu();
-        model.addAttribute("title", TITLE_NEW_MENU);
+        model.addAttribute("title", TITLE_NEW);
         model.addAttribute("menu", menu);
         model.addAttribute("restaurantId", restaurantId);
 
@@ -109,5 +114,11 @@ public class RestaurantController {
         model.addAttribute("detail", restaurant.getRestaurantDetail());
 
         return "restaurant-form";
+    }
+
+    @ExceptionHandler({ObjNotFoundException.class})
+    public String handle(Model model, RuntimeException exc){
+        model.addAttribute("message", exc.getMessage());
+        return "error-page";
     }
 }
