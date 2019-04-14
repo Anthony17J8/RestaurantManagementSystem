@@ -1,5 +1,6 @@
 package ru.icoltd.rvs;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 
@@ -15,4 +16,9 @@ public class DateTimeUtils {
         LocalDateTime upperBound = lowerBound.plusDays(1);
         return src.isAfter(lowerBound) && src.isBefore(upperBound);
     }
+
+    public static boolean isNotBeforeNow(LocalDate localDate, LocalDateTime now) {
+        return now.toLocalDate().isBefore(localDate) || now.toLocalDate().isEqual(localDate);
+    }
+
 }

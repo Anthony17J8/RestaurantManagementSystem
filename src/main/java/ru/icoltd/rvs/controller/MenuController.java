@@ -66,9 +66,7 @@ public class MenuController {
                               @SessionAttribute("restaurant") Restaurant restaurant, Model model) {
         LocalDateTime now = LocalDateTime.now();
 
-        // check now.date <= menu.getDate()
-        // todo move to util class
-        if (now.toLocalDate().isBefore(menu.getDate()) || now.toLocalDate().isEqual(menu.getDate())) {
+        if (DateTimeUtils.isNotBeforeNow(menu.getDate(), now)) {
             saveOrUpdateVote(menu, now);
         } else {
             model.addAttribute("restaurantId", restaurant.getId());
