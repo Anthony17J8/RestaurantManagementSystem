@@ -27,7 +27,10 @@
     <c:forEach var="menu" items="${menus}">
         <tbody>
         <tr>
-            <td><a href="${pageContext.request.contextPath}/menu/${menu.id}/showDetails">${menu.name}</a></td>
+            <c:url value="/menu/showDetails" var="menuDetailsLink">
+                <c:param name="menuId" value="${menu.id}"/>
+            </c:url>
+            <td><a href="${menuDetailsLink}">${menu.name}</a></td>
             <td>${menu.date}</td>
             <td>${menu.voteCount}</td>
 

@@ -12,11 +12,14 @@
 <h3>${message}</h3>
 
 <c:choose>
-    <c:when test="${restId == null}">
+    <c:when test="${restaurantId == null}">
         <a href="${pageContext.request.contextPath}/restaurant/list">Back to main</a>
     </c:when>
     <c:otherwise>
-        <a href="${pageContext.request.contextPath}/restaurant/${restId}/menus">Back to Menu details</a>
+        <c:url value="/restaurant/menus" var="redirectLink">
+            <c:param name="restId" value="${restaurantId}"/>
+        </c:url>
+        <a href="${redirectLink}">Back to Menu details</a>
     </c:otherwise>
 </c:choose>
 

@@ -20,15 +20,17 @@ ${menu.name}
     </li>
 </c:forEach>
 
-<form:form method="post" modelAttribute="menu" action="${pageContext.request.contextPath}/menu/${restaurant.id}/${menu.id}/addVote">
-    <form:hidden path="id"/>
-    <form:hidden path="date"/>
-    <form:hidden path="name"/>
+<c:url value="/menu/addVote" var="voteLink"/>
+<form:form method="post" action="${voteLink}">
     <input type="submit" value="Vote">
 </form:form>
 <br><br>
 
-<a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/menus">Back to Menu list</a>
+<c:url value="/restaurant/menus" var="redirectLink">
+    <c:param name="restId" value="${restaurantId}"/>
+</c:url>
+
+<a href="${redirectLink}">Back to Menu list</a>
 
 </body>
 </html>

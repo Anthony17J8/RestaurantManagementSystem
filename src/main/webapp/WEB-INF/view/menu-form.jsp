@@ -86,7 +86,11 @@
 
 </form:form>
 
-<p><a href="${pageContext.request.contextPath}/restaurant/${restaurantId}/menus">Back to restaurant list</a></p>
+<c:url value="/restaurant/menus" var="redirectLink">
+    <c:param name="restId" value="${restaurantId}"/>
+</c:url>
+
+<p><a href="${redirectLink}">Back to restaurant list</a></p>
 
 </body>
 </html>

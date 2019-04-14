@@ -18,6 +18,7 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/menu")
+@SessionAttributes("menu")
 public class MenuController {
 
     private static final String TITLE_NEW = "NEW";
@@ -50,29 +51,32 @@ public class MenuController {
         this.voteService = voteService;
     }
 
-    @GetMapping("/{menuId}/showDetails")
-    public String showMenuDetails(@PathVariable("menuId") int menuId, Model model) {
+    @GetMapping("/showDetails")
+    public String showMenuDetails(@SessionAttribute("restaurant") Restaurant restaurant,
+                                  @RequestParam("menuId") int menuId, Model model) {
+        // todo check menu isNULL
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
-        model.addAttribute("restaurant", menu.getRestaurant());
+        model.addAttribute("restaurantId", restaurant.getId());
         return "menu-details";
     }
 
-    @PostMapping("/{restId}/{menuId}/addVote")
-    public String voteForMenu(@ModelAttribute("menu") Menu menu, Model model,
-                              @PathVariable("restId") int restId) {
+    @PostMapping("/addVote")
+    public String voteForMenu(@SessionAttribute("menu") Menu menu,
+                              @SessionAttribute("restaurant") Restaurant restaurant, Model model) {
         LocalDateTime now = LocalDateTime.now();
 
         // check now.date <= menu.getDate()
-        if (now.toLocalDate().isBefore(menu.getDate())) {
+        // todo move to util class
+        if (now.toLocalDate().isBefore(menu.getDate()) || now.toLocalDate().isEqual(menu.getDate())) {
             saveOrUpdateVote(menu, now);
         } else {
-            model.addAttribute("restId", restId);
+            model.addAttribute("restaurantId", restaurant.getId());
             model.addAttribute("message",
-                    messageSource.getMessage("error.vote.date", new Object[] {menu.getName(), menu.getDate()}, null));
+                    messageSource.getMessage("error.vote.date", new Object[]{menu.getName(), menu.getDate()}, null));
             return "error-page";
         }
-        return "redirect:/restaurant/" + restId + "/menus";
+        return "redirect:/restaurant/menus?restId=" + restaurant.getId();
     }
 
     private void saveOrUpdateVote(Menu menu, LocalDateTime now) {
@@ -108,6 +112,7 @@ public class MenuController {
 
     @GetMapping("/delete")
     public String deleteMenu(@RequestParam("menuId") int menuId) {
+        // todo fix delete
         Menu menu = menuService.getMenu(menuId);
         int restaurantId = menu.getRestaurant().getId();
         menuService.deleteMenu(menu);
@@ -116,6 +121,7 @@ public class MenuController {
 
     @GetMapping("/update")
     public String updateMenu(@RequestParam("menuId") int menuId, Model model) {
+        // todo check ISNULL
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
         model.addAttribute("totalCost", getTotalCost(new ArrayList<>(menu.getDishes())));
