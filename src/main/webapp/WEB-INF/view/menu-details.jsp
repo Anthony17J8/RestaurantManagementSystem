@@ -20,7 +20,10 @@ ${menu.name}
     </li>
 </c:forEach>
 
-<c:url value="/menu/addVote" var="voteLink"/>
+<c:url value="/menu/addVote" var="voteLink">
+    <c:param name="menuId" value="${menu.id}"/>
+</c:url>
+
 <form:form method="post" action="${voteLink}">
     <input type="submit" value="Vote">
 </form:form>

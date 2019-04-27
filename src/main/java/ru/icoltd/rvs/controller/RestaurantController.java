@@ -20,7 +20,6 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/restaurant")
-@SessionAttributes("restaurant")
 public class RestaurantController {
 
     private static final String TITLE_NEW = "NEW";
@@ -46,14 +45,15 @@ public class RestaurantController {
 
     @GetMapping("/menus")
     public String listMenus(@RequestParam(name = "restId") int restaurantId, Model model) {
-        Restaurant restaurant = getValidateRestaurant(restaurantId);
+        Restaurant restaurant = getValidatedRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
         List<Menu> menus = restaurant.getMenus();
         model.addAttribute("menus", menus);
+        model.addAttribute("restId", restaurantId);
         return "menu-list";
     }
 
-    private Restaurant getValidateRestaurant(int restaurantId) {
+    private Restaurant getValidatedRestaurant(int restaurantId) {
         return Optional.ofNullable(service.getRestaurant(restaurantId))
                 .orElseThrow(
                         () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
@@ -87,21 +87,22 @@ public class RestaurantController {
 
     @GetMapping("/delete")
     public String delete(@RequestParam("restId") int restaurantId) {
-        Restaurant restaurant = getValidateRestaurant(restaurantId);
+        Restaurant restaurant = getValidatedRestaurant(restaurantId);
         service.deleteRestaurant(restaurant);
         return "redirect:/restaurant/list";
     }
 
     @GetMapping("/update")
     public String update(@RequestParam("restId") int restaurantId, Model model) {
-        Restaurant restaurant = getValidateRestaurant(restaurantId);
+        Restaurant restaurant = getValidatedRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("detail", restaurant.getRestaurantDetail());
         return "restaurant-form";
     }
 
-    @ExceptionHandler({ObjNotFoundException.class})
-    public String handle(Model model, RuntimeException exc){
+    // todo move to @ControllerAdvice class
+    @ExceptionHandler()
+    public String handle(Model model, ObjNotFoundException exc){
         model.addAttribute("message", exc.getMessage());
         return "error-page";
     }

@@ -12,7 +12,10 @@
 <h3>Menus</h3>
 <hr>
 
-<a href="${pageContext.request.contextPath}/menu/showFormForAdd">Add menu</a>
+<c:url value="/menu/showFormForAdd" var="formForAdd">
+    <c:param name="restId" value="${restId}"/>
+</c:url>
+<a href="${formForAdd}">Add menu</a>
 <br><br>
 
 <table border="1" cellpadding="20">

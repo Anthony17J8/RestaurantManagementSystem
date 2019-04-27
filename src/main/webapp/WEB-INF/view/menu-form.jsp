@@ -90,7 +90,7 @@
     <c:param name="restId" value="${restaurantId}"/>
 </c:url>
 
-<p><a href="${redirectLink}">Back to restaurant list</a></p>
+<p><a href="${redirectLink}">Back to menu list</a></p>
 
 </body>
 </html>
