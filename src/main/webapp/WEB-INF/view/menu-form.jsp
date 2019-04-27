@@ -73,8 +73,8 @@
                 <td><a href="${showFormLink}">Add new dish</a></td>
             </tr>
             <tr>
-                <td>Total cost:</td>
-                <td>${totalCost}</td>
+                <td>Total amount:</td>
+                <td>${totalAmount}</td>
             </tr>
         </c:if>
         <tr>

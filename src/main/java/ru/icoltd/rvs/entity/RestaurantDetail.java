@@ -13,6 +13,7 @@ public class RestaurantDetail {
     @Column(name = "id")
     private int detailId;
 
+    // todo move message to props
     @NotNull(message = "Field is required")
     @Column(name = "country")
     private String country;
@@ -30,6 +31,7 @@ public class RestaurantDetail {
     private String phone;
 
     @Email(message = "Invalid email")
+    @NotNull(message = "Field is required")
     @Column(name = "site")
     private String email;
 

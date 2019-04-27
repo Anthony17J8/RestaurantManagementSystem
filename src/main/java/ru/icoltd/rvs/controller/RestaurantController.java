@@ -39,10 +39,8 @@ public class RestaurantController {
 
     @GetMapping("/list")
     public String listRestaurants(Model model) {
-
         List<Restaurant> restaurants = service.getRestaurants();
         model.addAttribute("restaurants", restaurants);
-
         return "restaurant-list";
     }
 
@@ -84,38 +82,21 @@ public class RestaurantController {
 
         restaurant.setRestaurantDetail(detail);
         service.saveRestaurant(restaurant);
-
         return "redirect:/restaurant/list";
     }
 
-//    @GetMapping("/{restaurantId}/showAddMenuForm")
-//    public String showAddMenuForm(@PathVariable("restaurantId") int restaurantId, Model model) {
-//        Menu menu = new Menu();
-//        Restaurant restaurant = getValidateRestaurant(restaurantId);
-//        model.addAttribute("title", TITLE_NEW);
-//        model.addAttribute("menu", menu);
-//        model.addAttribute("restaurantId", restaurant.getId());
-//
-//        return "menu-form";
-//    }
-
     @GetMapping("/delete")
     public String delete(@RequestParam("restId") int restaurantId) {
-
-        Restaurant restaurant = service.getRestaurant(restaurantId);
+        Restaurant restaurant = getValidateRestaurant(restaurantId);
         service.deleteRestaurant(restaurant);
-
         return "redirect:/restaurant/list";
     }
 
     @GetMapping("/update")
     public String update(@RequestParam("restId") int restaurantId, Model model) {
-
-        Restaurant restaurant = service.getRestaurant(restaurantId);
-
+        Restaurant restaurant = getValidateRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("detail", restaurant.getRestaurantDetail());
-
         return "restaurant-form";
     }
 

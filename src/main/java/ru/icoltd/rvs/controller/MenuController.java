@@ -122,12 +122,12 @@ public class MenuController {
         // todo check ISNULL
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
-        model.addAttribute("totalCost", getTotalCost(new ArrayList<>(menu.getDishes())));
+        model.addAttribute("totalAmount", getTotalAmount(new ArrayList<>(menu.getDishes())));
         model.addAttribute("restaurantId", menu.getRestaurant().getId());
         return "menu-form";
     }
 
-    private double getTotalCost(List<Dish> dishes) {
+    private double getTotalAmount(List<Dish> dishes) {
         return dishes.stream().mapToDouble(Dish::getPrice).sum();
     }
 }
