@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.MenuDAO;
 import ru.icoltd.rvs.entity.Menu;
+import ru.icoltd.rvs.exception.ObjNotFoundException;
+
+import java.util.Optional;
 
 @Service
 public class MenuServiceImpl implements MenuService {
@@ -19,7 +22,10 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional
     public Menu getMenu(int menuId) {
-        return dao.findById(menuId);
+        return Optional.ofNullable(dao.findById(menuId))
+                .orElseThrow(
+                        () -> new ObjNotFoundException("Menu id not found: " + menuId)
+                );
     }
 
     @Override

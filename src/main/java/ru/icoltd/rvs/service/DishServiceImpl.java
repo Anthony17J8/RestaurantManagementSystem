@@ -5,6 +5,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.DishDAO;
 import ru.icoltd.rvs.entity.Dish;
+import ru.icoltd.rvs.exception.ObjNotFoundException;
+
+import java.util.Optional;
 
 @Service
 public class DishServiceImpl implements DishService {
@@ -25,7 +28,10 @@ public class DishServiceImpl implements DishService {
     @Override
     @Transactional
     public Dish getDish(int dishId) {
-        return dao.getDish(dishId);
+        return Optional.ofNullable(dao.getDish(dishId))
+                .orElseThrow(
+                        () -> new ObjNotFoundException("Dish id not found: " + dishId)
+                );
     }
 
     @Override

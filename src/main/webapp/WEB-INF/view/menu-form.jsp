@@ -48,12 +48,9 @@
             <c:forEach items="${menu.dishes}" varStatus="status" var="dish">
 
                 <c:url value="/dish/update" var="updateLink">
-                    <c:param name="menuId" value="${menu.id}"/>
                     <c:param name="dishId" value="${dish.id}"/>
                 </c:url>
-
                 <c:url value="/dish/delete" var="deleteLink">
-                    <c:param name="menuId" value="${menu.id}"/>
                     <c:param name="dishId" value="${dish.id}"/>
                 </c:url>
 

@@ -5,8 +5,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.RestaurantDAO;
 import ru.icoltd.rvs.entity.Restaurant;
+import ru.icoltd.rvs.exception.ObjNotFoundException;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
@@ -27,7 +29,10 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     @Transactional
     public Restaurant getRestaurant(int restaurantId) {
-        return restaurantDAO.findById(restaurantId);
+        return Optional.ofNullable(restaurantDAO.findById(restaurantId))
+                .orElseThrow(
+                        () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
+                );
     }
 
     @Override

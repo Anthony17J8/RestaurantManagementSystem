@@ -45,19 +45,12 @@ public class RestaurantController {
 
     @GetMapping("/menus")
     public String listMenus(@RequestParam(name = "restId") int restaurantId, Model model) {
-        Restaurant restaurant = getValidatedRestaurant(restaurantId);
+        Restaurant restaurant = service.getRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
         List<Menu> menus = restaurant.getMenus();
         model.addAttribute("menus", menus);
         model.addAttribute("restId", restaurantId);
         return "menu-list";
-    }
-
-    private Restaurant getValidatedRestaurant(int restaurantId) {
-        return Optional.ofNullable(service.getRestaurant(restaurantId))
-                .orElseThrow(
-                        () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
-                );
     }
 
     @GetMapping("/showFormForAdd")
@@ -87,14 +80,14 @@ public class RestaurantController {
 
     @GetMapping("/delete")
     public String delete(@RequestParam("restId") int restaurantId) {
-        Restaurant restaurant = getValidatedRestaurant(restaurantId);
+        Restaurant restaurant = service.getRestaurant(restaurantId);
         service.deleteRestaurant(restaurant);
         return "redirect:/restaurant/list";
     }
 
     @GetMapping("/update")
     public String update(@RequestParam("restId") int restaurantId, Model model) {
-        Restaurant restaurant = getValidatedRestaurant(restaurantId);
+        Restaurant restaurant = service.getRestaurant(restaurantId);
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("detail", restaurant.getRestaurantDetail());
         return "restaurant-form";
