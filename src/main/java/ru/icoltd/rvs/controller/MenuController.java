@@ -5,7 +5,6 @@ import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
 import ru.icoltd.rvs.DateTimeUtils;
 import ru.icoltd.rvs.dao.UserDAO;
 import ru.icoltd.rvs.entity.*;
@@ -17,7 +16,6 @@ import ru.icoltd.rvs.service.VoteService;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/menu")

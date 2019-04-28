@@ -16,7 +16,6 @@ import ru.icoltd.rvs.service.RestaurantService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/restaurant")

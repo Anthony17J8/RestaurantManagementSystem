@@ -1,8 +1,11 @@
 package ru.icoltd.rvs.entity;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
+
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "menus")
@@ -26,10 +29,12 @@ public class Menu {
     private Restaurant restaurant;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "menu", cascade = CascadeType.ALL)
-    private Set<Dish> dishes;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Dish> dishes;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "menu", cascade = CascadeType.ALL)
-    private Set<Vote> votes;
+    @Fetch(value = FetchMode.SUBSELECT)
+    private List<Vote> votes;
 
     public Menu() {
     }
@@ -64,19 +69,19 @@ public class Menu {
         this.restaurant = restaurant;
     }
 
-    public Set<Dish> getDishes() {
+    public List<Dish> getDishes() {
         return dishes;
     }
 
-    public void setDishes(Set<Dish> dishes) {
+    public void setDishes(List<Dish> dishes) {
         this.dishes = dishes;
     }
 
-    public Set<Vote> getVotes() {
+    public List<Vote> getVotes() {
         return votes;
     }
 
-    public void setVotes(Set<Vote> votes) {
+    public void setVotes(List<Vote> votes) {
         this.votes = votes;
     }
 

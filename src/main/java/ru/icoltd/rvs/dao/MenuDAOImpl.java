@@ -28,7 +28,7 @@ public class MenuDAOImpl implements MenuDAO {
     public Menu findById(int menuId) {
         Session currentSession = sessionFactory.getCurrentSession();
         Query<Menu> query = currentSession.createQuery(
-                "from Menu m left join fetch m.dishes left join fetch m.votes" +
+                "from Menu m left join fetch m.dishes" +
                         " join fetch m.restaurant where m.id=:menuId", Menu.class);
         query.setParameter("menuId", menuId);
 
