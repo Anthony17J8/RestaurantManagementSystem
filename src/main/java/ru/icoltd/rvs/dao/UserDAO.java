@@ -4,5 +4,7 @@ import ru.icoltd.rvs.entity.User;
 
 public interface UserDAO {
 
-    User getUser(int id);
+    User findUserById(int id);
+
+    User findUserByUserName(String username);
 }

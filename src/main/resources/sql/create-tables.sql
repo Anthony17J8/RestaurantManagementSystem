@@ -166,19 +166,19 @@ SET FOREIGN_KEY_CHECKS = 1;
 --
 
 INSERT INTO `roles`(name)
-VALUES ('ADMIN'),
-       ('USER');
+VALUES ('ROLE_ADMIN'),
+       ('ROLE_USER');
 
 --
 -- Data for table `user`
 --
 
 INSERT INTO `users` (username, password, first_name, last_name, email)
-VALUES ('Anthony17', '123456', 'Anthony', 'Jenkinson', 'tony@gmail.com'),
-       ('Jessy_pretty', '2222', 'Jessy', 'Morgan', 'jes@gmail.com'),
-       ('ThomasBl', '3333', 'Thomas', 'Black', 'bl21@gmail.com'),
-       ('JackPat', '212256', 'Jack', 'Paterson', 'jack@gmail.com'),
-       ('Lesszz', '001566', 'Lesley', 'Knight', 'les@gmail.com');
+VALUES ('Anthony17', '{noop}123456', 'Anthony', 'Jenkinson', 'tony@gmail.com'),
+       ('Jessy_pretty', '{noop}2222', 'Jessy', 'Morgan', 'jes@gmail.com'),
+       ('ThomasBl', '{noop}3333', 'Thomas', 'Black', 'bl21@gmail.com'),
+       ('JackPat', '{noop}212256', 'Jack', 'Paterson', 'jack@gmail.com'),
+       ('Lesszz', '{noop}001566', 'Lesley', 'Knight', 'les@gmail.com');
 
 
 --

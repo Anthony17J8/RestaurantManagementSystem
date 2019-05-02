@@ -6,11 +6,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.DateTimeUtils;
-import ru.icoltd.rvs.dao.UserDAO;
 import ru.icoltd.rvs.entity.*;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
+import ru.icoltd.rvs.service.UserService;
 import ru.icoltd.rvs.service.VoteService;
 
 import java.time.LocalDateTime;
@@ -29,7 +29,7 @@ public class MenuController {
 
     private RestaurantService restaurantService;
 
-    private UserDAO dao;
+    private UserService userService;
 
     private MessageSource messageSource;
 
@@ -39,8 +39,8 @@ public class MenuController {
     }
 
     @Autowired
-    public void setDao(UserDAO dao) {
-        this.dao = dao;
+    public void setUserService(UserService userService) {
+        this.userService = userService;
     }
 
     @Autowired
@@ -92,7 +92,8 @@ public class MenuController {
             latestVote.setMenu(menu);
             voteService.saveVote(latestVote);
         } else {
-            voteService.saveVote(new Vote(dao.getUser(1), menu, now));
+            // todo: access to logged in user
+            voteService.saveVote(new Vote(userService.getUserById(1), menu, now));
         }
     }
 
