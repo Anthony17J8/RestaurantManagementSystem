@@ -39,9 +39,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.authenticationProvider(authenticationProvider())
-                .jdbcAuthentication()
-                .dataSource(dataSource);
+        auth.authenticationProvider(authenticationProvider());
     }
 
     @Override
@@ -50,6 +48,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .authorizeRequests()
                 .antMatchers("/**/showFormForAdd", "/**/update", "/**/delete").hasRole("ADMIN")
                 .anyRequest().authenticated()
-                .and().formLogin();
+                .and()
+                .logout()
+                .and()
+                .formLogin();
     }
 }

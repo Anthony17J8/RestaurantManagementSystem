@@ -80,6 +80,12 @@
         </c:forEach>
     </form:form>
 </table>
+
+<br>
+<form:form method="post" action="${pageContext.request.contextPath}/logout">
+    <input type="submit" value="Logout">
+</form:form>
+
 </body>
 
 </html>
