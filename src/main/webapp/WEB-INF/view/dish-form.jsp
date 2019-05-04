@@ -1,5 +1,6 @@
 <!doctype html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
@@ -43,9 +44,11 @@
             <td><form:input path="price"/></td>
         </tr>
 
+        <sec:authorize access="hasRole('ADMIN')">
         <tr>
             <td><input type="submit" value="Save" class="save"/></td>
         </tr>
+        </sec:authorize>
 
     </form:form>
     </tbody>

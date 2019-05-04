@@ -1,5 +1,6 @@
 <!doctype html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 
@@ -15,8 +16,12 @@
 <h3>Restaurant List</h3>
 <hr>
 
-<input type="button" value="Add Restaurant"
-       onclick="window.location.href='showFormForAdd'; return false"/>
+<sec:authorize access="hasRole('ADMIN')">
+
+    <input type="button" value="Add Restaurant"
+           onclick="window.location.href='showFormForAdd'; return false"/>
+
+</sec:authorize>
 <br><br>
 
 <table border="1" cellpadding="20">
@@ -25,7 +30,9 @@
         <th>Restaurant</th>
         <th>Details</th>
         <th>Menu</th>
-        <th>Action</th>
+        <sec:authorize access="hasRole('ADMIN')">
+            <th>Action</th>
+        </sec:authorize>
     </tr>
 
     </thead>
@@ -48,19 +55,25 @@
                     </c:url>
                     <a href="${menuList}">Show menu</a>
                 </td>
-                <td>
-                    <c:url var="updateLink" value="/restaurant/update">
-                        <c:param name="restId" value="${restaurant.id}"/>
-                    </c:url>
 
-                    <c:url var="deleteLink" value="/restaurant/delete">
-                        <c:param name="restId" value="${restaurant.id}"/>
-                    </c:url>
+                <sec:authorize access="hasRole('ADMIN')">
 
-                    <a href="${updateLink}">Update</a>
-                    |
-                    <a href="${deleteLink}">Delete</a>
-                </td>
+                    <td>
+                        <c:url var="updateLink" value="/restaurant/update">
+                            <c:param name="restId" value="${restaurant.id}"/>
+                        </c:url>
+
+                        <c:url var="deleteLink" value="/restaurant/delete">
+                            <c:param name="restId" value="${restaurant.id}"/>
+                        </c:url>
+
+                        <a href="${updateLink}">Update</a>
+                        |
+                        <a href="${deleteLink}">Delete</a>
+                    </td>
+
+                </sec:authorize>
+
             </tr>
             </tbody>
 

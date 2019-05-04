@@ -1,5 +1,6 @@
 <!doctype html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
 <html>
@@ -47,36 +48,48 @@
             </tr>
             <c:forEach items="${menu.dishes}" varStatus="status" var="dish">
 
-                <c:url value="/dish/update" var="updateLink">
-                    <c:param name="dishId" value="${dish.id}"/>
-                </c:url>
-                <c:url value="/dish/delete" var="deleteLink">
-                    <c:param name="dishId" value="${dish.id}"/>
-                </c:url>
-
                 <tr>
                     <td>Dish #${status.index + 1}</td>
                     <td>${dish.description}</td>
-                    <td><a href="${updateLink}">Update</a></td>
-                    <td><a href="${deleteLink}">Delete</a></td>
+
+                    <sec:authorize access="hasRole('ADMIN')">
+
+                        <c:url value="/dish/update" var="updateLink">
+                            <c:param name="dishId" value="${dish.id}"/>
+                        </c:url>
+                        <c:url value="/dish/delete" var="deleteLink">
+                            <c:param name="dishId" value="${dish.id}"/>
+                        </c:url>
+
+                        <td><a href="${updateLink}">Update</a></td>
+                        <td><a href="${deleteLink}">Delete</a></td>
+
+                    </sec:authorize>
                 </tr>
             </c:forEach>
 
-            <c:url var="showFormLink" value="/dish/showFormForAdd">
-                <c:param name="menuId" value="${menu.id}"/>
-            </c:url>
-            <tr>
-                <td></td>
-                <td><a href="${showFormLink}">Add new dish</a></td>
-            </tr>
+            <sec:authorize access="hasRole('ADMIN')">
+
+                <c:url var="showFormLink" value="/dish/showFormForAdd">
+                    <c:param name="menuId" value="${menu.id}"/>
+                </c:url>
+                <tr>
+                    <td></td>
+                    <td><a href="${showFormLink}">Add new dish</a></td>
+                </tr>
+
+            </sec:authorize>
             <tr>
                 <td>Total amount:</td>
                 <td>${totalAmount}</td>
             </tr>
         </c:if>
-        <tr>
-            <td><input type="submit" value="Save" class="save"/></td>
-        </tr>
+
+        <sec:authorize access="hasRole('ADMIN')">
+            <tr>
+                <td><input type="submit" value="Save" class="save"/></td>
+            </tr>
+        </sec:authorize>
 
         </tbody>
     </table>
