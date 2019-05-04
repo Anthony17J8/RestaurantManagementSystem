@@ -10,20 +10,11 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import ru.icoltd.rvs.service.UserService;
 
-import javax.sql.DataSource;
-
 @Configuration
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private DataSource dataSource;
-
     private UserService userService;
-
-    @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
 
     @Autowired
     public void setUserService(UserService userService) {
@@ -51,6 +42,10 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .and()
                 .logout()
                 .and()
-                .formLogin();
+                .exceptionHandling()
+                .accessDeniedPage("/accessDenied")
+                .and()
+                .formLogin()
+                .permitAll();
     }
 }
