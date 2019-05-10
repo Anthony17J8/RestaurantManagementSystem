@@ -34,17 +34,27 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = dao.findUserByUserName(username);
-        if (user == null) {
-            throw new ObjNotFoundException("User not found with username: " + username);
-        }
-
+        User user = findExistUser(username);
         return new org.springframework.security.core.userdetails.User(
                 user.getUserName(), user.getPassword(), collectToSimpleGrantedAuthority(user.getRoles())
         );
     }
 
+    private User findExistUser(String username) {
+        User user = dao.findUserByUserName(username);
+        if (user == null) {
+            throw new ObjNotFoundException("User not found with username: " + username);
+        }
+        return user;
+    }
+
     private Collection<? extends GrantedAuthority> collectToSimpleGrantedAuthority(Collection<Role> roles) {
         return roles.stream().map((r) -> new SimpleGrantedAuthority(r.getName())).collect(Collectors.toList());
+    }
+
+    @Override
+    @Transactional
+    public User findUserByUserName(String username) {
+        return findExistUser(username);
     }
 }

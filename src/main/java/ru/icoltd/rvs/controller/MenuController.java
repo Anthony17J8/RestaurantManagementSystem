@@ -2,6 +2,7 @@ package ru.icoltd.rvs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.UserService;
 import ru.icoltd.rvs.service.VoteService;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,13 +69,13 @@ public class MenuController {
     }
 
     @PostMapping("/addVote")
-    public String voteForMenu(Model model, @RequestParam("menuId") int menuId) {
+    public String voteForMenu(Model model, @RequestParam("menuId") int menuId, Principal principal) {
         LocalDateTime now = LocalDateTime.now();
         Menu menu = menuService.getMenu(menuId);
         int restaurantId = menu.getRestaurant().getId();
 
         if (DateTimeUtils.isNotBeforeNow(menu.getDate(), now)) {
-            saveOrUpdateVote(menu, now);
+            saveOrUpdateVote(menu, now, principal);
         } else {
             model.addAttribute("restaurantId", restaurantId);
             model.addAttribute("message",
@@ -83,9 +85,11 @@ public class MenuController {
         return "redirect:/restaurant/menus?restId=" + restaurantId;
     }
 
-    private void saveOrUpdateVote(Menu menu, LocalDateTime now) {
+    private void saveOrUpdateVote(Menu menu, LocalDateTime now, Principal principal) {
+        User existUser = userService.findUserByUserName(principal.getName());
+
         // get vote by userId and latest
-        Vote latestVote = voteService.getLatestVoteByUserId(1);
+        Vote latestVote = voteService.getLatestVoteByUserId(existUser.getId());
 
         // if it exist:
         if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
@@ -93,7 +97,7 @@ public class MenuController {
             voteService.saveVote(latestVote);
         } else {
             // todo: access to logged in user
-            voteService.saveVote(new Vote(userService.getUserById(1), menu, now));
+            voteService.saveVote(new Vote(existUser, menu, now));
         }
     }
 
@@ -140,5 +144,9 @@ public class MenuController {
     public String handle(Model model, ObjNotFoundException exc) {
         model.addAttribute("message", exc.getMessage());
         return "error-page";
+    }
+
+    private org.springframework.security.core.userdetails.User getCurrentUser() {
+        return (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

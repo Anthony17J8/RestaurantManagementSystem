@@ -7,4 +7,5 @@ public interface UserService extends UserDetailsService {
 
     User getUserById(int id);
 
+    User findUserByUserName(String username);
 }
