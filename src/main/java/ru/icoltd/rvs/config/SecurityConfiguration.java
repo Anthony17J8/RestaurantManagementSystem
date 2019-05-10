@@ -41,11 +41,14 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .anyRequest().authenticated()
                 .and()
                 .logout()
+                .permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/accessDenied")
                 .and()
                 .formLogin()
+                .loginPage("/showLoginPage")
+                .loginProcessingUrl("/authenticateTheUser")
                 .permitAll();
     }
 }

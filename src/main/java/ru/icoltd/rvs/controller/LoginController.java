@@ -11,4 +11,9 @@ public class LoginController {
 
         return "access-denied";
     }
+
+    @GetMapping("/showLoginPage")
+    public String showLoginPage() {
+        return "plain-login";
+    }
 }
