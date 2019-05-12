@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.util.Collection;
 
 @Entity
@@ -27,7 +28,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
-    // todo add field dateOfBirth
+    @Column(name = "date_of_birth")
+    private Date dateOfBirth;
 
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
@@ -38,12 +40,13 @@ public class User {
     public User() {
     }
 
-    public User(String userName, String password, String firstName, String lastName, String email) {
+    public User(String userName, String password, String firstName, String lastName, String email, Date dateOfBirth) {
         this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public int getId() {
@@ -102,6 +105,14 @@ public class User {
         this.roles = roles;
     }
 
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -111,6 +122,7 @@ public class User {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", dateOfBirth=" + dateOfBirth +
                 ", roles=" + roles +
                 '}';
     }

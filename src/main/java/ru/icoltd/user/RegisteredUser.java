@@ -10,7 +10,7 @@ import java.sql.Date;
 @FieldMatch(
         first = "password",
         second = "matchingPassword",
-        message = "fields have to match")
+        message = "passwords have to match")
 public class RegisteredUser {
 
     @NotNull(message = "Field is required")

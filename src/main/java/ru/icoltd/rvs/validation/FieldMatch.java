@@ -22,7 +22,7 @@ public @interface FieldMatch {
 
     String second();
 
-    String message() default "This error message from FieldMatch";
+    String message() default "";
 
     Class<?>[] groups() default {};
 

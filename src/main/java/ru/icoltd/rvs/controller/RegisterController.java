@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,6 +18,7 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/register")
+@Slf4j
 public class RegisterController {
 
     private UserService userService;
@@ -57,10 +59,12 @@ public class RegisterController {
                             passwordEncoder.encode(r.getPassword()),
                             r.getFirstName(),
                             r.getLastName(),
-                            r.getEmail()
+                            r.getEmail(),
+                            r.getDateOfBirth()
                     )
             ).get();
             userService.saveUser(user);
+            log.info("User '{}' was registered successful.", user.getUserName());
             return "confirmation-page";
         }
     }

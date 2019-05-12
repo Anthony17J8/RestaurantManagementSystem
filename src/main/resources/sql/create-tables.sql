@@ -11,13 +11,13 @@ DROP TABLE IF EXISTS `restaurants`;
 
 CREATE TABLE `restaurants`
 (
-  `id`                   int(11) NOT NULL AUTO_INCREMENT,
-  `name`                 varchar(128) DEFAULT NULL,
-  `restaurant_detail_id` int(11)      DEFAULT NULL,
-  primary key (`id`),
-  UNIQUE KEY `name_unique` (`name`),
-  KEY `fk_address_idx` (restaurant_detail_id),
-  CONSTRAINT `fk_address` FOREIGN KEY (restaurant_detail_id) REFERENCES `restaurant_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    `id`                   int(11) NOT NULL AUTO_INCREMENT,
+    `name`                 varchar(128) DEFAULT NULL,
+    `restaurant_detail_id` int(11)      DEFAULT NULL,
+    primary key (`id`),
+    UNIQUE KEY `name_unique` (`name`),
+    KEY `fk_address_idx` (restaurant_detail_id),
+    CONSTRAINT `fk_address` FOREIGN KEY (restaurant_detail_id) REFERENCES `restaurant_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
@@ -30,13 +30,13 @@ DROP TABLE IF EXISTS `restaurant_details`;
 
 CREATE TABLE `restaurant_details`
 (
-  `id`      int(11) NOT NULL AUTO_INCREMENT,
-  `city`    varchar(128) DEFAULT NULL,
-  `country` varchar(128) DEFAULT NULL,
-  `street`  varchar(128) DEFAULT NULL,
-  `phone`   varchar(128) DEFAULT NULL,
-  `site`   varchar(45)  DEFAULT NULL,
-  PRIMARY KEY (`id`)
+    `id`      int(11) NOT NULL AUTO_INCREMENT,
+    `city`    varchar(128) DEFAULT NULL,
+    `country` varchar(128) DEFAULT NULL,
+    `street`  varchar(128) DEFAULT NULL,
+    `phone`   varchar(128) DEFAULT NULL,
+    `site`    varchar(45)  DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
@@ -49,13 +49,13 @@ DROP TABLE IF EXISTS `menus`;
 
 CREATE TABLE `menus`
 (
-  `id`            int(11) NOT NULL AUTO_INCREMENT,
-  `name`          varchar(45) DEFAULT NULL,
-  `restaurant_id` int(11)     DEFAULT NULL,
-  `date`          datetime    DEFAULT NULL,
-  KEY `fk_restaurant_idx` (`restaurant_id`),
-  CONSTRAINT `fk_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  PRIMARY KEY (`id`)
+    `id`            int(11) NOT NULL AUTO_INCREMENT,
+    `name`          varchar(45) DEFAULT NULL,
+    `restaurant_id` int(11)     DEFAULT NULL,
+    `date`          datetime    DEFAULT NULL,
+    KEY `fk_restaurant_idx` (`restaurant_id`),
+    CONSTRAINT `fk_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
@@ -68,13 +68,13 @@ DROP TABLE IF EXISTS `dishes`;
 
 CREATE TABLE `dishes`
 (
-  `id`      int(11) NOT NULL AUTO_INCREMENT,
-  `description`    varchar(255)   DEFAULT NULL,
-  `price`   decimal(15, 2) DEFAULT NULL,
-  `menu_id` int(11)        DEFAULT NULL,
-  KEY `fk_menu_idx` (`menu_id`),
-  CONSTRAINT `fk_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  PRIMARY KEY (`id`)
+    `id`          int(11) NOT NULL AUTO_INCREMENT,
+    `description` varchar(255)   DEFAULT NULL,
+    `price`       decimal(15, 2) DEFAULT NULL,
+    `menu_id`     int(11)        DEFAULT NULL,
+    KEY `fk_menu_idx` (`menu_id`),
+    CONSTRAINT `fk_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
@@ -87,14 +87,14 @@ DROP TABLE IF EXISTS `votes`;
 
 CREATE TABLE `votes`
 (
-  `id`      int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11)  DEFAULT NULL,
-  `menu_id` int(11)  DEFAULT NULL,
-  `date`    datetime DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  KEY `fk_user_idx` (`user_id`)
+    `id`      int(11) NOT NULL AUTO_INCREMENT,
+    `user_id` int(11)  DEFAULT NULL,
+    `menu_id` int(11)  DEFAULT NULL,
+    `date`    datetime DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    KEY `fk_user_idx` (`user_id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
@@ -107,13 +107,14 @@ DROP TABLE IF EXISTS `users`;
 
 CREATE TABLE `users`
 (
-  `id`         int(11)     NOT NULL AUTO_INCREMENT,
-  `username`   varchar(50) NOT NULL,
-  `password`   char(80)    NOT NULL,
-  `first_name` varchar(50) NOT NULL,
-  `last_name`  varchar(50) NOT NULL,
-  `email`      varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+    `id`            int(11)     NOT NULL AUTO_INCREMENT,
+    `username`      varchar(50) NOT NULL,
+    `password`      char(80)    NOT NULL,
+    `first_name`    varchar(50) NOT NULL,
+    `last_name`     varchar(50) NOT NULL,
+    `email`         varchar(50) NOT NULL,
+    `date_of_birth` DATE,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
@@ -126,9 +127,9 @@ DROP TABLE IF EXISTS `roles`;
 
 CREATE TABLE `roles`
 (
-  `id`   int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+    `id`   int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(50) DEFAULT NULL,
+    PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
@@ -141,20 +142,20 @@ DROP TABLE IF EXISTS `user_roles`;
 
 CREATE TABLE `user_roles`
 (
-  `user_id` int(11) NOT NULL,
-  `role_id` int(11) NOT NULL,
+    `user_id` int(11) NOT NULL,
+    `role_id` int(11) NOT NULL,
 
-  PRIMARY KEY (`user_id`, `role_id`),
+    PRIMARY KEY (`user_id`, `role_id`),
 
-  KEY `FK_ROLE_idx` (`role_id`),
+    KEY `FK_ROLE_idx` (`role_id`),
 
-  CONSTRAINT `fk_user` FOREIGN KEY (`user_id`)
-    REFERENCES `users` (`id`)
-    ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT `fk_user` FOREIGN KEY (`user_id`)
+        REFERENCES `users` (`id`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION,
 
-  CONSTRAINT `fk_role` FOREIGN KEY (`role_id`)
-    REFERENCES `roles` (`id`)
-    ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT `fk_role` FOREIGN KEY (`role_id`)
+        REFERENCES `roles` (`id`)
+        ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   DEFAULT CHARSET = latin1;
 
@@ -175,12 +176,12 @@ VALUES ('ROLE_ADMIN'),
 -- Data for table `user`
 --
 
-INSERT INTO `users` (username, password, first_name, last_name, email)
-VALUES ('Anthony17', '{noop}123456', 'Anthony', 'Jenkinson', 'tony@gmail.com'),
-       ('Jessy_pretty', '{noop}2222', 'Jessy', 'Morgan', 'jes@gmail.com'),
-       ('ThomasBl', '{noop}3333', 'Thomas', 'Black', 'bl21@gmail.com'),
-       ('JackPat', '{noop}212256', 'Jack', 'Paterson', 'jack@gmail.com'),
-       ('Lesszz', '{noop}001566', 'Lesley', 'Knight', 'les@gmail.com');
+INSERT INTO `users` (username, password, first_name, last_name, email, date_of_birth)
+VALUES ('Anthony17', '{noop}123456', 'Anthony', 'Jenkinson', 'tony@gmail.com', '1993-05-18'),
+       ('Jessy_pretty', '{noop}2222', 'Jessy', 'Morgan', 'jes@gmail.com', '1978-01-27'),
+       ('ThomasBl', '{noop}3333', 'Thomas', 'Black', 'bl21@gmail.com', '2001-06-02'),
+       ('JackPat', '{noop}212256', 'Jack', 'Paterson', 'jack@gmail.com','1995-10-01'),
+       ('Lesszz', '{noop}001566', 'Lesley', 'Knight', 'les@gmail.com', '1988-12-22');
 
 
 --
