@@ -57,4 +57,10 @@ public class UserServiceImpl implements UserService {
     public User findUserByUserName(String username) {
         return findExistUser(username);
     }
+
+    @Override
+    @Transactional
+    public void saveUser(User user) {
+        dao.saveUser(user);
+    }
 }

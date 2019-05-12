@@ -2,7 +2,6 @@ package ru.icoltd.rvs.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -96,7 +95,6 @@ public class MenuController {
             latestVote.setMenu(menu);
             voteService.saveVote(latestVote);
         } else {
-            // todo: access to logged in user
             voteService.saveVote(new Vote(existUser, menu, now));
         }
     }
@@ -144,9 +142,5 @@ public class MenuController {
     public String handle(Model model, ObjNotFoundException exc) {
         model.addAttribute("message", exc.getMessage());
         return "error-page";
-    }
-
-    private org.springframework.security.core.userdetails.User getCurrentUser() {
-        return (org.springframework.security.core.userdetails.User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 }

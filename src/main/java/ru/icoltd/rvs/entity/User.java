@@ -27,6 +27,8 @@ public class User {
     @Column(name = "email")
     private String email;
 
+    // todo add field dateOfBirth
+
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "user_roles",
             joinColumns = @JoinColumn(name = "user_id"),
@@ -36,7 +38,8 @@ public class User {
     public User() {
     }
 
-    public User(String password, String firstName, String lastName, String email) {
+    public User(String userName, String password, String firstName, String lastName, String email) {
+        this.userName = userName;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;

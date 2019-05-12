@@ -19,6 +19,7 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
+import ru.icoltd.rvs.converter.DateFormatter;
 import ru.icoltd.rvs.converter.LocalDateFormatter;
 
 import javax.sql.DataSource;
@@ -112,7 +113,9 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
     @Override
     public void addFormatters(FormatterRegistry registry) {
+        // todo see link https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#format-CustomFormatAnnotations
         registry.addFormatter(new LocalDateFormatter());
+        registry.addFormatter(new DateFormatter());
     }
 
     @Bean

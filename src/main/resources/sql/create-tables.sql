@@ -161,6 +161,8 @@ CREATE TABLE `user_roles`
 SET FOREIGN_KEY_CHECKS = 1;
 
 
+-- TODO: FILL DATA WITH NODE JS (FAKER LIBRARY)
+
 --
 -- Data for table `role`
 --

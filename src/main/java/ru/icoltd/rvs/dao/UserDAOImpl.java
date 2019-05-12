@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.dao;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -12,6 +13,7 @@ import ru.icoltd.rvs.entity.User;
 import javax.persistence.NoResultException;
 
 @Repository
+@Slf4j
 public class UserDAOImpl implements UserDAO {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
@@ -41,5 +43,11 @@ public class UserDAOImpl implements UserDAO {
             LOGGER.warn("Entity 'User' is not found with username {}", username);
         }
         return result;
+    }
+
+    @Override
+    public void saveUser(User user) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.saveOrUpdate(user);
     }
 }
