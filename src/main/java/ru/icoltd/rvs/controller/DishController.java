@@ -14,8 +14,6 @@ import ru.icoltd.rvs.service.MenuService;
 @RequestMapping("/dish")
 public class DishController {
 
-    private static final String TITLE_NEW = "NEW";
-
     private DishService dishService;
 
     private MenuService menuService;
@@ -34,7 +32,6 @@ public class DishController {
     public String showFormForAdd(Model model, @RequestParam("menuId") int menuId) {
         Dish dish = new Dish();
         Menu menu = menuService.getMenu(menuId);
-        model.addAttribute("title", TITLE_NEW);
         model.addAttribute("dish", dish);
         model.addAttribute("menuId", menu.getId());
         return "dish-form";

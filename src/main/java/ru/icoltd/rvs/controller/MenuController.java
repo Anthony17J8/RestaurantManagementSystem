@@ -22,8 +22,6 @@ import java.util.List;
 @RequestMapping("/menu")
 public class MenuController {
 
-    private static final String TITLE_NEW = "NEW";
-
     private MenuService menuService;
 
     private VoteService voteService;
@@ -103,7 +101,6 @@ public class MenuController {
     public String showAddMenuForm(@RequestParam("restId") int restaurantId, Model model) {
         Menu menu = new Menu();
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
-        model.addAttribute("title", TITLE_NEW);
         model.addAttribute("menu", menu);
         model.addAttribute("restaurantId", restaurant.getId());
         return "menu-form";

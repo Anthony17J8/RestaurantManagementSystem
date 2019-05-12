@@ -10,36 +10,36 @@ import java.sql.Date;
 @FieldMatch(
         first = "password",
         second = "matchingPassword",
-        message = "passwords have to match")
+        message = "The password fields must match")
 public class RegisteredUser {
 
-    @NotNull(message = "Field is required")
-    @Size(min = 1, message = "Field is required")
+    @NotNull
+    @Size(min = 1)
     private String firstName;
 
-    @NotNull(message = "Field is required")
-    @Size(min = 1, message = "Field is required")
+    @NotNull
+    @Size(min = 1)
     private String lastName;
 
     // todo pattern
-    @NotNull(message = "Field is required")
-    @Size(min = 1, message = "Field is required")
+    @NotNull
+    @Size(min = 1)
     private String userName;
 
-    @NotNull(message = "Field is required")
-    @Size(min = 1, message = "Field is required")
+    @NotNull
+    @Size(min = 1)
     private String password;
 
-    @NotNull(message = "Field is required")
-    @Size(min = 1, message = "Field is required")
+    @NotNull
+    @Size(min = 1)
     private String matchingPassword;
 
     @Email
-    @NotNull(message = "Field is required")
-    @Size(min = 1, message = "Field is required")
+    @NotNull
+    @Size(min = 1)
     private String email;
 
-    @NotNull(message = "Field is required")
+    @NotNull
     private Date dateOfBirth;
 
     public RegisteredUser() {

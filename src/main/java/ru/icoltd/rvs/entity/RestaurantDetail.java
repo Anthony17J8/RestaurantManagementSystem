@@ -11,27 +11,26 @@ public class RestaurantDetail {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int detailId;
+    private Integer detailId;
 
-    // todo move message to props
-    @NotNull(message = "Field is required")
+    @NotNull
     @Column(name = "country")
     private String country;
 
-    @NotNull(message = "Field is required")
+    @NotNull
     @Column(name = "city")
     private String city;
 
-    @NotNull(message = "Field is required")
+    @NotNull
     @Column(name = "street")
     private String street;
 
-    @NotNull(message = "Field is required")
+    @NotNull
     @Column(name = "phone")
     private String phone;
 
-    @Email(message = "Invalid email")
-    @NotNull(message = "Field is required")
+    @Email
+    @NotNull
     @Column(name = "site")
     private String email;
 
@@ -46,12 +45,12 @@ public class RestaurantDetail {
         this.email = email;
     }
 
-    public int getDetailId() {
+    public Integer getDetailId() {
         return detailId;
     }
 
-    public void setDetailId(int id) {
-        this.detailId = id;
+    public void setDetailId(Integer detailId) {
+        this.detailId = detailId;
     }
 
     public String getCountry() {

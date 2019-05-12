@@ -14,7 +14,7 @@
 <body>
 
 <c:choose>
-    <c:when test="${title == 'NEW'}">
+    <c:when test="${dish.id == null}">
         <h3>Add Dish</h3>
     </c:when>
     <c:otherwise>

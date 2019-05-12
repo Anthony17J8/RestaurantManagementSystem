@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
@@ -18,10 +19,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
+@Slf4j
 @RequestMapping("/restaurant")
 public class RestaurantController {
 
-    private static final String TITLE_NEW = "NEW";
 
     private RestaurantService service;
 
@@ -56,7 +57,6 @@ public class RestaurantController {
     public String showAddRestaurantForm(ModelMap model) {
         Restaurant theRestaurant = new Restaurant();
         RestaurantDetail theDetail = new RestaurantDetail();
-        model.addAttribute("title", TITLE_NEW);
         model.addAttribute("detail", theDetail);
         model.addAttribute("restaurant", theRestaurant);
         return "restaurant-form";
@@ -69,6 +69,7 @@ public class RestaurantController {
                                 BindingResult detailBindingResult) {
 
         if (restBindingResult.hasErrors() || detailBindingResult.hasErrors()) {
+            log.error("Detail {}", detailBindingResult);
             return "restaurant-form";
         }
 

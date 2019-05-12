@@ -13,7 +13,7 @@
 
 <body>
 <c:choose>
-    <c:when test="${title == 'NEW'}">
+    <c:when test="${menu.id == null}">
         <h3>Add Menu</h3>
     </c:when>
     <c:otherwise>
@@ -41,7 +41,7 @@
             <td><form:input type="date" path="date"/></td>
         </tr>
 
-        <c:if test="${title != 'NEW'}">
+        <c:if test="${menu.id != null}">
 
             <tr>
                 <td><h4>List dishes:</h4></td>

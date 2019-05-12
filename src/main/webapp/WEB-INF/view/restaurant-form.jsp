@@ -13,7 +13,7 @@
 <body>
 
 <c:choose>
-    <c:when test="${title == 'NEW'}">
+    <c:when test="${restaurant.id == null}">
         <h3>Add Restaurant</h3>
     </c:when>
     <c:otherwise>
