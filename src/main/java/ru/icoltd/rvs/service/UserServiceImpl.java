@@ -43,7 +43,7 @@ public class UserServiceImpl implements UserService {
     private User findExistUser(String username) {
         User user = dao.findUserByUserName(username);
         if (user == null) {
-            throw new ObjNotFoundException("User not found with username: " + username);
+            throw new UsernameNotFoundException("User not found with username: " + username);
         }
         return user;
     }
