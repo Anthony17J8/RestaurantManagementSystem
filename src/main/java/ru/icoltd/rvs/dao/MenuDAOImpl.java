@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.dao;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -13,9 +14,8 @@ import javax.persistence.NoResultException;
 
 
 @Repository
+@Slf4j
 public class MenuDAOImpl implements MenuDAO {
-
-    private static final Logger LOGGER = LoggerFactory.getLogger(MenuDAOImpl.class);
 
     private SessionFactory sessionFactory;
 
@@ -36,7 +36,7 @@ public class MenuDAOImpl implements MenuDAO {
         try {
             result = query.getSingleResult();
         } catch (NoResultException exc) {
-            LOGGER.warn("Entity 'Menu' is not found with id {}", menuId);
+            log.warn("Entity 'Menu' is not found with id {}", menuId);
         }
 
         return result;

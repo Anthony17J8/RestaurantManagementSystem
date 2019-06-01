@@ -2,7 +2,7 @@ package ru.icoltd.rvs.validation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanWrapperImpl;
-import ru.icoltd.user.RegisteredUser;
+import ru.icoltd.rvs.user.RegisteredUser;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

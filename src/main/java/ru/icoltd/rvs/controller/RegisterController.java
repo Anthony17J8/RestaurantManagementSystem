@@ -11,7 +11,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.UserService;
-import ru.icoltd.user.RegisteredUser;
+import ru.icoltd.rvs.user.RegisteredUser;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -54,13 +54,13 @@ public class RegisterController {
             return "registration-form";
         } else {
             User user = Optional.of(regUser).map(
-                    (r) -> new User(
-                            r.getUserName(),
-                            passwordEncoder.encode(r.getPassword()),
-                            r.getFirstName(),
-                            r.getLastName(),
-                            r.getEmail(),
-                            r.getDateOfBirth()
+                    (u) -> new User(
+                            u.getUserName(),
+                            passwordEncoder.encode(u.getPassword()),
+                            u.getFirstName(),
+                            u.getLastName(),
+                            u.getEmail(),
+                            u.getDateOfBirth()
                     )
             ).get();
             userService.saveUser(user);

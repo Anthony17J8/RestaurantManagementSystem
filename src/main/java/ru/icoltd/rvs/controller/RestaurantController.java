@@ -23,7 +23,6 @@ import java.util.List;
 @RequestMapping("/restaurant")
 public class RestaurantController {
 
-
     private RestaurantService service;
 
     @Autowired

@@ -16,8 +16,6 @@ import javax.persistence.NoResultException;
 @Slf4j
 public class UserDAOImpl implements UserDAO {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UserDAOImpl.class);
-
     private SessionFactory sessionFactory;
 
     @Autowired
@@ -40,7 +38,7 @@ public class UserDAOImpl implements UserDAO {
         try {
             result = query.getSingleResult();
         } catch (NoResultException exc) {
-            LOGGER.warn("Entity 'User' is not found with username {}", username);
+            log.warn("Entity 'User' is not found with username {}", username);
         }
         return result;
     }

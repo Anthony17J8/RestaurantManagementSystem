@@ -1,4 +1,4 @@
-package ru.icoltd.user;
+package ru.icoltd.rvs.user;
 
 import ru.icoltd.rvs.validation.FieldMatch;
 
