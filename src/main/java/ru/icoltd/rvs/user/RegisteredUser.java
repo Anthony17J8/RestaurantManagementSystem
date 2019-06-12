@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.user;
 
 import ru.icoltd.rvs.validation.FieldMatch;
+import ru.icoltd.rvs.validation.UniqueUsername;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -21,9 +22,7 @@ public class RegisteredUser {
     @Size(min = 1)
     private String lastName;
 
-    // todo pattern
-    @NotNull
-    @Size(min = 1)
+    @UniqueUsername
     private String userName;
 
     @NotNull

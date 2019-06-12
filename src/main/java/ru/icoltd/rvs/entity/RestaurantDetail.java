@@ -1,7 +1,6 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -29,7 +28,6 @@ public class RestaurantDetail {
     @Column(name = "phone")
     private String phone;
 
-    @Email
     @NotNull
     @Column(name = "site")
     private String email;

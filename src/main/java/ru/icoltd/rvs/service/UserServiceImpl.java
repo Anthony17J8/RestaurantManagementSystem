@@ -10,9 +10,9 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.UserDAO;
 import ru.icoltd.rvs.entity.Role;
 import ru.icoltd.rvs.entity.User;
-import ru.icoltd.rvs.exception.ObjNotFoundException;
 
 import java.util.Collection;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -41,11 +41,10 @@ public class UserServiceImpl implements UserService {
     }
 
     private User findExistUser(String username) {
-        User user = dao.findUserByUserName(username);
-        if (user == null) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
-        }
-        return user;
+        return Optional.ofNullable(dao.findUserByUserName(username))
+                .orElseThrow(
+                        () -> new UsernameNotFoundException("User not found with username: " + username)
+                );
     }
 
     private Collection<? extends GrantedAuthority> collectToSimpleGrantedAuthority(Collection<Role> roles) {

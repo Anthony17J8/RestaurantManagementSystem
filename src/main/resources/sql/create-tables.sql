@@ -114,7 +114,8 @@ CREATE TABLE `users`
     `last_name`     varchar(50) NOT NULL,
     `email`         varchar(50) NOT NULL,
     `date_of_birth` DATE,
-    PRIMARY KEY (`id`)
+    PRIMARY KEY (`id`),
+    UNIQUE (username)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
