@@ -160,6 +160,17 @@ CREATE TABLE `user_roles`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = latin1;
 
+DROP TABLE IF EXISTS `persistent_logins`;
+CREATE TABLE `persistent_logins`
+(
+    `username` VARCHAR(64) NOT NULL,
+    `series`   VARCHAR(64) NOT NULL,
+    token      VARCHAR(64) NOT NULL,
+    last_used  TIMESTAMP   NOT NULL,
+    PRIMARY KEY (series)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = latin1;
+
 SET FOREIGN_KEY_CHECKS = 1;
 
 
