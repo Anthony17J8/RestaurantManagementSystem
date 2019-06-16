@@ -33,6 +33,10 @@
         <label for="password">Password:</label> <input type="password" name="password" id="password"/>
     </p>
 
+    <p>
+        <label for="remember-me">Remember me?:</label> <input type="checkbox" name="remember-me" id="remember-me">
+    </p>
+
     <input type="submit" value="Login"/>
 
 </form:form>
