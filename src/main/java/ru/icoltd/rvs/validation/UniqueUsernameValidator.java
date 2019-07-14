@@ -30,7 +30,7 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
         try {
             result = userService.findUserByUserName(userName);
         } catch (UsernameNotFoundException exc) {
-            log.info("Registration: username '{}' is not taken." + userName);
+            log.info("Registration: username '{}' is not taken.", userName);
         }
         return result == null;
     }

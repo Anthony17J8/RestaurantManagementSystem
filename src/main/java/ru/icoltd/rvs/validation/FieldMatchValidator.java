@@ -22,7 +22,6 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Regi
         try {
             Object first = new BeanWrapperImpl(value).getPropertyValue(password);
 
-
             Object second = new BeanWrapperImpl(value).getPropertyValue(matchingPassword);
 
             context.buildConstraintViolationWithTemplate(message)

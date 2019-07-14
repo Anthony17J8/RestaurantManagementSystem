@@ -62,4 +62,10 @@ public class UserServiceImpl implements UserService {
     public void saveUser(User user) {
         dao.saveUser(user);
     }
+
+    @Override
+    @Transactional
+    public User findUserByEmail(String email) {
+        return dao.findUserByEmail(email);
+    }
 }

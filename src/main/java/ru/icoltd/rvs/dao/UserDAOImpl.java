@@ -48,4 +48,18 @@ public class UserDAOImpl implements UserDAO {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.saveOrUpdate(user);
     }
+
+    @Override
+    public User findUserByEmail(String email) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<User> query = currentSession.createQuery("FROM User u where u.email =: email", User.class);
+        query.setParameter("email", email);
+        User result = null;
+        try {
+            result = query.getSingleResult();
+        } catch (NoResultException exc){
+            log.warn("Entity 'User' is not found with email {}", email);
+        }
+        return result;
+    }
 }

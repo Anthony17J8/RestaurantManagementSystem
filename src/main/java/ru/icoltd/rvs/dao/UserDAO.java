@@ -9,4 +9,6 @@ public interface UserDAO {
     User findUserByUserName(String username);
 
     void saveUser(User user);
+
+    User findUserByEmail(String email);
 }

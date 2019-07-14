@@ -93,7 +93,7 @@ public class RestaurantController {
     }
 
     // todo move to @ControllerAdvice class
-    @ExceptionHandler()
+    @ExceptionHandler
     public String handle(Model model, ObjNotFoundException exc){
         model.addAttribute("message", exc.getMessage());
         return "error-page";

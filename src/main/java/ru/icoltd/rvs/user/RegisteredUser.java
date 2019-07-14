@@ -2,8 +2,8 @@ package ru.icoltd.rvs.user;
 
 import ru.icoltd.rvs.validation.FieldMatch;
 import ru.icoltd.rvs.validation.UniqueUsername;
+import ru.icoltd.rvs.validation.ValidEmail;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
@@ -33,9 +33,7 @@ public class RegisteredUser {
     @Size(min = 1)
     private String matchingPassword;
 
-    @Email
-    @NotNull
-    @Size(min = 1)
+    @ValidEmail
     private String email;
 
     @NotNull
