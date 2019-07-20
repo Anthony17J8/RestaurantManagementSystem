@@ -16,6 +16,7 @@
         <springsecurity.version>5.1.1.RELEASE</springsecurity.version>
         <hibernate.version>5.3.6.Final</hibernate.version>
         <slf4j.version>1.7.26</slf4j.version>
+        <aspectj.version>1.9.4</aspectj.version>
 
         <maven.compiler.source>1.8</maven.compiler.source>
         <maven.compiler.target>1.8</maven.compiler.target>
@@ -56,6 +57,19 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-orm</artifactId>
             <version>${springframework.version}</version>
+        </dependency>
+
+        <!-- Spring AOP and AspectJ-->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-aop</artifactId>
+            <version>${springframework.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
         </dependency>
 
         <!-- Hibernate Core -->

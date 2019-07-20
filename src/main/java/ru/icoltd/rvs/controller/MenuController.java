@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.DateTimeUtils;
 import ru.icoltd.rvs.entity.*;
-import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.UserService;
@@ -133,11 +132,5 @@ public class MenuController {
 
     private double getTotalAmount(List<Dish> dishes) {
         return dishes.stream().mapToDouble(Dish::getPrice).sum();
-    }
-
-    @ExceptionHandler
-    public String handle(Model model, ObjNotFoundException exc) {
-        model.addAttribute("message", exc.getMessage());
-        return "error-page";
     }
 }

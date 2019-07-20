@@ -6,7 +6,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
-import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 
@@ -57,11 +56,5 @@ public class DishController {
         Dish dish = dishService.getDish(dishId);
         dishService.deleteDish(dish);
         return "redirect:/menu/update?menuId=" + dish.getMenu().getId();
-    }
-
-    @ExceptionHandler
-    public String handle(Model model, ObjNotFoundException exc) {
-        model.addAttribute("message", exc.getMessage());
-        return "error-page";
     }
 }

@@ -30,11 +30,6 @@ public class RestaurantController {
         this.service = service;
     }
 
-    @InitBinder
-    public void initDataBinder(WebDataBinder dataBinder) {
-        dataBinder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
-    }
-
     @GetMapping("/list")
     public String listRestaurants(Model model) {
         List<Restaurant> restaurants = service.getRestaurants();
@@ -90,12 +85,5 @@ public class RestaurantController {
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("detail", restaurant.getRestaurantDetail());
         return "restaurant-form";
-    }
-
-    // todo move to @ControllerAdvice class
-    @ExceptionHandler
-    public String handle(Model model, ObjNotFoundException exc){
-        model.addAttribute("message", exc.getMessage());
-        return "error-page";
     }
 }
