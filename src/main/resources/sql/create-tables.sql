@@ -52,7 +52,7 @@ CREATE TABLE `menus`
     `id`            int(11) NOT NULL AUTO_INCREMENT,
     `name`          varchar(45) DEFAULT NULL,
     `restaurant_id` int(11)     DEFAULT NULL,
-    `date`          datetime    DEFAULT NULL,
+    `date`          date        DEFAULT NULL,
     KEY `fk_restaurant_idx` (`restaurant_id`),
     CONSTRAINT `fk_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     PRIMARY KEY (`id`)
@@ -192,7 +192,7 @@ INSERT INTO `users` (username, password, first_name, last_name, email, date_of_b
 VALUES ('Anthony17', '{noop}123456', 'Anthony', 'Jenkinson', 'tony@gmail.com', '1993-05-18'),
        ('Jessy_pretty', '{noop}2222', 'Jessy', 'Morgan', 'jes@gmail.com', '1978-01-27'),
        ('ThomasBl', '{noop}3333', 'Thomas', 'Black', 'bl21@gmail.com', '2001-06-02'),
-       ('JackPat', '{noop}212256', 'Jack', 'Paterson', 'jack@gmail.com','1995-10-01'),
+       ('JackPat', '{noop}212256', 'Jack', 'Paterson', 'jack@gmail.com', '1995-10-01'),
        ('Lesszz', '{noop}001566', 'Lesley', 'Knight', 'les@gmail.com', '1988-12-22');
 
 

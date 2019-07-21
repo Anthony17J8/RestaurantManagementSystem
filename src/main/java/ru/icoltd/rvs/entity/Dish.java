@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "dishes")
@@ -11,6 +12,7 @@ public class Dish {
     @Column(name = "id")
     private Integer id;
 
+    @NotNull
     @Column(name = "description")
     private String description;
 

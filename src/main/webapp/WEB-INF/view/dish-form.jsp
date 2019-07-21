@@ -37,6 +37,7 @@
         <tr>
             <td>Description:</td>
             <td><form:input path="description"/></td>
+            <td><form:errors path="description"/></td>
         </tr>
 
         <tr>

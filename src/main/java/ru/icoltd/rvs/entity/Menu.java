@@ -4,6 +4,7 @@ import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class Menu {
     @Column(name = "id")
     private Integer id;
 
+    @NotNull
     @Column(name = "name")
     private String name;
 

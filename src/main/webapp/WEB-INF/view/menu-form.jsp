@@ -34,6 +34,7 @@
         <tr>
             <td>Name:</td>
             <td><form:input path="name"/></td>
+            <td><form:errors path="name"/></td>
         </tr>
 
         <tr>
