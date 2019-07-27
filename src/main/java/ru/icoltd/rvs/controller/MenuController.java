@@ -80,8 +80,8 @@ public class MenuController {
             saveOrUpdateVote(menu, now, principal);
         } else {
             model.addAttribute("restaurantId", restaurantId);
-            model.addAttribute("message",
-                    messageSource.getMessage("error.vote.date", new Object[]{menu.getName(), menu.getDate()}, null));
+            model.addAttribute("message", messageSource.getMessage("error.vote.date",
+                    new Object[]{menu.getName(), menu.getDate().toLocalDate()}, null));
             return "error-page";
         }
         return "redirect:/restaurant/menus?restId=" + restaurantId;
@@ -92,7 +92,6 @@ public class MenuController {
 
         Vote latestVote = voteService.getLatestVoteByUserId(existUser.getId());
 
-        // if it exist:
         if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
             latestVote.setMenu(menu);
             voteService.saveVote(latestVote);
