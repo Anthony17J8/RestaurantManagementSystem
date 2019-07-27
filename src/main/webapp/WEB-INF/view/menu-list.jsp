@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://icoltd.rvs.ru/functions" %>
 <html>
 
 <head>
@@ -42,7 +43,7 @@
                 <c:param name="menuId" value="${menu.id}"/>
             </c:url>
             <td><a href="${menuDetailsLink}">${menu.name}</a></td>
-            <td>${menu.date}</td>
+            <td>${fn:formatZonedDateTime(menu.date)}</td>
             <td>${menu.voteCount}</td>
 
             <sec:authorize access="hasRole('ADMIN')">

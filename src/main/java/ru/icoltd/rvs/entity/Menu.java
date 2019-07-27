@@ -5,7 +5,7 @@ import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 @Entity
@@ -22,7 +22,7 @@ public class Menu {
     private String name;
 
     @Column(name = "date")
-    private LocalDate date;
+    private ZonedDateTime date;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
@@ -41,7 +41,7 @@ public class Menu {
     public Menu() {
     }
 
-    public Menu(String name, LocalDate date, Restaurant restaurant) {
+    public Menu(String name, ZonedDateTime date, Restaurant restaurant) {
         this.name = name;
         this.date = date;
         this.restaurant = restaurant;
@@ -87,11 +87,11 @@ public class Menu {
         this.votes = votes;
     }
 
-    public LocalDate getDate() {
+    public ZonedDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(ZonedDateTime date) {
         this.date = date;
     }
 
