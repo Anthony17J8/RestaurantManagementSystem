@@ -43,6 +43,7 @@
         <tr>
             <td>Price:</td>
             <td><form:input path="price"/></td>
+            <td><form:errors path="price"/></td>
         </tr>
 
         <sec:authorize access="hasRole('ADMIN')">

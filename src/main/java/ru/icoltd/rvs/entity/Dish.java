@@ -2,6 +2,7 @@ package ru.icoltd.rvs.entity;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PositiveOrZero;
 
 @Entity
 @Table(name = "dishes")
@@ -16,6 +17,7 @@ public class Dish {
     @Column(name = "description")
     private String description;
 
+    @PositiveOrZero
     @Column(name = "price")
     private double price;
 
