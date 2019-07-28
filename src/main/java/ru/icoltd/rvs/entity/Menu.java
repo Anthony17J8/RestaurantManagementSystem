@@ -21,6 +21,7 @@ public class Menu {
     @Column(name = "name")
     private String name;
 
+    @NotNull
     @Column(name = "date")
     private ZonedDateTime date;
 

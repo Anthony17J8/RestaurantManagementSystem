@@ -1,5 +1,7 @@
 package ru.icoltd.rvs;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -23,7 +25,7 @@ public class DateTimeUtils {
     }
 
     public static String toString(ZonedDateTime date) {
-        return date.format(DateTimeFormatter.ISO_LOCAL_DATE);
+        return date != null ? date.format(DateTimeFormatter.ISO_LOCAL_DATE) : StringUtils.EMPTY;
     }
 
 }

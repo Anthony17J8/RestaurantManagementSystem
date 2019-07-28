@@ -40,6 +40,7 @@
         <tr>
             <td>Date:</td>
             <td><form:input type="date" path="date"/></td>
+            <td><form:errors path="date"/></td>
         </tr>
 
         <c:if test="${menu.id != null}">
