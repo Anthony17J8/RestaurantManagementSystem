@@ -52,7 +52,7 @@ CREATE TABLE `menus`
     `id`            int(11) NOT NULL AUTO_INCREMENT,
     `name`          varchar(45) DEFAULT NULL,
     `restaurant_id` int(11)     DEFAULT NULL,
-    `date`          date        DEFAULT NULL,
+    `date`          timestamp        DEFAULT NULL,
     KEY `fk_restaurant_idx` (`restaurant_id`),
     CONSTRAINT `fk_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
     PRIMARY KEY (`id`)

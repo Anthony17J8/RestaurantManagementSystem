@@ -7,7 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.context.request.WebRequest;
 import ru.icoltd.rvs.DateTimeUtils;
 import ru.icoltd.rvs.entity.*;
 import ru.icoltd.rvs.service.MenuService;
@@ -18,13 +18,13 @@ import ru.icoltd.rvs.service.VoteService;
 import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Controller
 @RequestMapping("/menu")
 @Slf4j
-@SessionAttributes(value = {"menu", "restaurantId"})
 public class MenuController {
 
     private MenuService menuService;
@@ -112,15 +112,16 @@ public class MenuController {
     @PostMapping("/save")
     public String saveMenu(@RequestParam("restId") int restaurantId,
                            @Valid @ModelAttribute("menu") Menu menu,
-                           BindingResult bindingResult, SessionStatus sessionStatus) {
+                           BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
+            model.addAttribute("restaurantId", restaurantId);
+            model.addAttribute("menu", menu);
             log.error("Save menu error {}", bindingResult);
             return "menu-form";
         }
         Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         menu.setRestaurant(restaurant);
         menuService.saveMenu(menu);
-        sessionStatus.setComplete();
         return "redirect:/restaurant/menus?restId=" + restaurant.getId();
     }
 
@@ -139,6 +140,19 @@ public class MenuController {
         model.addAttribute("totalAmount", getTotalAmount(new ArrayList<>(menu.getDishes())));
         model.addAttribute("restaurantId", menu.getRestaurant().getId());
         return "menu-form";
+    }
+
+    @PostMapping("/filter")
+    public String filterMenus(WebRequest request, Model model) {
+        ZonedDateTime startDate = DateTimeUtils.parseZoneDateTime(request.getParameter("startDate"));
+        ZonedDateTime endDate = DateTimeUtils.parseZoneDateTime(request.getParameter("endDate"));
+        List<Menu> menus = getBetween(startDate, endDate);
+        model.addAttribute("menus", menus);
+        return "filter-menus";
+    }
+
+    private List<Menu> getBetween(ZonedDateTime startDate, ZonedDateTime endDate) {
+        return menuService.getBetweenDates(startDate, endDate);
     }
 
     private double getTotalAmount(List<Dish> dishes) {

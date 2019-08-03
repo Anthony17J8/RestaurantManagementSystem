@@ -28,4 +28,10 @@ public class DateTimeUtils {
         return date != null ? date.format(DateTimeFormatter.ISO_LOCAL_DATE) : StringUtils.EMPTY;
     }
 
+    public static ZonedDateTime parseZoneDateTime(String sDate) {
+        return !StringUtils.isEmpty(sDate) ?
+                ZonedDateTime.of(
+                        LocalDate.parse(sDate, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIN, ZoneId.of("UTC")
+                ) : null;
+    }
 }

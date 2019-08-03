@@ -162,7 +162,7 @@
     </dependencies>
 
     <build>
-        <finalName>spring-security-demo</finalName>
+        <finalName>restaurant-management-system</finalName>
         <pluginManagement>
             <plugins>
                 <plugin>

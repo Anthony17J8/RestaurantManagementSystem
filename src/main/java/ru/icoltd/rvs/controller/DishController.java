@@ -16,7 +16,6 @@ import javax.validation.Valid;
 
 @Controller
 @RequestMapping("/dish")
-@SessionAttributes(value = {"dish", "menuId"})
 @Slf4j
 public class DishController {
 
@@ -45,9 +44,11 @@ public class DishController {
 
     @PostMapping("/save")
     public String saveDish(@Valid @ModelAttribute("dish") Dish dish, BindingResult bindingResult,
-                           @RequestParam("menuId") int menuId, SessionStatus sessionStatus) {
-        if(bindingResult.hasErrors()){
+                           @RequestParam("menuId") int menuId, Model model) {
+        if (bindingResult.hasErrors()) {
           log.error("Dish save error: {}", bindingResult);
+          model.addAttribute("menuId", menuId);
+          model.addAttribute("dish", dish);
           return "dish-form";
         }
         dish.setMenu(menuService.getMenu(menuId));

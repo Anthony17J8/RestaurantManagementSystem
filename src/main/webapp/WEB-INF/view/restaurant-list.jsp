@@ -86,6 +86,18 @@
     <input type="submit" value="Logout">
 </form:form>
 
+<hr>
+<h4>Search menus</h4>
+<form:form method="post" action="${pageContext.request.contextPath}/menu/filter">
+    <dl>
+        <dd><input type="date" name="startDate" value="${param.startDate}"/></dd>
+    </dl>
+    <dl>
+        <dd><input type="date" name="endDate" value="${param.endDate}"/></dd>
+    </dl>
+    <button type="submit">Search</button>
+</form:form>
+
 </body>
 
 </html>

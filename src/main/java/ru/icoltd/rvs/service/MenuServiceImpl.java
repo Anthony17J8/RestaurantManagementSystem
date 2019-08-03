@@ -7,6 +7,8 @@ import ru.icoltd.rvs.dao.MenuDAO;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 
+import java.time.ZonedDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +40,11 @@ public class MenuServiceImpl implements MenuService {
     @Transactional
     public void deleteMenu(Menu menu) {
         dao.deleteMenu(menu);
+    }
+
+    @Override
+    @Transactional
+    public List<Menu> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+        return dao.getBetweenDates(startDate, endDate);
     }
 }

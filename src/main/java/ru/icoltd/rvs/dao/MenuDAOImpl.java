@@ -11,6 +11,9 @@ import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Menu;
 
 import javax.persistence.NoResultException;
+import javax.persistence.TemporalType;
+import java.time.ZonedDateTime;
+import java.util.List;
 
 
 @Repository
@@ -52,5 +55,16 @@ public class MenuDAOImpl implements MenuDAO {
     public void deleteMenu(Menu menu) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.delete(menu);
+    }
+
+    @Override
+    public List<Menu> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Menu> query = currentSession.createQuery("" +
+                "from Menu m " +
+                "where m.date between :startDate and :endDate", Menu.class);
+        query.setParameter("endDate", endDate, TemporalType.DATE);
+        query.setParameter("startDate", startDate, TemporalType.DATE);
+        return query.getResultList();
     }
 }
