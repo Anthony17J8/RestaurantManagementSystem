@@ -1,3 +1,4 @@
+[![Build Status](https://dev.azure.com/j8kiselev/j8kiselev/_apis/build/status/Anthony17J8.RestaurantManagementSystem?branchName=master)](https://dev.azure.com/j8kiselev/j8kiselev/_build/latest?definitionId=1&branchName=master)
 <p>Design and implement API using Hibernate/Spring/SpringMVC (or Spring-Boot) </p>
 <p>The task is:</p>
 <p>Build a voting system for deciding where to have lunch.</p>
