@@ -10,10 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import ru.icoltd.rvs.DateTimeUtils;
 import ru.icoltd.rvs.entity.*;
-import ru.icoltd.rvs.service.MenuService;
-import ru.icoltd.rvs.service.RestaurantService;
-import ru.icoltd.rvs.service.UserService;
-import ru.icoltd.rvs.service.VoteService;
+import ru.icoltd.rvs.service.*;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -36,6 +33,8 @@ public class MenuController {
     private UserService userService;
 
     private MessageSource messageSource;
+
+    private DishService dishService;
 
     @Autowired
     public void setMessageSource(MessageSource messageSource) {
@@ -60,6 +59,11 @@ public class MenuController {
     @Autowired
     public void setRestaurantService(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
+    }
+
+    @Autowired
+    public void setDishService(DishService dishService) {
+        this.dishService = dishService;
     }
 
     @GetMapping("/showDetails")
@@ -115,7 +119,7 @@ public class MenuController {
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("restaurantId", restaurantId);
-            model.addAttribute("menu", menu);
+            model.addAttribute("menu", fillWithDishes(menu));
             log.error("Save menu error {}", bindingResult);
             return "menu-form";
         }
@@ -123,6 +127,11 @@ public class MenuController {
         menu.setRestaurant(restaurant);
         menuService.saveMenu(menu);
         return "redirect:/restaurant/menus?restId=" + restaurant.getId();
+    }
+
+    private Menu fillWithDishes(Menu menu) {
+        menu.setDishes(dishService.getDishListByMenuId(menu.getId()));
+        return menu;
     }
 
     @GetMapping("/delete")
@@ -144,8 +153,8 @@ public class MenuController {
 
     @PostMapping("/filter")
     public String filterMenus(WebRequest request, Model model) {
-        ZonedDateTime startDate = DateTimeUtils.parseZoneDateTime(request.getParameter("startDate"));
-        ZonedDateTime endDate = DateTimeUtils.parseZoneDateTime(request.getParameter("endDate"));
+        ZonedDateTime startDate = DateTimeUtils.parseStartZoneDateTime(request.getParameter("startDate"));
+        ZonedDateTime endDate = DateTimeUtils.parseEndZoneDateTime(request.getParameter("endDate"));
         List<Menu> menus = getBetween(startDate, endDate);
         model.addAttribute("menus", menus);
         return "filter-menus";

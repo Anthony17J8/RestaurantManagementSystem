@@ -87,7 +87,7 @@
 </form:form>
 
 <hr>
-<h4>Search menus</h4>
+<h4>Filter menus</h4>
 <form:form method="post" action="${pageContext.request.contextPath}/menu/filter">
     <dl>
         <dd><input type="date" name="startDate" value="${param.startDate}"/></dd>

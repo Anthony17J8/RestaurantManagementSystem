@@ -2,9 +2,12 @@ package ru.icoltd.rvs.dao;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Dish;
+
+import java.util.List;
 
 @Repository
 public class DishDAOImpl implements DishDAO {
@@ -32,5 +35,13 @@ public class DishDAOImpl implements DishDAO {
     public void deleteDish(Dish dish) {
         Session currentSession = sessionFactory.getCurrentSession();
         currentSession.delete(dish);
+    }
+
+    @Override
+    public List<Dish> getDishListByMenuId(int menuId) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Dish> query = currentSession.createQuery("from Dish d where d.menu.id=:menuId", Dish.class);
+        query.setParameter("menuId", menuId);
+        return query.getResultList();
     }
 }

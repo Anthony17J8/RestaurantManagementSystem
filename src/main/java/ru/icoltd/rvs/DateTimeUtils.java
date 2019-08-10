@@ -9,6 +9,13 @@ public class DateTimeUtils {
 
     private final static LocalTime TIME_BOUND = LocalTime.of(11, 0);
 
+    public final static ZoneId ZONE_ID_UTC = ZoneId.of("UTC");
+
+    // DataBase doesn't support LocalDate.MIN/MAX
+    public static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
+
+    public static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
+
     private DateTimeUtils() {
     }
 
@@ -28,10 +35,18 @@ public class DateTimeUtils {
         return date != null ? date.format(DateTimeFormatter.ISO_LOCAL_DATE) : StringUtils.EMPTY;
     }
 
-    public static ZonedDateTime parseZoneDateTime(String sDate) {
+    public static ZonedDateTime parseStartZoneDateTime(String startDate) {
+        return parseZoneDateTime(startDate, LocalTime.MIN);
+    }
+
+    public static ZonedDateTime parseEndZoneDateTime(String endDate) {
+        return parseZoneDateTime(endDate, LocalTime.MAX);
+    }
+
+    private static ZonedDateTime parseZoneDateTime(String sDate, LocalTime localTime) {
         return !StringUtils.isEmpty(sDate) ?
                 ZonedDateTime.of(
-                        LocalDate.parse(sDate, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.MIN, ZoneId.of("UTC")
+                        LocalDate.parse(sDate, DateTimeFormatter.ISO_LOCAL_DATE), localTime, ZONE_ID_UTC
                 ) : null;
     }
 }

@@ -4,8 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Menu;
@@ -60,7 +58,7 @@ public class MenuDAOImpl implements MenuDAO {
     @Override
     public List<Menu> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<Menu> query = currentSession.createQuery("" +
+        Query<Menu> query = currentSession.createQuery(
                 "from Menu m " +
                 "where m.date between :startDate and :endDate", Menu.class);
         query.setParameter("endDate", endDate, TemporalType.DATE);

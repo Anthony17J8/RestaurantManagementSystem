@@ -3,11 +3,12 @@ package ru.icoltd.rvs.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.icoltd.rvs.DateTimeUtils;
 import ru.icoltd.rvs.dao.MenuDAO;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 
-import java.time.ZonedDateTime;
+import java.time.*;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,9 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional
     public List<Menu> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
-        return dao.getBetweenDates(startDate, endDate);
+        return dao.getBetweenDates(
+                Optional.ofNullable(startDate).orElse(ZonedDateTime.of(DateTimeUtils.MIN_DATE, LocalTime.MIN, DateTimeUtils.ZONE_ID_UTC)),
+                Optional.ofNullable(endDate).orElse(ZonedDateTime.of(DateTimeUtils.MAX_DATE, LocalTime.MAX, DateTimeUtils.ZONE_ID_UTC))
+        );
     }
 }

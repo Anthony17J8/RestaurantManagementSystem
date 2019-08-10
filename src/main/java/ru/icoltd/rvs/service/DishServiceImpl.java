@@ -7,6 +7,7 @@ import ru.icoltd.rvs.dao.DishDAO;
 import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -38,5 +39,11 @@ public class DishServiceImpl implements DishService {
     @Transactional
     public void deleteDish(Dish dish) {
         dao.deleteDish(dish);
+    }
+
+    @Override
+    @Transactional
+    public List<Dish> getDishListByMenuId(int menuId) {
+        return dao.getDishListByMenuId(menuId);
     }
 }
