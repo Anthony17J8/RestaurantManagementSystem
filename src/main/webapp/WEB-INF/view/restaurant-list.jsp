@@ -45,7 +45,7 @@
                 <td>${restaurant.name}</td>
                 <td>    ${detail.country}<br>
                         ${detail.city}<br>
-                        ${detail.email}<br>
+                        ${detail.site}<br>
                         ${detail.phone}<br>
                         ${detail.street}
                 </td>

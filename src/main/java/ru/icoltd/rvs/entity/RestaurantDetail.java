@@ -35,17 +35,17 @@ public class RestaurantDetail {
     @NotNull
     @Column(name = "site")
     @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
-    private String email;
+    private String site;
 
     public RestaurantDetail() {
     }
 
-    public RestaurantDetail(String country, String city, String street, String phone, String email) {
+    public RestaurantDetail(String country, String city, String street, String phone, String site) {
         this.country = country;
         this.city = city;
         this.street = street;
         this.phone = phone;
-        this.email = email;
+        this.site = site;
     }
 
     public Integer getDetailId() {
@@ -88,12 +88,12 @@ public class RestaurantDetail {
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
+    public String getSite() {
+        return site;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public void setSite(String email) {
+        this.site = email;
     }
 
     @Override
@@ -104,7 +104,7 @@ public class RestaurantDetail {
                 ", city='" + city + '\'' +
                 ", street='" + street + '\'' +
                 ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
+                ", email='" + site + '\'' +
                 '}';
     }
 }

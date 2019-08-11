@@ -59,8 +59,8 @@
             </tr>
 
             <td>Email (*):</td>
-            <td><form:input path="email"/></td>
-            <td><form:errors path="email"/></td>
+            <td><form:input path="site"/></td>
+            <td><form:errors path="site"/></td>
 
         </form:form>
         <tr>
