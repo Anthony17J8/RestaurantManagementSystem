@@ -53,7 +53,7 @@
                     <c:url var="menuList" value="/restaurant/menus">
                         <c:param name="restId" value="${restaurant.id}"/>
                     </c:url>
-                    <a href="${menuList}">Show menu</a>
+                    <a href="${menuList}">View menus</a>
                 </td>
 
                 <sec:authorize access="hasRole('ADMIN')">
@@ -80,24 +80,7 @@
         </c:forEach>
     </form:form>
 </table>
-
-<br>
-<form:form method="post" action="${pageContext.request.contextPath}/logout">
-    <input type="submit" value="Logout">
-</form:form>
-
-<hr>
-<h4>Filter menus</h4>
-<form:form method="post" action="${pageContext.request.contextPath}/menu/filter">
-    <dl>
-        <dd><input type="date" name="startDate" value="${param.startDate}"/></dd>
-    </dl>
-    <dl>
-        <dd><input type="date" name="endDate" value="${param.endDate}"/></dd>
-    </dl>
-    <button type="submit">Search</button>
-</form:form>
-
 </body>
 
+<jsp:include page="footer.jsp"/>
 </html>

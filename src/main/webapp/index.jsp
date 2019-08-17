@@ -1,2 +1,2 @@
 <meta http-equiv="refresh"
-      content="0; URL='restaurant/list'">
+      content="0; URL='menu/toplist'">

@@ -60,7 +60,7 @@ public class MenuDAOImpl implements MenuDAO {
         Session currentSession = sessionFactory.getCurrentSession();
         Query<Menu> query = currentSession.createQuery(
                 "from Menu m " +
-                "where m.date between :startDate and :endDate", Menu.class);
+                "where m.date between :startDate and :endDate order by m.votes.size desc, m.date desc", Menu.class);
         query.setParameter("endDate", endDate, TemporalType.DATE);
         query.setParameter("startDate", startDate, TemporalType.DATE);
         return query.getResultList();

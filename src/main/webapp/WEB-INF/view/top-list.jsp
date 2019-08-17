@@ -11,10 +11,19 @@
 
 <body>
 
-<h3>Menus Filter</h3>
+<h3>Top Menu List</h3>
 <hr>
 
-<br><br>
+<form:form method="get" action="${pageContext.request.contextPath}/menu/toplist">
+    <dl>
+        <dd><input type="date" name="startDate" value="${param.startDate}"/></dd>
+    </dl>
+    <dl>
+        <dd><input type="date" name="endDate" value="${param.endDate}"/></dd>
+    </dl>
+    <button type="submit">Search</button>
+</form:form>
+<br/>
 
 <table border="1" cellpadding="20">
     <thead>
@@ -39,10 +48,15 @@
         </tr>
         </tbody>
     </c:forEach>
-
 </table>
-<br><br>
-<a href="${pageContext.request.contextPath}/restaurant/list">Back to Restaurant list</a>
+<br/>
+<a href="${pageContext.request.contextPath}/restaurant/list">Restaurant List</a>
+<br/><br/>
+
+<form:form method="post" action="${pageContext.request.contextPath}/logout">
+    <input type="submit" value="Logout">
+</form:form>
+
 </body>
 
 </html>

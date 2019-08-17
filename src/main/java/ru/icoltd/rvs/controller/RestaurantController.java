@@ -43,7 +43,6 @@ public class RestaurantController {
         model.addAttribute("restaurant", restaurant);
         List<Menu> menus = restaurant.getMenus();
         model.addAttribute("menus", menus);
-        model.addAttribute("restId", restaurantId);
         return "menu-list";
     }
 

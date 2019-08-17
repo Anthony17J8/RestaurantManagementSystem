@@ -11,15 +11,15 @@
 
 <body>
 
-<h3>Menus</h3>
+<h3>${restaurant.name}. <br>Menus</h3>
 <hr>
 
 <sec:authorize access="hasRole('ADMIN')">
 
-<c:url value="/menu/showFormForAdd" var="formForAdd">
-    <c:param name="restId" value="${restId}"/>
-</c:url>
-<a href="${formForAdd}">Add menu</a>
+    <c:url value="/menu/showFormForAdd" var="formForAdd">
+        <c:param name="restId" value="${restaurant.id}"/>
+    </c:url>
+    <a href="${formForAdd}">Add menu</a>
 
 </sec:authorize>
 <br><br>
@@ -66,8 +66,9 @@
     </c:forEach>
 
 </table>
-<br><br>
-<a href="${pageContext.request.contextPath}/restaurant/list">Back to Restaurant list</a>
+<br/>
+<a href="${pageContext.request.contextPath}/restaurant/list">View all restaurants</a>
 </body>
 
+<jsp:include page="footer.jsp"/>
 </html>

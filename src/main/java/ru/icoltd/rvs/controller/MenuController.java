@@ -70,7 +70,7 @@ public class MenuController {
     public String showMenuDetails(Model model, @RequestParam("menuId") int menuId) {
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
-        model.addAttribute("restaurantId", menu.getRestaurant().getId());
+        model.addAttribute("restaurant", menu.getRestaurant());
         return "menu-details";
     }
 
@@ -151,13 +151,13 @@ public class MenuController {
         return "menu-form";
     }
 
-    @PostMapping("/filter")
+    @GetMapping("/toplist")
     public String filterMenus(WebRequest request, Model model) {
         ZonedDateTime startDate = DateTimeUtils.parseStartZoneDateTime(request.getParameter("startDate"));
         ZonedDateTime endDate = DateTimeUtils.parseEndZoneDateTime(request.getParameter("endDate"));
         List<Menu> menus = getBetween(startDate, endDate);
         model.addAttribute("menus", menus);
-        return "filter-menus";
+        return "top-list";
     }
 
     private List<Menu> getBetween(ZonedDateTime startDate, ZonedDateTime endDate) {

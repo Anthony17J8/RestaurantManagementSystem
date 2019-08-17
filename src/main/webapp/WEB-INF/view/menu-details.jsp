@@ -9,15 +9,15 @@
 
 <body>
 
-<h3>Menu Details</h3>
+<h3>${restaurant.name}. <br>Menu Details</h3>
 <hr>
 
 ${menu.name}
 <br>
 <c:forEach var="dish" items="${menu.dishes}">
-    <li>
-            ${dish.description}
-    </li>
+    <ul>
+        <li> ${dish.description}</li>
+    </ul>
 </c:forEach>
 
 <c:url value="/menu/addVote" var="voteLink">
@@ -27,13 +27,14 @@ ${menu.name}
 <form:form method="post" action="${voteLink}">
     <input type="submit" value="Vote">
 </form:form>
-<br><br>
+<br/>
 
 <c:url value="/restaurant/menus" var="redirectLink">
-    <c:param name="restId" value="${restaurantId}"/>
+    <c:param name="restId" value="${restaurant.id}"/>
 </c:url>
 
-<a href="${redirectLink}">Back to Menu list</a>
-
+<a href="${redirectLink}">View menu list of restaurant</a>
 </body>
+
+<jsp:include page="footer.jsp"/>
 </html>

@@ -19,7 +19,7 @@
         <c:url value="/restaurant/menus" var="redirectLink">
             <c:param name="restId" value="${restaurantId}"/>
         </c:url>
-        <a href="${redirectLink}">Back to Menu details</a>
+        <a href="${redirectLink}">Back to Menu list</a>
     </c:otherwise>
 </c:choose>
 
