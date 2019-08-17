@@ -4,7 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" type="text/css" href="${fn:escapeXml(pageContext.request.contextPath)}/resources/css/style.css">
     <title>Custom Login Page</title>
 </head>
 <body>

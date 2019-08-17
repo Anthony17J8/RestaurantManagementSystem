@@ -4,158 +4,158 @@ USE hb_restaurants;
 SET FOREIGN_KEY_CHECKS = 0;
 
 --
--- Table structure for `restaurant`
+-- Table structure for restaurant
 --
 
 DROP TABLE IF EXISTS restaurants;
 
 CREATE TABLE restaurants
 (
-    `id`                   int(11) NOT NULL AUTO_INCREMENT,
-    `name`                 varchar(128) DEFAULT NULL,
-    `restaurant_detail_id` int(11)      DEFAULT NULL,
-    primary key (`id`),
-    UNIQUE KEY `name_unique` (`name`),
-    KEY `fk_address_idx` (restaurant_detail_id),
-    CONSTRAINT `fk_address` FOREIGN KEY (restaurant_detail_id) REFERENCES `restaurant_details` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION
+    id                   int(11) NOT NULL AUTO_INCREMENT,
+    name                 varchar(128) DEFAULT NULL,
+    restaurant_detail_id int(11)      DEFAULT NULL,
+    primary key (id),
+    UNIQUE KEY name_unique (name),
+    KEY fk_address_idx (restaurant_detail_id),
+    CONSTRAINT fk_address FOREIGN KEY (restaurant_detail_id) REFERENCES restaurant_details (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for `restaurant_detail`
+-- Table structure for restaurant_detail
 --
 
 DROP TABLE IF EXISTS restaurant_details;
 
 CREATE TABLE restaurant_details
 (
-    `id`      int(11) NOT NULL AUTO_INCREMENT,
-    `city`    varchar(128) DEFAULT NULL,
-    `country` varchar(128) DEFAULT NULL,
-    `street`  varchar(128) DEFAULT NULL,
-    `phone`   varchar(128) DEFAULT NULL,
-    `site`    varchar(45)  DEFAULT NULL,
-    PRIMARY KEY (`id`)
+    id      int(11) NOT NULL AUTO_INCREMENT,
+    city    varchar(128) DEFAULT NULL,
+    country varchar(128) DEFAULT NULL,
+    street  varchar(128) DEFAULT NULL,
+    phone   varchar(128) DEFAULT NULL,
+    site    varchar(45)  DEFAULT NULL,
+    PRIMARY KEY (id)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for `menu`
+-- Table structure for menu
 -- 
 
 DROP TABLE IF EXISTS menus;
 
 CREATE TABLE menus
 (
-    `id`            int(11) NOT NULL AUTO_INCREMENT,
-    `name`          varchar(45) DEFAULT NULL,
-    `restaurant_id` int(11)     DEFAULT NULL,
-    `date`          datetime    DEFAULT NULL,
-    KEY `fk_restaurant_idx` (`restaurant_id`),
-    CONSTRAINT `fk_restaurant_id` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    PRIMARY KEY (`id`)
+    id            int(11) NOT NULL AUTO_INCREMENT,
+    name          varchar(45) DEFAULT NULL,
+    restaurant_id int(11)     DEFAULT NULL,
+    date          datetime    DEFAULT NULL,
+    KEY fk_restaurant_idx (restaurant_id),
+    CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    PRIMARY KEY (id)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for `dish`
+-- Table structure for dish
 --
 
 DROP TABLE IF EXISTS dishes;
 
 CREATE TABLE dishes
 (
-    `id`          int(11) NOT NULL AUTO_INCREMENT,
-    `description` varchar(255)   DEFAULT NULL,
-    `price`       decimal(15, 2) DEFAULT NULL,
-    `menu_id`     int(11)        DEFAULT NULL,
-    KEY `fk_menu_idx` (`menu_id`),
-    CONSTRAINT `fk_menu_id` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    PRIMARY KEY (`id`)
+    id          int(11) NOT NULL AUTO_INCREMENT,
+    description varchar(255)   DEFAULT NULL,
+    price       decimal(15, 2) DEFAULT NULL,
+    menu_id     int(11)        DEFAULT NULL,
+    KEY fk_menu_idx (menu_id),
+    CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    PRIMARY KEY (id)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for `vote`
+-- Table structure for vote
 --
 
 DROP TABLE IF EXISTS votes;
 
 CREATE TABLE votes
 (
-    `id`      int(11) NOT NULL AUTO_INCREMENT,
-    `user_id` int(11)  DEFAULT NULL,
-    `menu_id` int(11)  DEFAULT NULL,
-    `date`    datetime DEFAULT NULL,
-    PRIMARY KEY (`id`),
-    CONSTRAINT `fk_menu` FOREIGN KEY (`menu_id`) REFERENCES `menus` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    KEY `fk_user_idx` (`user_id`)
+    id      int(11) NOT NULL AUTO_INCREMENT,
+    user_id int(11)  DEFAULT NULL,
+    menu_id int(11)  DEFAULT NULL,
+    date    datetime DEFAULT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    KEY fk_user_idx (user_id)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for `user`
+-- Table structure for user
 --
 
 DROP TABLE IF EXISTS users;
 
 CREATE TABLE users
 (
-    `id`            int(11)     NOT NULL AUTO_INCREMENT,
-    `username`      varchar(50) NOT NULL,
-    `password`      char(80)    NOT NULL,
-    `first_name`    varchar(50) NOT NULL,
-    `last_name`     varchar(50) NOT NULL,
-    `email`         varchar(50) NOT NULL,
-    `date_of_birth` DATE,
-    PRIMARY KEY (`id`),
+    id            int(11)     NOT NULL AUTO_INCREMENT,
+    username      varchar(50) NOT NULL,
+    password      char(80)    NOT NULL,
+    first_name    varchar(50) NOT NULL,
+    last_name     varchar(50) NOT NULL,
+    email         varchar(50) NOT NULL,
+    date_of_birth DATE,
+    PRIMARY KEY (id),
     UNIQUE (username)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for `role`
+-- Table structure for role
 --
 
 DROP TABLE IF EXISTS roles;
 
 CREATE TABLE roles
 (
-    `id`   int(11) NOT NULL AUTO_INCREMENT,
-    `name` varchar(50) DEFAULT NULL,
-    PRIMARY KEY (`id`)
+    id   int(11) NOT NULL AUTO_INCREMENT,
+    name varchar(50) DEFAULT NULL,
+    PRIMARY KEY (id)
 ) ENGINE = InnoDB
   AUTO_INCREMENT = 1
   DEFAULT CHARSET = latin1;
 
 --
--- Table structure for table `users_roles`
+-- Table structure for table users_roles
 --
 
 DROP TABLE IF EXISTS user_roles;
 
 CREATE TABLE user_roles
 (
-    `user_id` int(11) NOT NULL,
-    `role_id` int(11) NOT NULL,
+    user_id int(11) NOT NULL,
+    role_id int(11) NOT NULL,
 
-    PRIMARY KEY (`user_id`, `role_id`),
+    PRIMARY KEY (user_id, role_id),
 
-    KEY `FK_ROLE_idx` (`role_id`),
+    KEY FK_ROLE_idx (role_id),
 
-    CONSTRAINT `fk_user` FOREIGN KEY (`user_id`)
-        REFERENCES `users` (`id`)
+    CONSTRAINT fk_user FOREIGN KEY (user_id)
+        REFERENCES users (id)
         ON DELETE NO ACTION ON UPDATE NO ACTION,
 
-    CONSTRAINT `fk_role` FOREIGN KEY (`role_id`)
-        REFERENCES `roles` (`id`)
+    CONSTRAINT fk_role FOREIGN KEY (role_id)
+        REFERENCES roles (id)
         ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE = InnoDB
   DEFAULT CHARSET = latin1;
@@ -163,8 +163,8 @@ CREATE TABLE user_roles
 DROP TABLE IF EXISTS persistent_logins;
 CREATE TABLE persistent_logins
 (
-    `username` VARCHAR(64) NOT NULL,
-    `series`   VARCHAR(64) NOT NULL,
+    username VARCHAR(64) NOT NULL,
+    series   VARCHAR(64) NOT NULL,
     token      VARCHAR(64) NOT NULL,
     last_used  TIMESTAMP   NOT NULL,
     PRIMARY KEY (series)
@@ -177,7 +177,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- TODO: FILL DATA WITH NODE JS (FAKER LIBRARY)
 
 --
--- Data for table `role`
+-- Data for table role
 --
 
 INSERT INTO roles(name)
@@ -185,7 +185,7 @@ VALUES ('ROLE_ADMIN'),
        ('ROLE_USER');
 
 --
--- Data for table `user`
+-- Data for table user
 --
 
 INSERT INTO users (username, password, first_name, last_name, email, date_of_birth)
@@ -197,7 +197,7 @@ VALUES ('Anthony17', '{noop}123456', 'Anthony', 'Jenkinson', 'tony@gmail.com', '
 
 
 --
--- Data for table `users_roles`
+-- Data for table users_roles
 --
 
 INSERT INTO user_roles
@@ -208,7 +208,7 @@ VALUES (1, 1),
        (5, 2);
 
 --
--- Data for table `restaurant_detail`
+-- Data for table restaurant_detail
 --
 
 INSERT INTO restaurant_details(city, country, street, phone, site)
@@ -217,7 +217,7 @@ VALUES ('Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it')
        ('Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
 
 --
--- Data for table `restaurant`
+-- Data for table restaurant
 --
 
 INSERT INTO restaurants(name, restaurant_detail_id)
@@ -226,7 +226,7 @@ VALUES ('Osteria Francescana', 1),
        ('Mirazur', 3);
 
 --
--- Data for table `menu`
+-- Data for table menu
 --
 
 INSERT INTO menus(name, restaurant_id, date)
@@ -236,7 +236,7 @@ VALUES ('Course', 1, '2019-02-15'),
        ('Course', 3, '2019-02-13');
 
 --
--- Data for table `vote`
+-- Data for table vote
 --
 
 INSERT INTO votes(user_id, menu_id, date)
@@ -247,7 +247,7 @@ VALUES (1, 1, '2019-01-10'),
        (5, 4, '2019-01-10');
 
 --
--- Data for table `dish`
+-- Data for table dish
 --
 
 INSERT INTO dishes(description, price, menu_id)
