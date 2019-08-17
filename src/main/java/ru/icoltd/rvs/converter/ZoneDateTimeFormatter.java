@@ -2,12 +2,11 @@ package ru.icoltd.rvs.converter;
 
 import org.springframework.format.Formatter;
 
-import java.text.ParseException;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 
-public class LocalDateFormatter implements Formatter<ZonedDateTime> {
+public class ZoneDateTimeFormatter implements Formatter<ZonedDateTime> {
 
     @Override
     public ZonedDateTime parse(String text, Locale locale) {

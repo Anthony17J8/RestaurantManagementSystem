@@ -2,7 +2,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://icoltd.rvs.ru/functions" %>
+<%@ taglib prefix="fnc" uri="http://icoltd.rvs.ru/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 
 <head>
@@ -16,10 +17,10 @@
 
 <form:form method="get" action="${pageContext.request.contextPath}/menu/toplist">
     <dl>
-        <dd><input type="date" name="startDate" value="${param.startDate}"/></dd>
+        <dd><input type="date" name="startDate" value="${fn:escapeXml(param.startDate)}"/></dd>
     </dl>
     <dl>
-        <dd><input type="date" name="endDate" value="${param.endDate}"/></dd>
+        <dd><input type="date" name="endDate" value="${fn:escapeXml(param.endDate)}"/></dd>
     </dl>
     <button type="submit">Search</button>
 </form:form>
@@ -35,22 +36,29 @@
     </tr>
     </thead>
     <c:forEach var="menu" items="${menus}">
+
+        <c:url value="/menu/showDetails" var="viewMenu">
+            <c:param name="menuId" value="${menu.id}"/>
+        </c:url>
+
+        <c:url value="/restaurant/menus" var="viewRestaurant">
+            <c:param name="restId" value="${menu.restaurant.id}"/>
+        </c:url>
+
         <tbody>
         <tr>
-            <td>${menu.restaurant.name}</td>
-            <c:url value="/menu/showDetails" var="menuDetailsLink">
-                <c:param name="menuId" value="${menu.id}"/>
-            </c:url>
-            <td><a href="${menuDetailsLink}">${menu.name}</a></td>
-            <td>${fn:formatZonedDateTime(menu.date)}</td>
-            <td>${menu.voteCount}</td>
+            <td><a href="${fn:escapeXml(viewRestaurant)}"><c:out value="${menu.restaurant.name}"/></a></td>
+            <td><a href="${fn:escapeXml(viewMenu)}"><c:out value="${menu.name}"/></a></td>
+            <td><c:out value="${fnc:formatZonedDateTime(menu.date)}"/></td>
+            <td><c:out value="${menu.voteCount}"/></td>
 
         </tr>
         </tbody>
     </c:forEach>
 </table>
+
 <br/>
-<a href="${pageContext.request.contextPath}/restaurant/list">Restaurant List</a>
+<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">Restaurant List</a>
 <br/><br/>
 
 <form:form method="post" action="${pageContext.request.contextPath}/logout">

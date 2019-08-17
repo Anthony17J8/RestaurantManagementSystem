@@ -1,6 +1,7 @@
 <!doctype html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 
 <head>
@@ -9,17 +10,17 @@
 
 <body>
 
-<h3>${restaurant.name}. <br>Menu Details</h3>
+<h3><c:out value="${restaurant.name}"/>. <br>Menu Details</h3>
 <hr>
 
-${menu.name}
+<c:out value="${menu.name}"/>
 <br>
 <c:forEach var="dish" items="${menu.dishes}">
     <ul>
-        <li> ${dish.description} : ${dish.price}</li>
+        <li><c:out value="${dish.description}"/> : <c:out value="${dish.price}"/></li>
     </ul>
 </c:forEach>
-<p>Total amount: ${totalAmount}</p>
+<p>Total amount: <c:out value="${totalAmount}"/></p>
 
 <c:url value="/menu/addVote" var="voteLink">
     <c:param name="menuId" value="${menu.id}"/>
@@ -34,7 +35,7 @@ ${menu.name}
     <c:param name="restId" value="${restaurant.id}"/>
 </c:url>
 
-<a href="${redirectLink}">View menu list of restaurant</a>
+<a href="${fn:escapeXml(redirectLink)}">View menu list of restaurant</a>
 </body>
 
 <jsp:include page="footer.jsp"/>

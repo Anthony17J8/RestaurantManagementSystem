@@ -17,6 +17,9 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Optional;
+
+import static javafx.scene.input.KeyCode.O;
 
 @Controller
 @RequestMapping("/menu")
@@ -119,7 +122,11 @@ public class MenuController {
                            BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             model.addAttribute("restaurantId", restaurantId);
-            model.addAttribute("menu", fillWithDishes(menu));
+            // todo need to refactor
+            if (!isNew(menu)) {
+                setDishesFor(menu);
+            }
+            model.addAttribute("menu", menu);
             log.error("Save menu error {}", bindingResult);
             return "menu-form";
         }
@@ -129,9 +136,12 @@ public class MenuController {
         return "redirect:/restaurant/menus?restId=" + restaurant.getId();
     }
 
-    private Menu fillWithDishes(Menu menu) {
-        menu.setDishes(dishService.getDishListByMenuId(menu.getId()));
-        return menu;
+    private boolean isNew(Menu menu) {
+        return menu.getId() == null;
+    }
+
+    private void setDishesFor(Menu menu) {
+        Optional.of(menu).ifPresent(m -> m.setDishes(dishService.getDishListByMenuId(m.getId())));
     }
 
     @GetMapping("/delete")

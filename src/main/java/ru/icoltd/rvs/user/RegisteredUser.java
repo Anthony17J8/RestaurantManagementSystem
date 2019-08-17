@@ -39,9 +39,6 @@ public class RegisteredUser {
     @NotNull
     private Date dateOfBirth;
 
-    public RegisteredUser() {
-    }
-
     public String getFirstName() {
         return firstName;
     }

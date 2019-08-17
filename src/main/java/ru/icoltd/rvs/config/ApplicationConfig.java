@@ -13,11 +13,13 @@ import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import ru.icoltd.rvs.converter.DateFormatter;
-import ru.icoltd.rvs.converter.LocalDateFormatter;
+import ru.icoltd.rvs.converter.ZoneDateTimeFormatter;
+import ru.icoltd.rvs.exception.UnacceptablePropertyValueException;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -56,7 +58,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
         try {
             dataSource.setDriverClass(getProperty("jdbc.driver"));
         } catch (PropertyVetoException exc) {
-            throw new RuntimeException(exc);
+            throw new UnacceptablePropertyValueException(exc);
         }
         dataSource.setJdbcUrl(getProperty("jdbc.url"));
         dataSource.setUser(getProperty("jdbc.user"));
@@ -112,7 +114,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         // todo see link https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#format-CustomFormatAnnotations
-        registry.addFormatter(new LocalDateFormatter());
+        registry.addFormatter(new ZoneDateTimeFormatter());
         registry.addFormatter(new DateFormatter());
     }
 
@@ -122,5 +124,11 @@ public class ApplicationConfig implements WebMvcConfigurer {
         messageSource.setBasename("messages");
         messageSource.setDefaultEncoding("UTF-8");
         return messageSource;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        registry.addResourceHandler("/resources/**")
+                .addResourceLocations("/resources/");
     }
 }

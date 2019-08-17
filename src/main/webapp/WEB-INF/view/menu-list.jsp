@@ -2,16 +2,18 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib prefix="fn" uri="http://icoltd.rvs.ru/functions" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fnc" uri="http://icoltd.rvs.ru/functions" %>
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>Menus</title>
 </head>
 
 <body>
 
-<h3>${restaurant.name}. <br>Menus</h3>
+<h3><c:out value="${restaurant.name}"/>. <br>Menus</h3>
 <hr>
 
 <sec:authorize access="hasRole('ADMIN')">
@@ -19,7 +21,7 @@
     <c:url value="/menu/showFormForAdd" var="formForAdd">
         <c:param name="restId" value="${restaurant.id}"/>
     </c:url>
-    <a href="${formForAdd}">Add menu</a>
+    <a href="${fn:escapeXml(formForAdd)}">Add menu</a>
 
 </sec:authorize>
 <br><br>
@@ -42,9 +44,9 @@
             <c:url value="/menu/showDetails" var="menuDetailsLink">
                 <c:param name="menuId" value="${menu.id}"/>
             </c:url>
-            <td><a href="${menuDetailsLink}">${menu.name}</a></td>
-            <td>${fn:formatZonedDateTime(menu.date)}</td>
-            <td>${menu.voteCount}</td>
+            <td><a href="${fn:escapeXml(menuDetailsLink)}"><c:out value="${menu.name}"/></a></td>
+            <td><c:out value="${fnc:formatZonedDateTime(menu.date)}"/></td>
+            <td><c:out value="${menu.voteCount}"/></td>
 
             <sec:authorize access="hasRole('ADMIN')">
                 <c:url var="deleteLink" value="/menu/delete">
@@ -56,9 +58,9 @@
                 </c:url>
 
                 <td>
-                    <a href="${updateLink}">Update</a>
+                    <a href="${fn:escapeXml(updateLink)}">Update</a>
                     |
-                    <a href="${deleteLink}">Delete</a>
+                    <a href="${fn:escapeXml(deleteLink)}">Delete</a>
                 </td>
             </sec:authorize>
         </tr>
@@ -67,7 +69,7 @@
 
 </table>
 <br/>
-<a href="${pageContext.request.contextPath}/restaurant/list">View all restaurants</a>
+<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">View all restaurants</a>
 </body>
 
 <jsp:include page="footer.jsp"/>

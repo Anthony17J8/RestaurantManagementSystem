@@ -3,9 +3,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>
         Menu form
     </title>
@@ -52,7 +54,7 @@
 
                 <tr>
                     <td>Dish #${status.index + 1}</td>
-                    <td>${dish.description}</td>
+                    <td><c:out value="${dish.description}"/></td>
 
                     <sec:authorize access="hasRole('ADMIN')">
 
@@ -63,8 +65,8 @@
                             <c:param name="dishId" value="${dish.id}"/>
                         </c:url>
 
-                        <td><a href="${updateLink}">Update</a></td>
-                        <td><a href="${deleteLink}">Delete</a></td>
+                        <td><a href="${fn:escapeXml(updateLink)}">Update</a></td>
+                        <td><a href="${fn:escapeXml(deleteLink)}">Delete</a></td>
 
                     </sec:authorize>
                 </tr>
@@ -77,13 +79,13 @@
                 </c:url>
                 <tr>
                     <td></td>
-                    <td><a href="${showFormLink}">Add new dish</a></td>
+                    <td><a href="${fn:escapeXml(showFormLink)}">Add new dish</a></td>
                 </tr>
 
             </sec:authorize>
             <tr>
                 <td>Total amount:</td>
-                <td>${totalAmount}</td>
+                <td><c:out value="${totalAmount}"/></td>
             </tr>
         </c:if>
 
@@ -102,7 +104,7 @@
     <c:param name="restId" value="${restaurantId}"/>
 </c:url>
 
-<p><a href="${redirectLink}">Back to menu list</a></p>
+<p><a href="${fn:escapeXml(redirectLink)}">Back to menu list</a></p>
 
 </body>
 </html>

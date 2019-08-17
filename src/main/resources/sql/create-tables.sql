@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS `hb_restaurants`;
-USE `hb_restaurants`;
+CREATE DATABASE IF NOT EXISTS hb_restaurants;
+USE hb_restaurants;
 
 SET FOREIGN_KEY_CHECKS = 0;
 
@@ -7,9 +7,9 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- Table structure for `restaurant`
 --
 
-DROP TABLE IF EXISTS `restaurants`;
+DROP TABLE IF EXISTS restaurants;
 
-CREATE TABLE `restaurants`
+CREATE TABLE restaurants
 (
     `id`                   int(11) NOT NULL AUTO_INCREMENT,
     `name`                 varchar(128) DEFAULT NULL,
@@ -26,9 +26,9 @@ CREATE TABLE `restaurants`
 -- Table structure for `restaurant_detail`
 --
 
-DROP TABLE IF EXISTS `restaurant_details`;
+DROP TABLE IF EXISTS restaurant_details;
 
-CREATE TABLE `restaurant_details`
+CREATE TABLE restaurant_details
 (
     `id`      int(11) NOT NULL AUTO_INCREMENT,
     `city`    varchar(128) DEFAULT NULL,
@@ -45,9 +45,9 @@ CREATE TABLE `restaurant_details`
 -- Table structure for `menu`
 -- 
 
-DROP TABLE IF EXISTS `menus`;
+DROP TABLE IF EXISTS menus;
 
-CREATE TABLE `menus`
+CREATE TABLE menus
 (
     `id`            int(11) NOT NULL AUTO_INCREMENT,
     `name`          varchar(45) DEFAULT NULL,
@@ -64,9 +64,9 @@ CREATE TABLE `menus`
 -- Table structure for `dish`
 --
 
-DROP TABLE IF EXISTS `dishes`;
+DROP TABLE IF EXISTS dishes;
 
-CREATE TABLE `dishes`
+CREATE TABLE dishes
 (
     `id`          int(11) NOT NULL AUTO_INCREMENT,
     `description` varchar(255)   DEFAULT NULL,
@@ -83,9 +83,9 @@ CREATE TABLE `dishes`
 -- Table structure for `vote`
 --
 
-DROP TABLE IF EXISTS `votes`;
+DROP TABLE IF EXISTS votes;
 
-CREATE TABLE `votes`
+CREATE TABLE votes
 (
     `id`      int(11) NOT NULL AUTO_INCREMENT,
     `user_id` int(11)  DEFAULT NULL,
@@ -103,9 +103,9 @@ CREATE TABLE `votes`
 -- Table structure for `user`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE `users`
+CREATE TABLE users
 (
     `id`            int(11)     NOT NULL AUTO_INCREMENT,
     `username`      varchar(50) NOT NULL,
@@ -124,9 +124,9 @@ CREATE TABLE `users`
 -- Table structure for `role`
 --
 
-DROP TABLE IF EXISTS `roles`;
+DROP TABLE IF EXISTS roles;
 
-CREATE TABLE `roles`
+CREATE TABLE roles
 (
     `id`   int(11) NOT NULL AUTO_INCREMENT,
     `name` varchar(50) DEFAULT NULL,
@@ -139,9 +139,9 @@ CREATE TABLE `roles`
 -- Table structure for table `users_roles`
 --
 
-DROP TABLE IF EXISTS `user_roles`;
+DROP TABLE IF EXISTS user_roles;
 
-CREATE TABLE `user_roles`
+CREATE TABLE user_roles
 (
     `user_id` int(11) NOT NULL,
     `role_id` int(11) NOT NULL,
@@ -160,8 +160,8 @@ CREATE TABLE `user_roles`
 ) ENGINE = InnoDB
   DEFAULT CHARSET = latin1;
 
-DROP TABLE IF EXISTS `persistent_logins`;
-CREATE TABLE `persistent_logins`
+DROP TABLE IF EXISTS persistent_logins;
+CREATE TABLE persistent_logins
 (
     `username` VARCHAR(64) NOT NULL,
     `series`   VARCHAR(64) NOT NULL,
@@ -180,7 +180,7 @@ SET FOREIGN_KEY_CHECKS = 1;
 -- Data for table `role`
 --
 
-INSERT INTO `roles`(name)
+INSERT INTO roles(name)
 VALUES ('ROLE_ADMIN'),
        ('ROLE_USER');
 
@@ -188,7 +188,7 @@ VALUES ('ROLE_ADMIN'),
 -- Data for table `user`
 --
 
-INSERT INTO `users` (username, password, first_name, last_name, email, date_of_birth)
+INSERT INTO users (username, password, first_name, last_name, email, date_of_birth)
 VALUES ('Anthony17', '{noop}123456', 'Anthony', 'Jenkinson', 'tony@gmail.com', '1993-05-18'),
        ('Jessy_pretty', '{noop}2222', 'Jessy', 'Morgan', 'jes@gmail.com', '1978-01-27'),
        ('ThomasBl', '{noop}3333', 'Thomas', 'Black', 'bl21@gmail.com', '2001-06-02'),
@@ -200,7 +200,7 @@ VALUES ('Anthony17', '{noop}123456', 'Anthony', 'Jenkinson', 'tony@gmail.com', '
 -- Data for table `users_roles`
 --
 
-INSERT INTO `user_roles`
+INSERT INTO user_roles
 VALUES (1, 1),
        (2, 2),
        (3, 2),
@@ -211,7 +211,7 @@ VALUES (1, 1),
 -- Data for table `restaurant_detail`
 --
 
-INSERT INTO `restaurant_details`(city, country, street, phone, site)
+INSERT INTO restaurant_details(city, country, street, phone, site)
 VALUES ('Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
        ('Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
        ('Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
@@ -220,7 +220,7 @@ VALUES ('Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it')
 -- Data for table `restaurant`
 --
 
-INSERT INTO `restaurants`(name, restaurant_detail_id)
+INSERT INTO restaurants(name, restaurant_detail_id)
 VALUES ('Osteria Francescana', 1),
        ('El Celler de Can Roca', 2),
        ('Mirazur', 3);
@@ -229,7 +229,7 @@ VALUES ('Osteria Francescana', 1),
 -- Data for table `menu`
 --
 
-INSERT INTO `menus`(name, restaurant_id, date)
+INSERT INTO menus(name, restaurant_id, date)
 VALUES ('Course', 1, '2019-02-15'),
        ('Course', 1, '2019-02-10'),
        ('Course', 2, '2019-02-05'),
@@ -239,7 +239,7 @@ VALUES ('Course', 1, '2019-02-15'),
 -- Data for table `vote`
 --
 
-INSERT INTO `votes`(user_id, menu_id, date)
+INSERT INTO votes(user_id, menu_id, date)
 VALUES (1, 1, '2019-01-10'),
        (2, 1, '2019-01-10'),
        (3, 3, '2019-01-10'),
@@ -250,7 +250,7 @@ VALUES (1, 1, '2019-01-10'),
 -- Data for table `dish`
 --
 
-INSERT INTO `dishes`(description, price, menu_id)
+INSERT INTO dishes(description, price, menu_id)
 VALUES ('Lobster with double sauces, acidic and sweet', 90, 1),
        ('Branzino served with a modern hollandaise sauce', 90, 1),
        ('A singular interpretation of beef fillet alla Rossini with foie gras and caviar', 90, 1),

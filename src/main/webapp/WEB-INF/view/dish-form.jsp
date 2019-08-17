@@ -3,9 +3,11 @@
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 
 <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>
         Dish form
     </title>
@@ -48,7 +50,7 @@
 
         <sec:authorize access="hasRole('ADMIN')">
         <tr>
-            <td><input type="submit" value="Save" class="save"/></td>
+            <td><input type="submit" value="Save"/></td>
         </tr>
         </sec:authorize>
 
@@ -61,7 +63,7 @@
     <c:param name="menuId" value="${menuId}"/>
 </c:url>
 
-<a href="${redirectLink}">Back to Menu</a>
+<a href="${fn:escapeXml(redirectLink)}">Back to Menu</a>
 
 </body>
 </html>

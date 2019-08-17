@@ -1,7 +1,8 @@
 <!doctype html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 
 <head>
@@ -65,7 +66,7 @@
         </form:form>
         <tr>
             <td><label></label></td>
-            <td><input type="submit" value="Save" class="save"/></td>
+            <td><input type="submit" value="Save"/></td>
         </tr>
 
         </tbody>
@@ -73,7 +74,7 @@
 
 </form:form>
 
-<p><a href="${pageContext.request.contextPath}/restaurant/list">Back to restaurant list</a></p>
+<p><a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">Back to restaurant list</a></p>
 
 </body>
 </html>

@@ -1,11 +1,12 @@
 <!doctype html>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <html>
 
 <head>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title>
         List Restaurants
     </title>
@@ -42,18 +43,18 @@
             <c:set var="detail" value="${restaurant.restaurantDetail}"/>
             <tbody>
             <tr>
-                <td>${restaurant.name}</td>
-                <td>    ${detail.country}<br>
-                        ${detail.city}<br>
-                        ${detail.site}<br>
-                        ${detail.phone}<br>
-                        ${detail.street}
+                <td><c:out value="${restaurant.name}"/></td>
+                <td><c:out value="${detail.country}"/><br>
+                    <c:out value="${detail.city}"/><br>
+                    <c:out value="${detail.site}"/><br>
+                    <c:out value="${detail.phone}"/><br>
+                    <c:out value="${detail.street}"/>
                 </td>
                 <td>
                     <c:url var="menuList" value="/restaurant/menus">
                         <c:param name="restId" value="${restaurant.id}"/>
                     </c:url>
-                    <a href="${menuList}">View menus</a>
+                    <a href="${fn:escapeXml(menuList)}">View menus</a>
                 </td>
 
                 <sec:authorize access="hasRole('ADMIN')">
@@ -67,9 +68,9 @@
                             <c:param name="restId" value="${restaurant.id}"/>
                         </c:url>
 
-                        <a href="${updateLink}">Update</a>
+                        <a href="${fn:escapeXml(updateLink)}">Update</a>
                         |
-                        <a href="${deleteLink}">Delete</a>
+                        <a href="${fn:escapeXml(deleteLink)}">Delete</a>
                     </td>
 
                 </sec:authorize>

@@ -2,16 +2,13 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <html>
 
 <head>
-    <style>
-        .error {
-            color: red
-        }
-    </style>
-
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
     <title>
         Plain Registration Form
     </title>
@@ -48,7 +45,7 @@
     <input type="submit" value="Submit"/>
 </form:form>
 <br>
-<a href="${pageContext.request.contextPath}/showLoginPage">Back to Login Page</a>
+<a href="${fn:escapeXml(pageContext.request.contextPath)}/showLoginPage">Back to Login Page</a>
 
 </body>
 

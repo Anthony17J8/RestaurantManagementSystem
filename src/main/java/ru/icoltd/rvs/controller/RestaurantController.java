@@ -2,17 +2,14 @@ package ru.icoltd.rvs.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
-import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.service.RestaurantService;
 
 import javax.validation.Valid;
