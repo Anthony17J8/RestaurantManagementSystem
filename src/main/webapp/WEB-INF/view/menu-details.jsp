@@ -16,9 +16,10 @@ ${menu.name}
 <br>
 <c:forEach var="dish" items="${menu.dishes}">
     <ul>
-        <li> ${dish.description}</li>
+        <li> ${dish.description} : ${dish.price}</li>
     </ul>
 </c:forEach>
+<p>Total amount: ${totalAmount}</p>
 
 <c:url value="/menu/addVote" var="voteLink">
     <c:param name="menuId" value="${menu.id}"/>

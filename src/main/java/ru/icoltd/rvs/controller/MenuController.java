@@ -16,7 +16,6 @@ import javax.validation.Valid;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -70,6 +69,7 @@ public class MenuController {
     public String showMenuDetails(Model model, @RequestParam("menuId") int menuId) {
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
+        model.addAttribute("totalAmount", getTotalAmount(menu.getDishes()));
         model.addAttribute("restaurant", menu.getRestaurant());
         return "menu-details";
     }
@@ -146,7 +146,7 @@ public class MenuController {
     public String updateMenu(@RequestParam("menuId") int menuId, Model model) {
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
-        model.addAttribute("totalAmount", getTotalAmount(new ArrayList<>(menu.getDishes())));
+        model.addAttribute("totalAmount", getTotalAmount(menu.getDishes()));
         model.addAttribute("restaurantId", menu.getRestaurant().getId());
         return "menu-form";
     }
