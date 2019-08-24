@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,9 +17,10 @@ import javax.validation.Valid;
 import java.util.List;
 
 @Controller
-@Slf4j
 @RequestMapping("/restaurant")
 public class RestaurantController {
+
+    private static final Logger log = LoggerFactory.getLogger(RestaurantController.class);
 
     private RestaurantService service;
 

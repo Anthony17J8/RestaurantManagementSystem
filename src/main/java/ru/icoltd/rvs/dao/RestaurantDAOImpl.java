@@ -1,9 +1,10 @@
 package ru.icoltd.rvs.dao;
 
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Restaurant;
@@ -12,8 +13,9 @@ import javax.persistence.NoResultException;
 import java.util.List;
 
 @Repository
-@Slf4j
 public class RestaurantDAOImpl implements RestaurantDAO {
+
+    private static final Logger log = LoggerFactory.getLogger(RestaurantDAOImpl.class);
 
     private SessionFactory sessionFactory;
 

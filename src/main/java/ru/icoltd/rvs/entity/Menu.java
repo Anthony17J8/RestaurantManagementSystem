@@ -106,9 +106,6 @@ public class Menu {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", date=" + date +
-                ", restaurant=" + restaurant +
-                ", dishes=" + dishes +
-                ", votes=" + votes +
                 '}';
     }
 }

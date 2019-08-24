@@ -74,7 +74,6 @@ public class Dish {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", price=" + price +
-                ", menu=" + menu +
                 '}';
     }
 }

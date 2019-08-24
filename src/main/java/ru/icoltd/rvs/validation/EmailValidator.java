@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.validation;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.icoltd.rvs.entity.User;
@@ -11,12 +12,13 @@ import javax.validation.ConstraintValidatorContext;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Slf4j
 @Component
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
     private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
             + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
+
+    private static final Logger log = LoggerFactory.getLogger(EmailValidator.class);
 
     private UserService userService;
 

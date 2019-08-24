@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -18,8 +19,9 @@ import java.util.Optional;
 
 @Controller
 @RequestMapping("/register")
-@Slf4j
 public class RegisterController {
+
+    private static final Logger log = LoggerFactory.getLogger(RegisterController.class);
 
     private UserService userService;
 

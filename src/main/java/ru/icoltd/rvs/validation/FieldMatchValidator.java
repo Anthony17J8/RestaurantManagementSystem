@@ -1,14 +1,16 @@
 package ru.icoltd.rvs.validation;
 
-import lombok.extern.slf4j.Slf4j;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanWrapperImpl;
 import ru.icoltd.rvs.user.RegisteredUser;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
-@Slf4j
 public class FieldMatchValidator implements ConstraintValidator<FieldMatch, RegisteredUser> {
+
+    private static final Logger log = LoggerFactory.getLogger(FieldMatchValidator.class);
 
     private String password;
 

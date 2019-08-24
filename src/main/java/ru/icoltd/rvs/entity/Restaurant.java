@@ -69,7 +69,6 @@ public class Restaurant {
         return "Restaurant{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", restaurantDetail=" + restaurantDetail +
                 '}';
     }
 }
