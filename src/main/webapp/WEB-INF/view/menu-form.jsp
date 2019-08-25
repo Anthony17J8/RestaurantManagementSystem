@@ -103,7 +103,7 @@
     <c:param name="restId" value="${restaurantId}"/>
 </c:url>
 
-<p><a href="${fn:escapeXml(redirectLink)}">Back to menu list</a></p>
+<p><a href="${fn:escapeXml(redirectLink)}">Back to menu list of restaurant</a></p>
 
 </body>
 </html>

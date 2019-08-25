@@ -12,7 +12,8 @@
 
 <body>
 
-<h3><c:out value="${restaurant.name}"/>. <br>Menus</h3>
+<h3><c:out value="${restaurant.name}"/> <br></h3>
+<h4>Menus</h4>
 <hr>
 
 <sec:authorize access="hasRole('ADMIN')">

@@ -30,7 +30,7 @@
     <thead>
     <tr>
         <th>Restaurant</th>
-        <th>Name</th>
+        <th>Menu</th>
         <th>Date</th>
         <th>Votes</th>
     </tr>
@@ -41,13 +41,9 @@
             <c:param name="menuId" value="${menu.id}"/>
         </c:url>
 
-        <c:url value="/restaurant/menus" var="viewRestaurant">
-            <c:param name="restId" value="${menu.restaurant.id}"/>
-        </c:url>
-
         <tbody>
         <tr>
-            <td><a href="${fn:escapeXml(viewRestaurant)}"><c:out value="${menu.restaurant.name}"/></a></td>
+            <td><c:out value="${menu.restaurant.name}"/></td>
             <td><a href="${fn:escapeXml(viewMenu)}"><c:out value="${menu.name}"/></a></td>
             <td><c:out value="${fnc:formatZonedDateTime(menu.date)}"/></td>
             <td><c:out value="${menu.voteCount}"/></td>

@@ -14,13 +14,13 @@
 
 <c:choose>
     <c:when test="${restaurantId == null}">
-        <a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">Back to main</a>
+        <a href="${fn:escapeXml(pageContext.request.contextPath)}/menu/toplist">Go Home page</a>
     </c:when>
     <c:otherwise>
         <c:url value="/restaurant/menus" var="redirectLink">
             <c:param name="restId" value="${restaurantId}"/>
         </c:url>
-        <a href="${fn:escapeXml(redirectLink)}">Back to Menu list</a>
+        <a href="${fn:escapeXml(redirectLink)}">Back to menu list of restaurant</a>
     </c:otherwise>
 </c:choose>
 

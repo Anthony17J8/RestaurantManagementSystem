@@ -2,6 +2,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fnc" uri="http://icoltd.rvs.ru/functions" %>
 <html>
 
 <head>
@@ -10,7 +11,7 @@
 
 <body>
 
-<h3><c:out value="${restaurant.name}"/>. <br>Menu Details</h3>
+<h3><c:out value="${restaurant.name}"/>. <br>Menu Details (<c:out value="${fnc:formatZonedDateTime(menu.date)}"/> )</h3>
 <hr>
 
 <c:out value="${menu.name}"/>

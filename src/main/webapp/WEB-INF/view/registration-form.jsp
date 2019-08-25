@@ -7,7 +7,8 @@
 <html>
 
 <head>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <link rel="stylesheet" type="text/css"
+          href="${fn:escapeXml(pageContext.request.contextPath)}/resources/css/style.css">
     <title>
         Plain Registration Form
     </title>
