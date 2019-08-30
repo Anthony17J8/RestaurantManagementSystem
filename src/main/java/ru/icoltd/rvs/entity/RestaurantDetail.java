@@ -1,8 +1,12 @@
 package ru.icoltd.rvs.entity;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import java.util.Objects;
 
 @Entity
 @Table(name = "restaurant_details")
@@ -97,14 +101,20 @@ public class RestaurantDetail {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        RestaurantDetail that = (RestaurantDetail) o;
+        return Objects.equals(detailId, that.detailId);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(detailId);
+    }
+
+    @Override
     public String toString() {
-        return "RestaurantDetail{" +
-                "id=" + detailId +
-                ", country='" + country + '\'' +
-                ", city='" + city + '\'' +
-                ", street='" + street + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + site + '\'' +
-                '}';
+       return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }
