@@ -66,15 +66,16 @@
         </form:form>
         <tr>
             <td><label></label></td>
-            <td><input type="submit" value="Save"/></td>
+            <td>
+                <button type="submit">Save</button>
+                <button onclick="window.history.back()" type="button">Cancel</button>
+            </td>
         </tr>
 
         </tbody>
     </table>
 
 </form:form>
-
-<p><a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">Back to restaurant list</a></p>
 
 </body>
 </html>

@@ -42,10 +42,9 @@
     <p><i>Confirm password(*): <form:password path="matchingPassword" showPassword="true"/></i>
         <i class="error"><form:errors path="matchingPassword"/></i></p>
 
-    <input type="submit" value="Submit"/>
+    <button type="submit">Submit</button>
+    <button onclick="window.history.back()" type="button">Cancel</button>
 </form:form>
-<br>
-<a href="${fn:escapeXml(pageContext.request.contextPath)}/showLoginPage">Back to Login Page</a>
 
 </body>
 

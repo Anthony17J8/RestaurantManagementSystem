@@ -90,7 +90,10 @@
 
         <sec:authorize access="hasRole('ADMIN')">
             <tr>
-                <td><input type="submit" value="Save"/></td>
+                <td>
+                    <button type="submit">Save</button>
+                    <button onclick="window.history.back()" type="button">Cancel</button>
+                </td>
             </tr>
         </sec:authorize>
 
@@ -98,12 +101,6 @@
     </table>
 
 </form:form>
-
-<c:url value="/restaurant/menus" var="redirectLink">
-    <c:param name="restId" value="${restaurantId}"/>
-</c:url>
-
-<p><a href="${fn:escapeXml(redirectLink)}">Back to menu list of restaurant</a></p>
 
 </body>
 </html>

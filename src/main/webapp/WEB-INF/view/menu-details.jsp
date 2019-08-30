@@ -36,7 +36,7 @@
     <c:param name="restId" value="${restaurant.id}"/>
 </c:url>
 
-<a href="${fn:escapeXml(redirectLink)}">View menu list of restaurant</a>
+<a href="${fn:escapeXml(redirectLink)}">View all menus of restaurant</a>
 </body>
 
 <jsp:include page="footer.jsp"/>

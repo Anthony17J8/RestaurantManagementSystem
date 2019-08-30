@@ -48,21 +48,17 @@
         </tr>
 
         <sec:authorize access="hasRole('ADMIN')">
-        <tr>
-            <td><input type="submit" value="Save"/></td>
-        </tr>
+            <tr>
+                <td>
+                    <button type="submit">Save</button>
+                    <button onclick="window.history.back()" type="button">Cancel</button>
+                </td>
+            </tr>
         </sec:authorize>
 
     </form:form>
     </tbody>
 </table>
-<br><br>
-
-<c:url value="/menu/update" var="redirectLink">
-    <c:param name="menuId" value="${menuId}"/>
-</c:url>
-
-<a href="${fn:escapeXml(redirectLink)}">Back to Menu</a>
 
 </body>
 </html>

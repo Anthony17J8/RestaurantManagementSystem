@@ -10,8 +10,16 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.WebRequest;
 import ru.icoltd.rvs.DateTimeUtils;
-import ru.icoltd.rvs.entity.*;
-import ru.icoltd.rvs.service.*;
+import ru.icoltd.rvs.entity.Dish;
+import ru.icoltd.rvs.entity.Menu;
+import ru.icoltd.rvs.entity.Restaurant;
+import ru.icoltd.rvs.entity.User;
+import ru.icoltd.rvs.entity.Vote;
+import ru.icoltd.rvs.service.DishService;
+import ru.icoltd.rvs.service.MenuService;
+import ru.icoltd.rvs.service.RestaurantService;
+import ru.icoltd.rvs.service.UserService;
+import ru.icoltd.rvs.service.VoteService;
 
 import javax.validation.Valid;
 import java.security.Principal;
