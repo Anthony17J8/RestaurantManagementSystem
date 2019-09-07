@@ -11,7 +11,7 @@
 
 <body>
 
-<h3><c:out value="${restaurant.name}"/>. <br>Menu Details (<c:out value="${fnc:formatZonedDateTime(menu.date)}"/> )</h3>
+<h3><c:out value="${menu.restaurant.name}"/>. <br>Menu Details (<c:out value="${fnc:formatZonedDateTime(menu.date)}"/> )</h3>
 <hr>
 
 <c:out value="${menu.name}"/>
@@ -33,7 +33,7 @@
 <br/>
 
 <c:url value="/restaurant/menus" var="redirectLink">
-    <c:param name="restId" value="${restaurant.id}"/>
+    <c:param name="restId" value="${menu.restaurant.id}"/>
 </c:url>
 
 <a href="${fn:escapeXml(redirectLink)}">View all menus of restaurant</a>

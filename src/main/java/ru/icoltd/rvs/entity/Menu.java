@@ -1,11 +1,20 @@
 package ru.icoltd.rvs.entity;
 
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -99,10 +108,6 @@ public class Menu {
         this.date = date;
     }
 
-    public int getVoteCount() {
-        return votes.size();
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -118,9 +123,6 @@ public class Menu {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("id", id)
-                .append("name", name)
-                .append("date", date).toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

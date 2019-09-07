@@ -46,7 +46,7 @@
             </c:url>
             <td><a href="${fn:escapeXml(menuDetailsLink)}"><c:out value="${menu.name}"/></a></td>
             <td><c:out value="${fnc:formatZonedDateTime(menu.date)}"/></td>
-            <td><c:out value="${menu.voteCount}"/></td>
+            <td><c:out value="${menu.votes.size()}"/></td>
 
             <sec:authorize access="hasRole('ADMIN')">
                 <c:url var="deleteLink" value="/menu/delete">

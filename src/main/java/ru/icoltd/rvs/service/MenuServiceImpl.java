@@ -52,4 +52,10 @@ public class MenuServiceImpl implements MenuService {
                 Optional.ofNullable(endDate).orElse(ZonedDateTime.of(DateTimeUtils.MAX_DATE, LocalTime.MAX, DateTimeUtils.ZONE_ID_UTC))
         );
     }
+
+    @Override
+    @Transactional
+    public List<Menu> findAllByRestaurantId(int restaurantId) {
+        return dao.findAllByRestaurantId(restaurantId);
+    }
 }

@@ -33,6 +33,7 @@
         <sec:authorize access="hasRole('ADMIN')">
             <th>Action</th>
         </sec:authorize>
+        <th>Reviews</th>
     </tr>
 
     </thead>
@@ -70,6 +71,13 @@
                         <a href="${fn:escapeXml(updateLink)}">Update</a>
                         |
                         <a href="${fn:escapeXml(deleteLink)}">Delete</a>
+                    </td>
+
+                    <td>
+                        <c:url var="showReviewLink" value="/restaurant/reviews">
+                            <c:param name="restId" value="${restaurant.id}"/>
+                        </c:url>
+                        <a href="${fn:escapeXml(showReviewLink)}">Show reviews</a>
                     </td>
 
                 </sec:authorize>

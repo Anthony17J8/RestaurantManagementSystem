@@ -38,6 +38,9 @@ public class Restaurant {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Menu> menus;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
+    private List<Review> reviews;
+
     public Restaurant() {
     }
 
@@ -78,6 +81,14 @@ public class Restaurant {
         this.menus = menus;
     }
 
+    public List<Review> getReviews() {
+        return reviews;
+    }
+
+    public void setReviews(List<Review> reviews) {
+        this.reviews = reviews;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -93,8 +104,6 @@ public class Restaurant {
 
     @Override
     public String toString() {
-        return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
-                .append("id", id)
-                .append("name", name).toString();
+        return ToStringBuilder.reflectionToString(this);
     }
 }

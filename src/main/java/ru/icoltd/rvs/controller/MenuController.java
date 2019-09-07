@@ -47,32 +47,13 @@ public class MenuController {
     private DishService dishService;
 
     @Autowired
-    public void setMessageSource(MessageSource messageSource) {
-        this.messageSource = messageSource;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
-        this.userService = userService;
-    }
-
-    @Autowired
-    public void setMenuService(MenuService menuService) {
+    public MenuController(MenuService menuService, VoteService voteService, RestaurantService restaurantService,
+                          UserService userService, MessageSource messageSource, DishService dishService) {
         this.menuService = menuService;
-    }
-
-    @Autowired
-    public void setVoteService(VoteService voteService) {
         this.voteService = voteService;
-    }
-
-    @Autowired
-    public void setRestaurantService(RestaurantService restaurantService) {
         this.restaurantService = restaurantService;
-    }
-
-    @Autowired
-    public void setDishService(DishService dishService) {
+        this.userService = userService;
+        this.messageSource = messageSource;
         this.dishService = dishService;
     }
 
@@ -81,7 +62,6 @@ public class MenuController {
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
         model.addAttribute("totalAmount", getTotalAmount(menu.getDishes()));
-        model.addAttribute("restaurant", menu.getRestaurant());
         return "menu-details";
     }
 
@@ -118,9 +98,8 @@ public class MenuController {
     @GetMapping("/showFormForAdd")
     public String showAddMenuForm(@RequestParam("restId") int restaurantId, Model model) {
         Menu menu = new Menu();
-        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         model.addAttribute("menu", menu);
-        model.addAttribute("restaurantId", restaurant.getId());
+        model.addAttribute("restaurantId", restaurantId);
         return "menu-form";
     }
 

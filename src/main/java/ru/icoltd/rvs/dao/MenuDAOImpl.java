@@ -67,4 +67,12 @@ public class MenuDAOImpl implements MenuDAO {
         query.setParameter("startDate", startDate, TemporalType.DATE);
         return query.getResultList();
     }
+
+    @Override
+    public List<Menu> findAllByRestaurantId(int restaurantId) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Menu> query = currentSession.createQuery("FROM Menu WHERE restaurant.id=:restaurantId", Menu.class);
+        query.setParameter("restaurantId", restaurantId);
+        return query.getResultList();
+    }
 }

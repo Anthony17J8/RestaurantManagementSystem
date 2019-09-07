@@ -39,6 +39,11 @@ public class DateTimeUtils {
         return date != null ? date.format(DateTimeFormatter.ISO_LOCAL_DATE) : StringUtils.EMPTY;
     }
 
+    public static String toString(LocalDateTime localDateTime) {
+        return localDateTime != null ?
+                localDateTime.format(DateTimeFormatter.ISO_DATE_TIME).replace('T', ' ') : StringUtils.EMPTY;
+    }
+
     public static ZonedDateTime parseStartZoneDateTime(String startDate) {
         return parseZoneDateTime(startDate, LocalTime.MIN);
     }

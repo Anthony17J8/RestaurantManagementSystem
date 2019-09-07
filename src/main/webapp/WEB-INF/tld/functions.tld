@@ -13,4 +13,10 @@
         <function-class>ru.icoltd.rvs.DateTimeUtils</function-class>
         <function-signature>java.lang.String toString(java.time.ZonedDateTime)</function-signature>
     </function>
+
+    <function>
+        <name>formatLocalDateTime</name>
+        <function-class>ru.icoltd.rvs.DateTimeUtils</function-class>
+        <function-signature>java.lang.String toString(java.time.LocalDateTime)</function-signature>
+    </function>
 </taglib>

@@ -14,4 +14,6 @@ public interface MenuService {
     void deleteMenu(Menu menu);
 
     List<Menu> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate);
+
+    List<Menu> findAllByRestaurantId(int restaurantId);
 }

@@ -18,9 +18,7 @@ CREATE TABLE restaurants
     UNIQUE KEY name_unique (name),
     KEY fk_address_idx (restaurant_detail_id),
     CONSTRAINT fk_address FOREIGN KEY (restaurant_detail_id) REFERENCES restaurant_details (id) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = latin1;
+);
 
 --
 -- Table structure for restaurant_detail
@@ -37,9 +35,7 @@ CREATE TABLE restaurant_details
     phone   varchar(128) DEFAULT NULL,
     site    varchar(45)  DEFAULT NULL,
     PRIMARY KEY (id)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = latin1;
+);
 
 --
 -- Table structure for menu
@@ -56,9 +52,7 @@ CREATE TABLE menus
     KEY fk_restaurant_idx (restaurant_id),
     CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     PRIMARY KEY (id)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = latin1;
+);
 
 --
 -- Table structure for dish
@@ -75,9 +69,7 @@ CREATE TABLE dishes
     KEY fk_menu_idx (menu_id),
     CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     PRIMARY KEY (id)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = latin1;
+);
 
 --
 -- Table structure for vote
@@ -95,9 +87,7 @@ CREATE TABLE votes
     CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     KEY fk_user_idx (user_id)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = latin1;
+);
 
 --
 -- Table structure for user
@@ -116,9 +106,7 @@ CREATE TABLE users
     date_of_birth DATE,
     PRIMARY KEY (id),
     UNIQUE (username)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = latin1;
+);
 
 --
 -- Table structure for role
@@ -131,9 +119,7 @@ CREATE TABLE roles
     id   int(11) NOT NULL AUTO_INCREMENT,
     name varchar(50) DEFAULT NULL,
     PRIMARY KEY (id)
-) ENGINE = InnoDB
-  AUTO_INCREMENT = 1
-  DEFAULT CHARSET = latin1;
+);
 
 --
 -- Table structure for table users_roles
@@ -157,19 +143,30 @@ CREATE TABLE user_roles
     CONSTRAINT fk_role FOREIGN KEY (role_id)
         REFERENCES roles (id)
         ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE = InnoDB
-  DEFAULT CHARSET = latin1;
+);
 
 DROP TABLE IF EXISTS persistent_logins;
 CREATE TABLE persistent_logins
 (
-    username VARCHAR(64) NOT NULL,
-    series   VARCHAR(64) NOT NULL,
-    token      VARCHAR(64) NOT NULL,
-    last_used  TIMESTAMP   NOT NULL,
+    username  VARCHAR(64) NOT NULL,
+    series    VARCHAR(64) NOT NULL,
+    token     VARCHAR(64) NOT NULL,
+    last_used TIMESTAMP   NOT NULL,
     PRIMARY KEY (series)
-) ENGINE = InnoDB
-  DEFAULT CHARSET = latin1;
+);
+
+DROP TABLE IF EXISTS reviews;
+CREATE TABLE reviews
+(
+    id            int(11)      NOT NULL AUTO_INCREMENT,
+    review_text  VARCHAR(255) NOT NULL,
+    user_id       INTEGER      NOT NULL,
+    restaurant_id INTEGER      NOT NULL,
+    created_at    TIMESTAMP DEFAULT NOW(),
+    PRIMARY KEY (id),
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
 
 SET FOREIGN_KEY_CHECKS = 1;
 
@@ -259,6 +256,13 @@ VALUES ('Lobster with double sauces, acidic and sweet', 90, 1),
        ('Champ bl prest', 90, 4),
        ('Accord', 20, 4),
        ('Expresso', 20, 3);
+
+--
+-- Data for table reviews
+--
+
+INSERT INTO reviews(id, review_text, user_id, restaurant_id)
+VALUES (1, 'Awesome', 1, 1);
 
 select *
 from INFORMATION_SCHEMA.TABLE_CONSTRAINTS
