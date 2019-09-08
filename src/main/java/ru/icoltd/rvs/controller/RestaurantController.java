@@ -108,7 +108,14 @@ public class RestaurantController {
     @GetMapping("/reviews")
     public String showReviews(@RequestParam("restId") int restaurantId, Model model) {
         List<Review> reviews = reviewService.findAllByRestaurantId(restaurantId);
+        Review newReview = new Review();
+        Restaurant restaurant = reviews.stream()
+                .findFirst()
+                .flatMap(m -> Optional.ofNullable(m.getRestaurant()))
+                .orElse(restaurantService.getRestaurant(restaurantId));
+        model.addAttribute("newReview", newReview);
         model.addAttribute("reviews", reviews);
+        model.addAttribute("restaurant", restaurant);
         return "reviews";
     }
 }

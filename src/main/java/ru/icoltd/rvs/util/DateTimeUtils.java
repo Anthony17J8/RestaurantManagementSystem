@@ -1,4 +1,4 @@
-package ru.icoltd.rvs;
+package ru.icoltd.rvs.util;
 
 import org.apache.commons.lang3.StringUtils;
 

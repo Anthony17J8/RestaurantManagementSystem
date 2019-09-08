@@ -30,4 +30,10 @@ public class ReviewDAOImpl implements ReviewDAO {
         query.setParameter("restaurantId", restaurantId);
         return query.getResultList();
     }
+
+    @Override
+    public void saveReview(Review review) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        currentSession.saveOrUpdate(review);
+    }
 }

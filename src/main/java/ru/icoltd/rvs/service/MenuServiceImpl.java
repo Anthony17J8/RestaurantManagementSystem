@@ -3,7 +3,7 @@ package ru.icoltd.rvs.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ru.icoltd.rvs.DateTimeUtils;
+import ru.icoltd.rvs.util.DateTimeUtils;
 import ru.icoltd.rvs.dao.MenuDAO;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.exception.ObjNotFoundException;

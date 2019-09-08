@@ -23,4 +23,10 @@ public class ReviewServiceImpl implements ReviewService {
     public List<Review> findAllByRestaurantId(int restaurantId) {
         return dao.findAllByRestaurantId(restaurantId);
     }
+
+    @Override
+    @Transactional
+    public void saveReview(Review review) {
+        dao.saveReview(review);
+    }
 }

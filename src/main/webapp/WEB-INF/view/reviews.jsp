@@ -12,7 +12,8 @@
 
 <body>
 
-<h3>Reviews</h3>
+<h3><c:out value="${restaurant.name}"/> <br></h3>
+<h4>Reviews</h4>
 
 <hr>
 
@@ -25,14 +26,25 @@
     </tr>
     <c:forEach items="${reviews}" var="review">
         <tr>
-            <th>${review.user.userName}</th>
-            <th>${fnc:formatLocalDateTime(review.createdAt)}</th>
-            <th>${review.text}</th>
+            <th>${fn:escapeXml(review.user.userName)}</th>
+            <th>${fn:escapeXml(fnc:formatLocalDateTime(review.createdAt))}</th>
+            <th>${fn:escapeXml(review.text)}</th>
         </tr>
     </c:forEach>
     </thead>
-
 </table>
+
+<c:url var="save" value="/review/save">
+    <c:param name="restId" value="${restaurant.id}"/>
+</c:url>
+<br><br>
+<form:form action="${save}" method="post" modelAttribute="newReview">
+    <form:hidden path="id"/>
+
+    <form:textarea path="text"/>
+
+    <button type="submit">Save</button>
+</form:form>
 <br/>
 <a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">View all restaurants</a>
 </body>

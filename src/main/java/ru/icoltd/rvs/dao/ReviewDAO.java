@@ -7,4 +7,6 @@ import java.util.List;
 public interface ReviewDAO {
 
     List<Review> findAllByRestaurantId(int restaurantId);
+
+    void saveReview(Review review);
 }
