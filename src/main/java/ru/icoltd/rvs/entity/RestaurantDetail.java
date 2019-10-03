@@ -1,26 +1,19 @@
 package ru.icoltd.rvs.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
-import java.util.Objects;
 
 @Entity
 @Table(name = "restaurant_details")
-public class RestaurantDetail {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer detailId;
+public class RestaurantDetail extends BaseEntity{
 
     @NotNull
     @Column(name = "country")
@@ -55,14 +48,6 @@ public class RestaurantDetail {
         this.street = street;
         this.phone = phone;
         this.site = site;
-    }
-
-    public Integer getDetailId() {
-        return detailId;
-    }
-
-    public void setDetailId(Integer detailId) {
-        this.detailId = detailId;
     }
 
     public String getCountry() {
@@ -108,14 +93,29 @@ public class RestaurantDetail {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
+
         RestaurantDetail that = (RestaurantDetail) o;
-        return Objects.equals(detailId, that.detailId);
+
+        return new EqualsBuilder()
+                .append(country, that.country)
+                .append(city, that.city)
+                .append(street, that.street)
+                .append(phone, that.phone)
+                .append(site, that.site)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(detailId);
+        return new HashCodeBuilder(17, 37)
+                .append(country)
+                .append(city)
+                .append(street)
+                .append(phone)
+                .append(site)
+                .toHashCode();
     }
 
     @Override

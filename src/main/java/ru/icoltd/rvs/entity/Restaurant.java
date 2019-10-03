@@ -1,7 +1,8 @@
 package ru.icoltd.rvs.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,12 +21,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "restaurants")
-public class Restaurant {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class Restaurant extends BaseEntity {
 
     @NotNull
     @Column(name = "name")
@@ -47,14 +43,6 @@ public class Restaurant {
     public Restaurant(String name, RestaurantDetail restaurantDetail) {
         this.name = name;
         this.restaurantDetail = restaurantDetail;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -92,14 +80,27 @@ public class Restaurant {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
+
         Restaurant that = (Restaurant) o;
-        return Objects.equals(id, that.id);
+
+        return new EqualsBuilder()
+                .append(name, that.name)
+                .append(restaurantDetail, that.restaurantDetail)
+                .append(menus, that.menus)
+                .append(reviews, that.reviews)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return new HashCodeBuilder(17, 37)
+                .append(name)
+                .append(restaurantDetail)
+                .append(menus)
+                .append(reviews)
+                .toHashCode();
     }
 
     @Override

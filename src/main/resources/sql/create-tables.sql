@@ -4,6 +4,23 @@ USE hb_restaurants;
 SET FOREIGN_KEY_CHECKS = 0;
 
 --
+-- Table structure for restaurant_detail
+--
+
+DROP TABLE IF EXISTS restaurant_details;
+
+CREATE TABLE restaurant_details
+(
+    id      int(11) NOT NULL AUTO_INCREMENT,
+    city    varchar(128) DEFAULT NULL,
+    country varchar(128) DEFAULT NULL,
+    street  varchar(128) DEFAULT NULL,
+    phone   varchar(128) DEFAULT NULL,
+    site    varchar(45)  DEFAULT NULL,
+    PRIMARY KEY (id)
+);
+
+--
 -- Table structure for restaurant
 --
 
@@ -21,20 +38,22 @@ CREATE TABLE restaurants
 );
 
 --
--- Table structure for restaurant_detail
+-- Table structure for user
 --
 
-DROP TABLE IF EXISTS restaurant_details;
+DROP TABLE IF EXISTS users;
 
-CREATE TABLE restaurant_details
+CREATE TABLE users
 (
-    id      int(11) NOT NULL AUTO_INCREMENT,
-    city    varchar(128) DEFAULT NULL,
-    country varchar(128) DEFAULT NULL,
-    street  varchar(128) DEFAULT NULL,
-    phone   varchar(128) DEFAULT NULL,
-    site    varchar(45)  DEFAULT NULL,
-    PRIMARY KEY (id)
+    id            int(11)     NOT NULL AUTO_INCREMENT,
+    username      varchar(50) NOT NULL,
+    password      char(80)    NOT NULL,
+    first_name    varchar(50) NOT NULL,
+    last_name     varchar(50) NOT NULL,
+    email         varchar(50) NOT NULL,
+    date_of_birth DATE,
+    PRIMARY KEY (id),
+    UNIQUE (username)
 );
 
 --
@@ -90,25 +109,6 @@ CREATE TABLE votes
 );
 
 --
--- Table structure for user
---
-
-DROP TABLE IF EXISTS users;
-
-CREATE TABLE users
-(
-    id            int(11)     NOT NULL AUTO_INCREMENT,
-    username      varchar(50) NOT NULL,
-    password      char(80)    NOT NULL,
-    first_name    varchar(50) NOT NULL,
-    last_name     varchar(50) NOT NULL,
-    email         varchar(50) NOT NULL,
-    date_of_birth DATE,
-    PRIMARY KEY (id),
-    UNIQUE (username)
-);
-
---
 -- Table structure for role
 --
 
@@ -159,7 +159,7 @@ DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews
 (
     id            int(11)      NOT NULL AUTO_INCREMENT,
-    review_text  VARCHAR(255) NOT NULL,
+    review_text   VARCHAR(255) NOT NULL,
     user_id       INTEGER      NOT NULL,
     restaurant_id INTEGER      NOT NULL,
     created_at    TIMESTAMP DEFAULT NOW(),

@@ -1,29 +1,22 @@
 package ru.icoltd.rvs.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.PositiveOrZero;
-import java.util.Objects;
 
 @Entity
 @Table(name = "dishes")
-public class Dish {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class Dish extends BaseEntity{
 
     @NotNull
     @Column(name = "description")
@@ -46,14 +39,6 @@ public class Dish {
         this.description = description;
         this.price = price;
         this.menu = menu;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getDescription() {
@@ -83,14 +68,25 @@ public class Dish {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
+
         Dish dish = (Dish) o;
-        return Objects.equals(id, dish.id);
+
+        return new EqualsBuilder()
+                .append(price, dish.price)
+                .append(description, dish.description)
+                .append(menu, dish.menu)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return new HashCodeBuilder(17, 37)
+                .append(description)
+                .append(price)
+                .append(menu)
+                .toHashCode();
     }
 
     @Override

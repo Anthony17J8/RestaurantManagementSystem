@@ -30,6 +30,7 @@ import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
+import java.util.Locale;
 import java.util.Optional;
 
 @Controller
@@ -80,7 +81,7 @@ public class MenuController {
         } else {
             model.addAttribute("restaurantId", restaurantId);
             model.addAttribute("message", messageSource.getMessage("error.vote.date",
-                    new Object[]{menu.getName(), menu.getDate().toLocalDate()}, null));
+                    new Object[]{menu.getName(), menu.getDate().toLocalDate()}, Locale.getDefault()));
             return "error-page";
         }
         return "redirect:/restaurant/menus?restId=" + restaurantId;
@@ -156,13 +157,9 @@ public class MenuController {
     public String filterMenus(WebRequest request, Model model) {
         ZonedDateTime startDate = DateTimeUtils.parseStartZoneDateTime(request.getParameter("startDate"));
         ZonedDateTime endDate = DateTimeUtils.parseEndZoneDateTime(request.getParameter("endDate"));
-        List<Menu> menus = getBetween(startDate, endDate);
+        List<Menu> menus = menuService.getBetweenDates(startDate, endDate);
         model.addAttribute("menus", menus);
         return "top-list";
-    }
-
-    private List<Menu> getBetween(ZonedDateTime startDate, ZonedDateTime endDate) {
-        return menuService.getBetweenDates(startDate, endDate);
     }
 
     private double getTotalAmount(List<Dish> dishes) {

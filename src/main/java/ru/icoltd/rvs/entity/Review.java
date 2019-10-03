@@ -1,11 +1,13 @@
 package ru.icoltd.rvs.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
+import org.apache.commons.lang3.builder.ToStringBuilder;
+import org.apache.commons.lang3.builder.ToStringStyle;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -13,12 +15,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "reviews")
-public class Review {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class Review extends BaseEntity {
 
     @Column(name = "review_text")
     private String text;
@@ -41,23 +38,9 @@ public class Review {
     public Review() {
     }
 
-    public Review(Integer id, String text, LocalDateTime createdAt) {
-        this.id = id;
-        this.text = text;
-        this.createdAt = createdAt;
-    }
-
     public Review(String text, LocalDateTime createdAt) {
         this.text = text;
         this.createdAt = createdAt;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getText() {
@@ -90,5 +73,36 @@ public class Review {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Review review = (Review) o;
+
+        return new EqualsBuilder()
+                .append(text, review.text)
+                .append(createdAt, review.createdAt)
+                .append(restaurant, review.restaurant)
+                .append(user, review.user)
+                .isEquals();
+    }
+
+    @Override
+    public int hashCode() {
+        return new HashCodeBuilder(17, 37)
+                .append(text)
+                .append(createdAt)
+                .append(restaurant)
+                .append(user)
+                .toHashCode();
+    }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }

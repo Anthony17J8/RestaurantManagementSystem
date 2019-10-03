@@ -1,20 +1,21 @@
 package ru.icoltd.rvs.entity;
 
+import org.apache.commons.lang3.builder.EqualsBuilder;
+import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
-import javax.persistence.*;
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 @Entity
 @Table(name = "votes")
-public class Vote {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private Integer id;
+public class Vote extends BaseEntity {
 
     @ManyToOne(cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
@@ -50,14 +51,6 @@ public class Vote {
         this.dateTime = dateTime;
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
     public User getUser() {
         return user;
     }
@@ -85,14 +78,25 @@ public class Vote {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
+
         if (o == null || getClass() != o.getClass()) return false;
+
         Vote vote = (Vote) o;
-        return Objects.equals(id, vote.id);
+
+        return new EqualsBuilder()
+                .append(user, vote.user)
+                .append(menu, vote.menu)
+                .append(dateTime, vote.dateTime)
+                .isEquals();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id);
+        return new HashCodeBuilder(17, 37)
+                .append(user)
+                .append(menu)
+                .append(dateTime)
+                .toHashCode();
     }
 
     @Override
