@@ -3,9 +3,9 @@ package ru.icoltd.rvs.validation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.UserService;
 
 import javax.validation.ConstraintValidator;
@@ -28,9 +28,9 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
         if (userName == null || userName.isEmpty()) {
             return true;
         }
-        User result = null;
+        UserDetails result = null;
         try {
-            result = userService.findUserByUserName(userName);
+            result = userService.loadUserByUsername(userName);
         } catch (UsernameNotFoundException exc) {
             log.info("Registration: username '{}' is not taken.", userName);
         }

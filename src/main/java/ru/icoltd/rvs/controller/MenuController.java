@@ -88,7 +88,7 @@ public class MenuController {
     }
 
     private void saveOrUpdateVote(Menu menu, LocalDateTime now, Principal principal) {
-        User existUser = userService.findUserByUserName(principal.getName());
+        User existUser = (User) userService.loadUserByUsername(principal.getName());
 
         Vote latestVote = voteService.getLatestVoteByUserId(existUser.getId());
 

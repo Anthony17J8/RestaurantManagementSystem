@@ -26,7 +26,7 @@
     </tr>
     <c:forEach items="${reviews}" var="review">
         <tr>
-            <th>${fn:escapeXml(review.user.userName)}</th>
+            <th>${fn:escapeXml(review.user.username)}</th>
             <th>${fn:escapeXml(fnc:formatLocalDateTime(review.createdAt))}</th>
             <th>${fn:escapeXml(review.text)}</th>
         </tr>

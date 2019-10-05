@@ -70,7 +70,7 @@ public class RegisterController {
                     )
             ).get();
             userService.saveUser(user);
-            log.info("User '{}' was registered successful.", user.getUserName());
+            log.info("User '{}' was registered successful.", user.getUsername());
             return "confirmation-page";
         }
     }

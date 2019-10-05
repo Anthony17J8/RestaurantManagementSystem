@@ -37,7 +37,7 @@ public class ReviewController {
     @PostMapping("/save")
     public String saveReview(@ModelAttribute("newReview") @Valid Review review, BindingResult bindingResult,
                              @RequestParam("restId") int restaurantId, Principal principal) {
-        User currentUser = userService.findUserByUserName(principal.getName());
+        User currentUser = (User) userService.loadUserByUsername(principal.getName());
         review.setRestaurant(restaurantService.getRestaurant(restaurantId));
         review.setUser(currentUser);
         // refactoring maybe
