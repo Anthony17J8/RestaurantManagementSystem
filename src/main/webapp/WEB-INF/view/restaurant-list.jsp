@@ -72,15 +72,14 @@
                         |
                         <a href="${fn:escapeXml(deleteLink)}">Delete</a>
                     </td>
-
-                    <td>
-                        <c:url var="showReviewLink" value="/restaurant/reviews">
-                            <c:param name="restId" value="${restaurant.id}"/>
-                        </c:url>
-                        <a href="${fn:escapeXml(showReviewLink)}">Show reviews</a>
-                    </td>
-
                 </sec:authorize>
+
+                <td>
+                    <c:url var="showReviewLink" value="/restaurant/reviews">
+                        <c:param name="restId" value="${restaurant.id}"/>
+                    </c:url>
+                    <a href="${fn:escapeXml(showReviewLink)}">Show reviews</a>
+                </td>
 
             </tr>
             </tbody>
