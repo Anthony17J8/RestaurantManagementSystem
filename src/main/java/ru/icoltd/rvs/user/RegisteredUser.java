@@ -7,6 +7,7 @@ import ru.icoltd.rvs.validation.ValidEmail;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
+import java.util.Set;
 
 @FieldMatch(
         first = "password",
@@ -38,6 +39,8 @@ public class RegisteredUser {
 
     @NotNull
     private Date dateOfBirth;
+
+    private Set<String> roles;
 
     public String getFirstName() {
         return firstName;
@@ -93,5 +96,13 @@ public class RegisteredUser {
 
     public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public Set<String> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(Set<String> roles) {
+        this.roles = roles;
     }
 }

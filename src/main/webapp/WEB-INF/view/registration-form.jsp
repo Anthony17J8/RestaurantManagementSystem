@@ -42,6 +42,8 @@
     <p><i>Confirm password(*): <form:password path="matchingPassword" showPassword="true"/></i>
         <i class="error"><form:errors path="matchingPassword"/></i></p>
 
+    <p><i>Roles: <form:checkboxes path="roles" items="${roleNames}"/></i></p>
+
     <button type="submit">Submit</button>
     <button onclick="window.history.back()" type="button">Cancel</button>
 </form:form>

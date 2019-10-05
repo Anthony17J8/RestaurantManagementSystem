@@ -26,7 +26,7 @@ public class UserDAOImpl implements UserDAO {
     @Override
     public User findUserByUserName(String username) {
         Session currentSession = sessionFactory.getCurrentSession();
-        Query<User> query = currentSession.createQuery("FROM User u where u.username =: username", User.class);
+        Query<User> query = currentSession.createQuery("FROM User u join fetch u.roles where u.username =: username", User.class);
         query.setParameter("username", username);
         User result = null;
         try {

@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.icoltd.rvs.entity.User;
+import ru.icoltd.rvs.service.RoleService;
 import ru.icoltd.rvs.service.UserService;
 import ru.icoltd.rvs.user.RegisteredUser;
+import ru.icoltd.rvs.util.role.RoleUtils;
 
 import javax.validation.Valid;
 import java.util.Optional;
@@ -28,6 +30,8 @@ public class RegisterController {
     private static final Logger log = LoggerFactory.getLogger(RegisterController.class);
 
     private UserService userService;
+
+    private RoleService roleService;
 
     private PasswordEncoder passwordEncoder;
 
@@ -41,6 +45,11 @@ public class RegisterController {
         this.passwordEncoder = passwordEncoder;
     }
 
+    @Autowired
+    public void setRoleService(RoleService roleService) {
+        this.roleService = roleService;
+    }
+
     @InitBinder
     public void initBinder(WebDataBinder dataBinder) {
         StringTrimmerEditor trimmerEditor = new StringTrimmerEditor(false);
@@ -50,13 +59,16 @@ public class RegisterController {
     @GetMapping("/showRegistrationForm")
     public String showRegistrationForm(Model model) {
         model.addAttribute("regUser", new RegisteredUser());
+        model.addAttribute("roleNames", RoleUtils.getRoleNames(roleService.findAll()));
         return "registration-form";
     }
 
     @PostMapping("/processRegistration")
-    public String processRegistration(@Valid @ModelAttribute("regUser") RegisteredUser regUser, BindingResult bindingResult) {
+    public String processRegistration(@Valid @ModelAttribute("regUser") RegisteredUser regUser,
+                                      BindingResult bindingResult, Model model) {
 
         if (bindingResult.hasErrors()) {
+            model.addAttribute("roles", roleService.findAll());
             return "registration-form";
         } else {
             User user = Optional.of(regUser).map(
@@ -66,8 +78,8 @@ public class RegisterController {
                             u.getFirstName(),
                             u.getLastName(),
                             u.getEmail(),
-                            u.getDateOfBirth()
-                    )
+                            u.getDateOfBirth(),
+                            roleService.findByName(u.getRoles()))
             ).get();
             userService.saveUser(user);
             log.info("User '{}' was registered successful.", user.getUsername());
