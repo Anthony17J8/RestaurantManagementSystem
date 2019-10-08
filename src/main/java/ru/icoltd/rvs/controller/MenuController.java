@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
+import ru.icoltd.rvs.user.CurrentUser;
 import ru.icoltd.rvs.util.DateTimeUtils;
 import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
@@ -26,7 +27,6 @@ import ru.icoltd.rvs.service.UserService;
 import ru.icoltd.rvs.service.VoteService;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -45,19 +45,16 @@ public class MenuController {
 
     private RestaurantService restaurantService;
 
-    private UserService userService;
-
     private MessageSource messageSource;
 
     private DishService dishService;
 
     @Autowired
     public MenuController(MenuService menuService, VoteService voteService, RestaurantService restaurantService,
-                          UserService userService, MessageSource messageSource, DishService dishService) {
+                           MessageSource messageSource, DishService dishService) {
         this.menuService = menuService;
         this.voteService = voteService;
         this.restaurantService = restaurantService;
-        this.userService = userService;
         this.messageSource = messageSource;
         this.dishService = dishService;
     }
@@ -71,13 +68,13 @@ public class MenuController {
     }
 
     @PostMapping("/addVote")
-    public String voteForMenu(Model model, @RequestParam("menuId") int menuId, Principal principal) {
+    public String voteForMenu(Model model, @RequestParam("menuId") int menuId, @CurrentUser User currentUser) {
         LocalDateTime now = LocalDateTime.now();
         Menu menu = menuService.getMenu(menuId);
         int restaurantId = menu.getRestaurant().getId();
 
         if (DateTimeUtils.isNotBeforeNow(menu.getDate(), now)) {
-            saveOrUpdateVote(menu, now, principal);
+            saveOrUpdateVote(menu, now, currentUser);
         } else {
             model.addAttribute("restaurantId", restaurantId);
             model.addAttribute("message", messageSource.getMessage("error.vote.date",
@@ -87,16 +84,14 @@ public class MenuController {
         return "redirect:/restaurant/menus?restId=" + restaurantId;
     }
 
-    private void saveOrUpdateVote(Menu menu, LocalDateTime now, Principal principal) {
-        User existUser = (User) userService.loadUserByUsername(principal.getName());
-
-        Vote latestVote = voteService.getLatestVoteByUserId(existUser.getId());
+    private void saveOrUpdateVote(Menu menu, LocalDateTime now, User currentUser) {
+        Vote latestVote = voteService.getLatestVoteByUserId(currentUser.getId());
 
         if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
             latestVote.setMenu(menu);
             voteService.saveVote(latestVote);
         } else {
-            voteService.saveVote(new Vote(existUser, menu, now));
+            voteService.saveVote(new Vote(currentUser, menu, now));
         }
     }
 

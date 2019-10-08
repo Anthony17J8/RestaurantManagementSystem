@@ -13,7 +13,7 @@ public class ZoneDateTimeFormatter implements Formatter<ZonedDateTime> {
         return ZonedDateTime.of(
                 LocalDate.parse(text, DateTimeFormatter.ISO_LOCAL_DATE),
                 LocalTime.now(),
-                ZoneId.of("UTC")
+                ZoneId.systemDefault()
         );
     }
 

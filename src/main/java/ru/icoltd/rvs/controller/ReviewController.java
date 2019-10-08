@@ -12,9 +12,9 @@ import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.ReviewService;
 import ru.icoltd.rvs.service.UserService;
+import ru.icoltd.rvs.user.CurrentUser;
 
 import javax.validation.Valid;
-import java.security.Principal;
 import java.time.LocalDateTime;
 
 @Controller
@@ -25,19 +25,15 @@ public class ReviewController {
 
     private RestaurantService restaurantService;
 
-    private UserService userService;
-
     @Autowired
-    public ReviewController(ReviewService reviewService, RestaurantService restaurantService, UserService userService) {
+    public ReviewController(ReviewService reviewService, RestaurantService restaurantService) {
         this.reviewService = reviewService;
         this.restaurantService = restaurantService;
-        this.userService = userService;
     }
 
     @PostMapping("/save")
     public String saveReview(@ModelAttribute("newReview") @Valid Review review, BindingResult bindingResult,
-                             @RequestParam("restId") int restaurantId, Principal principal) {
-        User currentUser = (User) userService.loadUserByUsername(principal.getName());
+                             @RequestParam("restId") int restaurantId, @CurrentUser User currentUser) {
         review.setRestaurant(restaurantService.getRestaurant(restaurantId));
         review.setUser(currentUser);
         // refactoring maybe
