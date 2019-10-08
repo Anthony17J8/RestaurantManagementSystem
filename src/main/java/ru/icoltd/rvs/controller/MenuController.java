@@ -23,7 +23,6 @@ import ru.icoltd.rvs.entity.Vote;
 import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
-import ru.icoltd.rvs.service.UserService;
 import ru.icoltd.rvs.service.VoteService;
 
 import javax.validation.Valid;

@@ -11,7 +11,6 @@ import ru.icoltd.rvs.entity.Review;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.ReviewService;
-import ru.icoltd.rvs.service.UserService;
 import ru.icoltd.rvs.user.CurrentUser;
 
 import javax.validation.Valid;

@@ -6,11 +6,12 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.InitBinder;
 import ru.icoltd.rvs.controller.DishController;
 import ru.icoltd.rvs.controller.MenuController;
+import ru.icoltd.rvs.controller.RegisterController;
 import ru.icoltd.rvs.controller.RestaurantController;
 
-@ControllerAdvice(assignableTypes = {RestaurantController.class,
-        MenuController.class,
-        DishController.class})
+@ControllerAdvice(assignableTypes = {
+        RestaurantController.class, MenuController.class,
+        DishController.class, RegisterController.class})
 public class GlobalInitBinder {
 
     @InitBinder
