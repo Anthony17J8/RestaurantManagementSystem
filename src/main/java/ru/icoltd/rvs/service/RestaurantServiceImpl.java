@@ -16,7 +16,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     private RestaurantDAO restaurantDAO;
 
     @Autowired
-    public void setRestaurantDAO(RestaurantDAO restaurantDAO) {
+    public RestaurantServiceImpl(RestaurantDAO restaurantDAO) {
         this.restaurantDAO = restaurantDAO;
     }
 

@@ -16,7 +16,7 @@ public class DishServiceImpl implements DishService {
     private DishDAO dao;
 
     @Autowired
-    public void setDao(DishDAO dao) {
+    public DishServiceImpl(DishDAO dao) {
         this.dao = dao;
     }
 

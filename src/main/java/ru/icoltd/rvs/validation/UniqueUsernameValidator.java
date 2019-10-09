@@ -19,7 +19,7 @@ public class UniqueUsernameValidator implements ConstraintValidator<UniqueUserna
     private UserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public UniqueUsernameValidator(UserService userService) {
         this.userService = userService;
     }
 

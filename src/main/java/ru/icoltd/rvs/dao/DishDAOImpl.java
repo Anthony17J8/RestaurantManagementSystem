@@ -15,7 +15,7 @@ public class DishDAOImpl implements DishDAO {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public DishDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

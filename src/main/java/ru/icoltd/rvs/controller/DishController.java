@@ -29,13 +29,9 @@ public class DishController {
     private MenuService menuService;
 
     @Autowired
-    public void setMenuService(MenuService menuService) {
-        this.menuService = menuService;
-    }
-
-    @Autowired
-    public void setDishService(DishService dishService) {
+    public DishController(DishService dishService, MenuService menuService) {
         this.dishService = dishService;
+        this.menuService = menuService;
     }
 
     @GetMapping("/showFormForAdd")

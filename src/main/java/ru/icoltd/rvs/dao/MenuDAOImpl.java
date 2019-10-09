@@ -23,7 +23,7 @@ public class MenuDAOImpl implements MenuDAO {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public MenuDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

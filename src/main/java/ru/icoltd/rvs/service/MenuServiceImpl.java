@@ -19,7 +19,7 @@ public class MenuServiceImpl implements MenuService {
     private MenuDAO dao;
 
     @Autowired
-    public void setDao(MenuDAO dao) {
+    public MenuServiceImpl(MenuDAO dao) {
         this.dao = dao;
     }
 

@@ -33,18 +33,10 @@ public class RegisterController {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public RegisterController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
-    }
-
-    @Autowired
-    public void setPasswordEncoder(PasswordEncoder passwordEncoder) {
-        this.passwordEncoder = passwordEncoder;
-    }
-
-    @Autowired
-    public void setRoleService(RoleService roleService) {
         this.roleService = roleService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/showRegistrationForm")

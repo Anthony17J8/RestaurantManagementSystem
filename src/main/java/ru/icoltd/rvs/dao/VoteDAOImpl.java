@@ -15,7 +15,7 @@ public class VoteDAOImpl implements VoteDAO {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public VoteDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

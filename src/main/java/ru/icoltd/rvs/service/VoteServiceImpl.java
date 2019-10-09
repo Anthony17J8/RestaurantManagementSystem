@@ -12,7 +12,7 @@ public class VoteServiceImpl implements VoteService {
     private VoteDAO dao;
 
     @Autowired
-    public void setDao(VoteDAO dao) {
+    public VoteServiceImpl(VoteDAO dao) {
         this.dao = dao;
     }
 

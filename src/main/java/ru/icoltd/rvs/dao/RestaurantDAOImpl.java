@@ -20,7 +20,7 @@ public class RestaurantDAOImpl implements RestaurantDAO {
     private SessionFactory sessionFactory;
 
     @Autowired
-    public void setSessionFactory(SessionFactory sessionFactory) {
+    public RestaurantDAOImpl(SessionFactory sessionFactory) {
         this.sessionFactory = sessionFactory;
     }
 

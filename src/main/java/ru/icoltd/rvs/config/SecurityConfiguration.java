@@ -25,13 +25,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     private DataSource dataSource;
 
     @Autowired
-    public void setDataSource(DataSource dataSource) {
-        this.dataSource = dataSource;
-    }
-
-    @Autowired
-    public void setUserService(UserService userService) {
+    public SecurityConfiguration(UserService userService, DataSource dataSource) {
         this.userService = userService;
+        this.dataSource = dataSource;
     }
 
     @Bean

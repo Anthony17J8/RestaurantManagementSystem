@@ -21,8 +21,8 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import ru.icoltd.rvs.converter.DateFormatter;
-import ru.icoltd.rvs.converter.ZoneDateTimeFormatter;
+import ru.icoltd.rvs.formatters.DateFormatter;
+import ru.icoltd.rvs.formatters.ZoneDateTimeFormatter;
 import ru.icoltd.rvs.exception.UnacceptablePropertyValueException;
 
 import javax.sql.DataSource;
@@ -41,7 +41,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
     private Environment env;
 
     @Autowired
-    public void setEnv(Environment env) {
+    public ApplicationConfig(Environment env) {
         this.env = env;
     }
 

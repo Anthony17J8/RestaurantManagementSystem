@@ -23,7 +23,7 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
     private UserService userService;
 
     @Autowired
-    public void setUserService(UserService userService) {
+    public EmailValidator(UserService userService) {
         this.userService = userService;
     }
 
