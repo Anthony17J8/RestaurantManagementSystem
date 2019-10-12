@@ -1,10 +1,9 @@
 package ru.icoltd.rvs.dao;
 
+import lombok.extern.slf4j.Slf4j;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Menu;
@@ -16,9 +15,8 @@ import java.util.List;
 
 
 @Repository
+@Slf4j
 public class MenuDAOImpl implements MenuDAO {
-
-    private static final Logger log = LoggerFactory.getLogger(MenuDAOImpl.class);
 
     private SessionFactory sessionFactory;
 

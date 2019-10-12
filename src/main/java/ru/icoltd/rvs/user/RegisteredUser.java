@@ -1,5 +1,8 @@
 package ru.icoltd.rvs.user;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import ru.icoltd.rvs.validation.FieldMatch;
 import ru.icoltd.rvs.validation.UniqueUsername;
 import ru.icoltd.rvs.validation.ValidEmail;
@@ -9,6 +12,9 @@ import javax.validation.constraints.Size;
 import java.sql.Date;
 import java.util.Set;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @FieldMatch(
         first = "password",
         second = "matchingPassword",
@@ -41,68 +47,4 @@ public class RegisteredUser {
     private Date dateOfBirth;
 
     private Set<String> roles;
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
-
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public Date getDateOfBirth() {
-        return dateOfBirth;
-    }
-
-    public void setDateOfBirth(Date dateOfBirth) {
-        this.dateOfBirth = dateOfBirth;
-    }
-
-    public Set<String> getRoles() {
-        return roles;
-    }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
-    }
 }

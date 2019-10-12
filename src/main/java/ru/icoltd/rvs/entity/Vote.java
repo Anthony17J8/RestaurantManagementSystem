@@ -1,9 +1,10 @@
 package ru.icoltd.rvs.entity;
 
-import org.apache.commons.lang3.builder.EqualsBuilder;
-import org.apache.commons.lang3.builder.HashCodeBuilder;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +14,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@ToString
+@EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "votes")
 public class Vote extends BaseEntity {
@@ -32,9 +38,6 @@ public class Vote extends BaseEntity {
     @Column(name = "date")
     private LocalDateTime dateTime;
 
-    public Vote() {
-    }
-
     public Vote(User user, Menu menu) {
         this.user = user;
         this.menu = menu;
@@ -49,58 +52,5 @@ public class Vote extends BaseEntity {
         this.user = user;
         this.menu = menu;
         this.dateTime = dateTime;
-    }
-
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public Menu getMenu() {
-        return menu;
-    }
-
-    public void setMenu(Menu menu) {
-        this.menu = menu;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass()) return false;
-
-        Vote vote = (Vote) o;
-
-        return new EqualsBuilder()
-                .append(user, vote.user)
-                .append(menu, vote.menu)
-                .append(dateTime, vote.dateTime)
-                .isEquals();
-    }
-
-    @Override
-    public int hashCode() {
-        return new HashCodeBuilder(17, 37)
-                .append(user)
-                .append(menu)
-                .append(dateTime)
-                .toHashCode();
-    }
-
-    @Override
-    public String toString() {
-        return ToStringBuilder.reflectionToString(this, ToStringStyle.SHORT_PREFIX_STYLE);
     }
 }
