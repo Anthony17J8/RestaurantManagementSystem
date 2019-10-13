@@ -157,6 +157,12 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-test</artifactId>
             <version>${springframework.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.mockito</groupId>
@@ -197,8 +203,24 @@
 
     <build>
         <finalName>restaurant-management-system</finalName>
-        <pluginManagement>
-            <plugins>
+        <plugins>
+            <plugin>
+                <artifactId>maven-failsafe-plugin</artifactId>
+                <version>3.0.0-M3</version>
+                <configuration>
+                    <includes>
+                        <include>**/*IT.java</include>
+                    </includes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>integration-test</goal>
+                            <goal>verify</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
                 <plugin>
                     <!-- Add Maven coordinates (GAV) for: maven-war-plugin -->
                     <groupId>org.apache.maven.plugins</groupId>
@@ -210,7 +232,6 @@
                     <version>2.22.2</version>
                 </plugin>
             </plugins>
-        </pluginManagement>
     </build>
 
 </project>

@@ -1,5 +1,7 @@
 package ru.icoltd.rvs.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +22,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity
@@ -40,8 +43,13 @@ public class Restaurant extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
     private List<Review> reviews;
 
-    public Restaurant(String name, RestaurantDetail restaurantDetail) {
+    @Builder
+    public Restaurant(Integer id, String name, RestaurantDetail restaurantDetail,
+                      List<Menu> menus, List<Review> reviews) {
+        super(id);
         this.name = name;
         this.restaurantDetail = restaurantDetail;
+        this.menus = menus;
+        this.reviews = reviews;
     }
 }
