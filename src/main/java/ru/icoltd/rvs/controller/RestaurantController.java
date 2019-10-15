@@ -4,7 +4,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,11 +62,11 @@ public class RestaurantController {
     }
 
     @GetMapping("/showFormForAdd")
-    public String showAddRestaurantForm(ModelMap model) {
-        Restaurant theRestaurant = new Restaurant();
-        RestaurantDetail theDetail = new RestaurantDetail();
-        model.addAttribute("detail", theDetail);
-        model.addAttribute("restaurant", theRestaurant);
+    public String showAddRestaurantForm(Model model) {
+        Restaurant restaurant = new Restaurant();
+        RestaurantDetail rDetail = new RestaurantDetail();
+        model.addAttribute("detail", rDetail);
+        model.addAttribute("restaurant", restaurant);
         return "restaurant-form";
     }
 

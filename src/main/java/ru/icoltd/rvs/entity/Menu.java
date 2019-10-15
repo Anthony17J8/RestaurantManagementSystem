@@ -1,5 +1,7 @@
 package ru.icoltd.rvs.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +25,7 @@ import java.util.List;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString
 @Entity
@@ -51,9 +54,13 @@ public class Menu extends BaseEntity {
     @Fetch(value = FetchMode.SUBSELECT)
     private List<Vote> votes;
 
-    public Menu(String name, ZonedDateTime date, Restaurant restaurant) {
+    @Builder
+    public Menu(Integer id, String name, ZonedDateTime date, Restaurant restaurant, List<Dish> dishes, List<Vote> votes) {
+        super(id);
         this.name = name;
         this.date = date;
         this.restaurant = restaurant;
+        this.dishes = dishes;
+        this.votes = votes;
     }
 }

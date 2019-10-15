@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-    <property name="APP_HOME" value="/home/anthony/kiselev/projects/RestaurantManagementSystem"/>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${APP_HOME}/log/app.log</file>
+        <file>${RVS_HOME}/log/app.log</file>
 
         <encoder>
             <charset>UTF-8</charset>

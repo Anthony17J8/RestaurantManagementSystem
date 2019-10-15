@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,7 +22,7 @@ import javax.validation.constraints.Pattern;
 @ToString
 @Entity
 @Table(name = "restaurant_details")
-public class RestaurantDetail extends BaseEntity{
+public class RestaurantDetail extends BaseEntity {
 
     @NotNull
     @Column(name = "country")
@@ -46,4 +47,14 @@ public class RestaurantDetail extends BaseEntity{
     @Column(name = "site")
     @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
     private String site;
+
+    @Builder
+    public RestaurantDetail(Integer id, String country, String city, String street, String phone, String site) {
+        super(id);
+        this.country = country;
+        this.city = city;
+        this.street = street;
+        this.phone = phone;
+        this.site = site;
+    }
 }
