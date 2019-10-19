@@ -51,7 +51,7 @@ class RestaurantDAOImplTestIT {
     @Transactional
     @Rollback
     void saveRestaurant() {
-        dao.saveRestaurant(Restaurant.builder().build());
+        dao.saveRestaurant(Restaurant.builder().name("New Restaurant").build());
         assertEquals(4, dao.getRestaurants().size());
     }
 

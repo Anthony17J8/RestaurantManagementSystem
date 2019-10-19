@@ -8,8 +8,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
@@ -54,6 +57,8 @@ class RestaurantControllerTest {
 
     private Restaurant returned;
 
+    private MultiValueMap<String, String> valueMap;
+
     @BeforeEach
     void setUp() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -62,6 +67,14 @@ class RestaurantControllerTest {
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).setViewResolvers(viewResolver).build();
         returned = Restaurant.builder().id(ID).restaurantDetail(RestaurantDetail.builder().build()).build();
+        valueMap = new LinkedMultiValueMap<>();
+        valueMap.put("id", Lists.newArrayList("1"));
+        valueMap.put("name", Lists.newArrayList("restName"));
+        valueMap.put("city", Lists.newArrayList("Moscow"));
+        valueMap.put("street", Lists.newArrayList("Red Square"));
+        valueMap.put("phone", Lists.newArrayList("+88549954489"));
+        valueMap.put("country", Lists.newArrayList("Russia"));
+        valueMap.put("site", Lists.newArrayList("newrest.ru"));
     }
 
     @Test
@@ -105,7 +118,9 @@ class RestaurantControllerTest {
 
     @Test
     void testAddRestaurant() throws Exception {
-        mockMvc.perform(post("/restaurant/save"))
+        mockMvc.perform(post("/restaurant/save")
+                .params(valueMap)
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(redirectedUrl("/restaurant/list"))
                 .andExpect(status().isFound());
         verify(restaurantService).saveRestaurant(any(Restaurant.class));
