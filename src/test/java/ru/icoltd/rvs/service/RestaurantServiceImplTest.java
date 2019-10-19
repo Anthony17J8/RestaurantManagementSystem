@@ -9,8 +9,8 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.icoltd.rvs.dao.RestaurantDAO;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
+import ru.icoltd.rvs.util.MockDataUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -24,8 +24,6 @@ import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 class RestaurantServiceImplTest {
 
-    private static final Integer ID = 1;
-
     @Mock
     private RestaurantDAO restaurantDAO;
 
@@ -36,16 +34,12 @@ class RestaurantServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        restaurantMock = Restaurant.builder().id(ID).build();
+        restaurantMock = MockDataUtils.getMockRestaurant();
     }
 
     @Test
     void testGetRestaurants() {
-        List<Restaurant> returnedList = new ArrayList<>();
-        Restaurant restaurant1 = Restaurant.builder().id(1).build();
-        Restaurant restaurant2 = Restaurant.builder().id(2).build();
-        returnedList.add(restaurant1);
-        returnedList.add(restaurant2);
+        List<Restaurant> returnedList = MockDataUtils.getMockRestaurants(2);
 
         when(restaurantDAO.getRestaurants()).thenReturn(returnedList);
 
@@ -60,17 +54,17 @@ class RestaurantServiceImplTest {
     void testGetRestaurant() {
         when(restaurantDAO.findById(anyInt())).thenReturn(restaurantMock);
 
-        Restaurant result = service.getRestaurant(ID);
+        Restaurant result = service.getRestaurant(restaurantMock.getId());
 
         assertNotNull(result);
-        assertEquals(result.getId(), ID);
+        assertEquals(result.getId(), restaurantMock.getId());
 
         verify(restaurantDAO).findById(anyInt());
     }
 
     @Test
     void testGetRestaurantNotFound() {
-        assertThrows(ObjNotFoundException.class, () -> service.getRestaurant(ID));
+        assertThrows(ObjNotFoundException.class, () -> service.getRestaurant(restaurantMock.getId()));
     }
 
     @Test

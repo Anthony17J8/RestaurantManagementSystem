@@ -21,6 +21,7 @@ import ru.icoltd.rvs.entity.Review;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.ReviewService;
+import ru.icoltd.rvs.util.MockDataUtils;
 
 import java.util.List;
 
@@ -39,8 +40,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(MockitoExtension.class)
 class RestaurantControllerTest {
 
-    private static final Integer ID = 1;
-
     @Mock
     private RestaurantService restaurantService;
 
@@ -57,8 +56,6 @@ class RestaurantControllerTest {
 
     private Restaurant returned;
 
-    private MultiValueMap<String, String> valueMap;
-
     @BeforeEach
     void setUp() {
         InternalResourceViewResolver viewResolver = new InternalResourceViewResolver();
@@ -66,22 +63,12 @@ class RestaurantControllerTest {
         viewResolver.setSuffix(".jsp");
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).setViewResolvers(viewResolver).build();
-        returned = Restaurant.builder().id(ID).restaurantDetail(RestaurantDetail.builder().build()).build();
-        valueMap = new LinkedMultiValueMap<>();
-        valueMap.put("id", Lists.newArrayList("1"));
-        valueMap.put("name", Lists.newArrayList("restName"));
-        valueMap.put("city", Lists.newArrayList("Moscow"));
-        valueMap.put("street", Lists.newArrayList("Red Square"));
-        valueMap.put("phone", Lists.newArrayList("+88549954489"));
-        valueMap.put("country", Lists.newArrayList("Russia"));
-        valueMap.put("site", Lists.newArrayList("newrest.ru"));
+        returned = MockDataUtils.getMockRestaurant();
     }
 
     @Test
     void testListRestaurants() throws Exception {
-        Restaurant restaurant1 = Restaurant.builder().id(1).build();
-        Restaurant restaurant2 = Restaurant.builder().id(2).build();
-        List<Restaurant> returnedList = Lists.newArrayList(restaurant1, restaurant2);
+        List<Restaurant> returnedList = MockDataUtils.getMockRestaurants(2);
 
         when(restaurantService.getRestaurants()).thenReturn(returnedList);
 
@@ -93,14 +80,12 @@ class RestaurantControllerTest {
 
     @Test
     void testListMenus() throws Exception {
-        Menu menu1 = Menu.builder().build();
-        Menu menu2 = Menu.builder().build();
-        List<Menu> menus = Lists.newArrayList(menu1, menu2);
+        List<Menu> menus = MockDataUtils.getMockMenus(2);
 
         when(menuService.findAllByRestaurantId(anyInt())).thenReturn(menus);
         when(restaurantService.getRestaurant(anyInt())).thenReturn(returned);
 
-        mockMvc.perform(get("/restaurant/menus?restId={id}", ID))
+        mockMvc.perform(get("/restaurant/menus?restId={id}", returned.getId()))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("menus", Matchers.hasSize(2)))
                 .andExpect(model().attribute("restaurant", Matchers.equalTo(returned)))
@@ -118,6 +103,16 @@ class RestaurantControllerTest {
 
     @Test
     void testAddRestaurant() throws Exception {
+        RestaurantDetail detail = MockDataUtils.getMockRestaurantDetail();
+        MultiValueMap<String, String> valueMap = new LinkedMultiValueMap<>();
+        valueMap.put("id", Lists.newArrayList(String.valueOf(returned.getId())));
+        valueMap.put("name", Lists.newArrayList(returned.getName()));
+        valueMap.put("city", Lists.newArrayList(detail.getCity()));
+        valueMap.put("street", Lists.newArrayList(detail.getStreet()));
+        valueMap.put("phone", Lists.newArrayList(detail.getPhone()));
+        valueMap.put("country", Lists.newArrayList(detail.getCountry()));
+        valueMap.put("site", Lists.newArrayList(detail.getSite()));
+
         mockMvc.perform(post("/restaurant/save")
                 .params(valueMap)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
@@ -129,7 +124,7 @@ class RestaurantControllerTest {
     @Test
     void testDelete() throws Exception {
         when(restaurantService.getRestaurant(anyInt())).thenReturn(returned);
-        mockMvc.perform(get("/restaurant/delete?restId={id}", ID))
+        mockMvc.perform(get("/restaurant/delete?restId={id}", returned.getId()))
                 .andExpect(redirectedUrl("/restaurant/list"))
                 .andExpect(status().isFound());
         verify(restaurantService).deleteRestaurant(eq(returned));
@@ -138,7 +133,7 @@ class RestaurantControllerTest {
     @Test
     void testUpdate() throws Exception {
         when(restaurantService.getRestaurant(anyInt())).thenReturn(returned);
-        mockMvc.perform(get("/restaurant/update?restId={id}", ID))
+        mockMvc.perform(get("/restaurant/update?restId={id}", returned.getId()))
                 .andExpect(model().attribute("detail", Matchers.notNullValue(RestaurantDetail.class)))
                 .andExpect(model().attribute("restaurant", Matchers.notNullValue(Restaurant.class)))
                 .andExpect(view().name("restaurant-form"));
@@ -146,14 +141,12 @@ class RestaurantControllerTest {
 
     @Test
     void testShowReviews() throws Exception {
-        Review review1 = Review.builder().build();
-        Review review2 = Review.builder().build();
-        List<Review> reviews = Lists.newArrayList(review1, review2);
+        List<Review> reviews = MockDataUtils.getMockReviews(2);
 
         when(reviewService.findAllByRestaurantId(anyInt())).thenReturn(reviews);
         when(restaurantService.getRestaurant(anyInt())).thenReturn(returned);
 
-        mockMvc.perform(get("/restaurant/reviews?restId={id}", ID))
+        mockMvc.perform(get("/restaurant/reviews?restId={id}", returned.getId()))
                 .andExpect(status().isOk())
                 .andExpect(model().attribute("newReview", Matchers.notNullValue(Review.class)))
                 .andExpect(model().attribute("reviews", Matchers.hasSize(2)))
