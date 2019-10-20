@@ -23,7 +23,7 @@ CREATE TABLE restaurants
     name                 varchar(128) DEFAULT NULL,
     restaurant_detail_id int(11)      DEFAULT NULL,
     primary key (id),
-    UNIQUE KEY name_unique (name),
+    UNIQUE (name),
     CONSTRAINT fk_address FOREIGN KEY (restaurant_detail_id) REFERENCES restaurant_details (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 

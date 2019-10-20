@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.config.ApplicationConfig;
 import ru.icoltd.rvs.config.TestConfig;
 import ru.icoltd.rvs.entity.Restaurant;
+import ru.icoltd.rvs.util.MockDataUtils;
 
 import java.util.List;
 
@@ -37,7 +38,6 @@ class RestaurantDAOImplTestIT {
         Restaurant result = dao.findById(ID);
         assertNotNull(result);
         assertEquals(ID, result.getId());
-        assertEquals("Osteria Francescana", result.getName());
     }
 
     @Test
@@ -51,7 +51,7 @@ class RestaurantDAOImplTestIT {
     @Transactional
     @Rollback
     void saveRestaurant() {
-        dao.saveRestaurant(Restaurant.builder().name("New Restaurant").build());
+        dao.saveRestaurant(MockDataUtils.getMockRestaurant());
         assertEquals(4, dao.getRestaurants().size());
     }
 

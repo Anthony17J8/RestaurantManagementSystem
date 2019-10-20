@@ -21,7 +21,6 @@ import ru.icoltd.rvs.entity.Review;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.ReviewService;
-import ru.icoltd.rvs.util.MockDataUtils;
 
 import java.util.List;
 
@@ -36,6 +35,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static ru.icoltd.rvs.util.MockDataUtils.withId;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockRestaurant;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockRestaurants;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockMenus;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockRestaurantDetail;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockReviews;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantControllerTest {
@@ -63,12 +68,12 @@ class RestaurantControllerTest {
         viewResolver.setSuffix(".jsp");
 
         mockMvc = MockMvcBuilders.standaloneSetup(controller).setViewResolvers(viewResolver).build();
-        returned = MockDataUtils.getMockRestaurant();
+        returned = withId(getMockRestaurant());
     }
 
     @Test
     void testListRestaurants() throws Exception {
-        List<Restaurant> returnedList = MockDataUtils.getMockRestaurants(2);
+        List<Restaurant> returnedList = getMockRestaurants(2);
 
         when(restaurantService.getRestaurants()).thenReturn(returnedList);
 
@@ -80,7 +85,7 @@ class RestaurantControllerTest {
 
     @Test
     void testListMenus() throws Exception {
-        List<Menu> menus = MockDataUtils.getMockMenus(2);
+        List<Menu> menus = getMockMenus(2);
 
         when(menuService.findAllByRestaurantId(anyInt())).thenReturn(menus);
         when(restaurantService.getRestaurant(anyInt())).thenReturn(returned);
@@ -103,7 +108,7 @@ class RestaurantControllerTest {
 
     @Test
     void testAddRestaurant() throws Exception {
-        RestaurantDetail detail = MockDataUtils.getMockRestaurantDetail();
+        RestaurantDetail detail = withId(getMockRestaurantDetail());
         MultiValueMap<String, String> valueMap = new LinkedMultiValueMap<>();
         valueMap.put("id", Lists.newArrayList(String.valueOf(returned.getId())));
         valueMap.put("name", Lists.newArrayList(returned.getName()));
@@ -141,7 +146,7 @@ class RestaurantControllerTest {
 
     @Test
     void testShowReviews() throws Exception {
-        List<Review> reviews = MockDataUtils.getMockReviews(2);
+        List<Review> reviews = getMockReviews(2);
 
         when(reviewService.findAllByRestaurantId(anyInt())).thenReturn(reviews);
         when(restaurantService.getRestaurant(anyInt())).thenReturn(returned);

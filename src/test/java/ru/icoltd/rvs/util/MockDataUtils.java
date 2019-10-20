@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.util;
 
 import com.github.javafaker.Faker;
+import ru.icoltd.rvs.entity.BaseEntity;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
@@ -21,7 +22,6 @@ public class MockDataUtils {
 
     public static Restaurant getMockRestaurant() {
         return Restaurant.builder()
-                .id(Integer.valueOf(FAKER.number().digit()))
                 .name(FAKER.company().name())
                 .restaurantDetail(getMockRestaurantDetail())
                 .build();
@@ -33,17 +33,16 @@ public class MockDataUtils {
 
     public static RestaurantDetail getMockRestaurantDetail() {
         return RestaurantDetail.builder()
-                .id(Integer.valueOf(FAKER.number().digit()))
                 .city(FAKER.address().city())
                 .country(FAKER.address().country())
                 .site(FAKER.internet().domainName())
-                .phone(FAKER.regexify("[0-9]{11}"))
+                .phone(FAKER.regexify("[1-9]{11}"))
                 .street(FAKER.address().streetAddress())
                 .build();
     }
 
     public static Menu getMockMenu() {
-        return Menu.builder().id(Integer.valueOf(FAKER.number().digit()))
+        return Menu.builder()
                 .name(FAKER.funnyName().name())
                 .date(ZonedDateTime.now())
                 .build();
@@ -54,7 +53,7 @@ public class MockDataUtils {
     }
 
     public static Review getMockReview() {
-        return Review.builder().id(Integer.valueOf(FAKER.number().digit()))
+        return Review.builder()
                 .createdAt(LocalDateTime.now())
                 .text(FAKER.funnyName().name())
                 .build();
@@ -62,5 +61,10 @@ public class MockDataUtils {
 
     public static List<Review> getMockReviews(int count) {
         return Stream.generate(MockDataUtils::getMockReview).limit(count).collect(Collectors.toList());
+    }
+
+    public static <T extends BaseEntity> T withId(T obj) {
+        obj.setId(Long.valueOf(FAKER.number().randomNumber()).intValue());
+        return obj;
     }
 }

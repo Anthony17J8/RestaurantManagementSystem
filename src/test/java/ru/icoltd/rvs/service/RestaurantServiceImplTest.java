@@ -9,7 +9,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import ru.icoltd.rvs.dao.RestaurantDAO;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
-import ru.icoltd.rvs.util.MockDataUtils;
 
 import java.util.List;
 
@@ -20,6 +19,9 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static ru.icoltd.rvs.util.MockDataUtils.withId;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockRestaurant;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockRestaurants;
 
 @ExtendWith(MockitoExtension.class)
 class RestaurantServiceImplTest {
@@ -34,12 +36,12 @@ class RestaurantServiceImplTest {
 
     @BeforeEach
     void setUp() {
-        restaurantMock = MockDataUtils.getMockRestaurant();
+        restaurantMock = withId(getMockRestaurant());
     }
 
     @Test
     void testGetRestaurants() {
-        List<Restaurant> returnedList = MockDataUtils.getMockRestaurants(2);
+        List<Restaurant> returnedList = getMockRestaurants(2);
 
         when(restaurantDAO.getRestaurants()).thenReturn(returnedList);
 

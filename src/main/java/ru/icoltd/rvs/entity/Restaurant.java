@@ -33,7 +33,7 @@ public class Restaurant extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "restaurant_detail_id")
     private RestaurantDetail restaurantDetail;
 
