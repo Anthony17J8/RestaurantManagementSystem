@@ -21,7 +21,6 @@ import ru.icoltd.rvs.service.ReviewService;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @Slf4j
@@ -52,10 +51,7 @@ public class RestaurantController {
     @GetMapping("/menus")
     public String listMenus(@RequestParam(name = "restId") int restaurantId, Model model) {
         List<Menu> menus = menuService.findAllByRestaurantId(restaurantId);
-        Restaurant restaurant = menus.stream()
-                .findFirst()
-                .flatMap(m -> Optional.ofNullable(m.getRestaurant()))
-                .orElse(restaurantService.getRestaurant(restaurantId));
+        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         model.addAttribute("menus", menus);
         model.addAttribute("restaurant", restaurant);
         return "menu-list";
@@ -105,10 +101,7 @@ public class RestaurantController {
     public String showReviews(@RequestParam("restId") int restaurantId, Model model) {
         List<Review> reviews = reviewService.findAllByRestaurantId(restaurantId);
         Review newReview = new Review();
-        Restaurant restaurant = reviews.stream()
-                .findFirst()
-                .flatMap(m -> Optional.ofNullable(m.getRestaurant()))
-                .orElse(restaurantService.getRestaurant(restaurantId));
+        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
         model.addAttribute("newReview", newReview);
         model.addAttribute("reviews", reviews);
         model.addAttribute("restaurant", restaurant);
