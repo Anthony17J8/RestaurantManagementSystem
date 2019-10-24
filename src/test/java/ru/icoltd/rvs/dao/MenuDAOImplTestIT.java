@@ -34,7 +34,7 @@ class MenuDAOImplTestIT {
 
     @Test
     @Transactional
-    void findById() {
+    void testFindById() {
         Menu result = dao.findById(ID);
         assertNotNull(result);
         assertEquals(ID, result.getId());
@@ -42,7 +42,7 @@ class MenuDAOImplTestIT {
 
     @Test
     @Transactional
-    void findByIdNotFound() {
+    void testFindByIdNotFound() {
         Menu result = dao.findById(Integer.MAX_VALUE);
         assertNull(result);
     }
@@ -50,7 +50,7 @@ class MenuDAOImplTestIT {
     @Test
     @Transactional
     @Rollback
-    void saveMenu() {
+    void testSaveMenu() {
         Menu savedMenu = MockDataUtils.getMockMenu();
         savedMenu.setRestaurant(restaurantDAO.findById(ID));
         dao.saveMenu(savedMenu);
@@ -62,7 +62,7 @@ class MenuDAOImplTestIT {
     @Test
     @Transactional
     @Rollback
-    void deleteMenu() {
+    void testDeleteMenu() {
         Menu deleted = dao.findById(ID);
         dao.deleteMenu(deleted);
         assertNull(dao.findById(ID));
@@ -70,7 +70,7 @@ class MenuDAOImplTestIT {
 
     @Test
     @Transactional
-    void getBetweenDates() {
+    void testGetBetweenDates() {
         ZonedDateTime from = ZonedDateTime.of(
                 LocalDate.of(2019, Month.FEBRUARY, 9),
                 LocalTime.now(),
@@ -88,7 +88,7 @@ class MenuDAOImplTestIT {
 
     @Test
     @Transactional
-    void findAllByRestaurantId() {
+    void testFindAllByRestaurantId() {
         List<Menu> result = dao.findAllByRestaurantId(ID);
         assertNotNull(result);
         assertEquals(2, result.size());
