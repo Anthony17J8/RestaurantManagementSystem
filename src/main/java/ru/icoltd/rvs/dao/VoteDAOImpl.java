@@ -26,7 +26,7 @@ public class VoteDAOImpl implements VoteDAO {
     }
 
     @Override
-    public Vote getVoteLatestVoteByUserId(int userId) {
+    public Vote getLatestVoteByUserId(int userId) {
         try {
             Session currentSession = sessionFactory.getCurrentSession();
 

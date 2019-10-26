@@ -2,10 +2,12 @@ package ru.icoltd.rvs.util;
 
 import com.github.javafaker.Faker;
 import ru.icoltd.rvs.entity.BaseEntity;
+import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
 import ru.icoltd.rvs.entity.Review;
+import ru.icoltd.rvs.entity.Vote;
 
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
@@ -63,8 +65,23 @@ public class MockDataUtils {
         return Stream.generate(MockDataUtils::getMockReview).limit(count).collect(Collectors.toList());
     }
 
+    public static List<Dish> getMockDishes(int count) {
+        return Stream.generate(MockDataUtils::getMockDish).limit(count).collect(Collectors.toList());
+    }
+
+    public static Dish getMockDish() {
+        return Dish.builder()
+                .description(FAKER.funnyName().name())
+                .price(FAKER.number().randomDouble(3, Integer.MIN_VALUE, Integer.MAX_VALUE))
+                .build();
+    }
+
     public static <T extends BaseEntity> T withId(T obj) {
         obj.setId(Long.valueOf(FAKER.number().randomNumber()).intValue());
         return obj;
+    }
+
+    public static Vote getMockVote() {
+        return Vote.builder().dateTime(LocalDateTime.now()).build();
     }
 }

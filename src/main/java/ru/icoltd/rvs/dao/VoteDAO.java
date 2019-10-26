@@ -6,5 +6,5 @@ public interface VoteDAO {
 
     void saveVote(Vote vote);
 
-    Vote getVoteLatestVoteByUserId(int userId);
+    Vote getLatestVoteByUserId(int userId);
 }

@@ -18,7 +18,6 @@ import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.User;
-import ru.icoltd.rvs.entity.Vote;
 import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
@@ -71,7 +70,7 @@ public class MenuController {
         int restaurantId = menu.getRestaurant().getId();
 
         if (DateTimeUtils.isNotBeforeNow(menu.getDate(), now)) {
-            saveOrUpdateVote(menu, now, currentUser);
+            voteService.saveOrUpdateVote(menu, now, currentUser);
         } else {
             model.addAttribute("restaurantId", restaurantId);
             model.addAttribute("message", messageSource.getMessage("error.vote.date",
@@ -79,17 +78,6 @@ public class MenuController {
             return "error-page";
         }
         return "redirect:/restaurant/menus?restId=" + restaurantId;
-    }
-
-    private void saveOrUpdateVote(Menu menu, LocalDateTime now, User currentUser) {
-        Vote latestVote = voteService.getLatestVoteByUserId(currentUser.getId());
-
-        if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
-            latestVote.setMenu(menu);
-            voteService.saveVote(latestVote);
-        } else {
-            voteService.saveVote(new Vote(currentUser, menu, now));
-        }
     }
 
     @GetMapping("/showFormForAdd")

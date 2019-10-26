@@ -4,7 +4,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.VoteDAO;
+import ru.icoltd.rvs.entity.Menu;
+import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.entity.Vote;
+import ru.icoltd.rvs.util.DateTimeUtils;
+
+import java.time.LocalDateTime;
 
 @Service
 public class VoteServiceImpl implements VoteService {
@@ -18,13 +23,14 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     @Transactional
-    public void saveVote(Vote vote) {
-        dao.saveVote(vote);
-    }
+    public void saveOrUpdateVote(Menu menu, LocalDateTime now, User currentUser) {
+        Vote latestVote = dao.getLatestVoteByUserId(currentUser.getId());
 
-    @Override
-    @Transactional
-    public Vote getLatestVoteByUserId(int userId) {
-        return dao.getVoteLatestVoteByUserId(userId);
+        if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
+            latestVote.setMenu(menu);
+            dao.saveVote(latestVote);
+        } else {
+            dao.saveVote(new Vote(currentUser, menu, now));
+        }
     }
 }

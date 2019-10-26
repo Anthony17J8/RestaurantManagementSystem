@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.entity;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,17 +39,15 @@ public class Vote extends BaseEntity {
     @Column(name = "date")
     private LocalDateTime dateTime;
 
-    public Vote(User user, Menu menu) {
+    public Vote(User user, Menu menu, LocalDateTime dateTime) {
         this.user = user;
-        this.menu = menu;
-    }
-
-    public Vote(Menu menu, LocalDateTime dateTime) {
         this.menu = menu;
         this.dateTime = dateTime;
     }
 
-    public Vote(User user, Menu menu, LocalDateTime dateTime) {
+    @Builder
+    public Vote(Integer id, User user, Menu menu, LocalDateTime dateTime) {
+        super(id);
         this.user = user;
         this.menu = menu;
         this.dateTime = dateTime;

@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.entity;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,4 +40,12 @@ public class Dish extends BaseEntity{
             CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "menu_id")
     private Menu menu;
+
+    @Builder
+    public Dish(Integer id, @NotNull String description, @PositiveOrZero double price, Menu menu) {
+        super(id);
+        this.description = description;
+        this.price = price;
+        this.menu = menu;
+    }
 }
