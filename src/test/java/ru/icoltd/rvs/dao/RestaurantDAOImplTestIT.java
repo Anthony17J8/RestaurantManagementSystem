@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 
-@SpringJUnitWebConfig(classes = {ApplicationConfig.class, TestConfig.class})
+@SpringJUnitWebConfig({ApplicationConfig.class, TestConfig.class})
 class RestaurantDAOImplTestIT {
 
     private static final Integer ID = 1;

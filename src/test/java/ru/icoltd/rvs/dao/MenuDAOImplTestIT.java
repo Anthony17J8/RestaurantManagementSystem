@@ -21,7 +21,7 @@ import java.util.List;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringJUnitWebConfig(classes = {ApplicationConfig.class, TestConfig.class})
+@SpringJUnitWebConfig({ApplicationConfig.class, TestConfig.class})
 class MenuDAOImplTestIT {
 
     private static final Integer ID = 1;

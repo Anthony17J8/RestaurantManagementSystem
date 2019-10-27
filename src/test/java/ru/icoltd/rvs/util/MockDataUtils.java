@@ -72,7 +72,7 @@ public class MockDataUtils {
     public static Dish getMockDish() {
         return Dish.builder()
                 .description(FAKER.funnyName().name())
-                .price(FAKER.number().randomDouble(3, Integer.MIN_VALUE, Integer.MAX_VALUE))
+                .price(FAKER.number().randomDouble(3, 0, Integer.MAX_VALUE))
                 .build();
     }
 

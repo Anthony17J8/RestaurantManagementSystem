@@ -24,7 +24,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString
+@ToString(exclude = {"menus", "reviews"})
 @Entity
 @Table(name = "restaurants")
 public class Restaurant extends BaseEntity {
