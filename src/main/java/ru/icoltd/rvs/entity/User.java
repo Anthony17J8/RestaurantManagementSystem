@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.entity;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -51,17 +52,21 @@ public class User extends BaseEntity implements UserDetails {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles;
 
-    public User(String username, String password, String firstName, String lastName, String email, Date dateOfBirth) {
+    public User(String username, String password, String firstName, String lastName,
+                String email, Date dateOfBirth, Set<Role> roles) {
         this.username = username;
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.dateOfBirth = dateOfBirth;
+        this.roles = roles;
     }
 
-    public User(String username, String password, String firstName, String lastName,
-                String email, Date dateOfBirth, Set<Role> roles) {
+    @Builder
+    public User(Integer id, String username, String password, String firstName, String lastName, String email,
+                Date dateOfBirth, Set<Role> roles) {
+        super(id);
         this.username = username;
         this.password = password;
         this.firstName = firstName;

@@ -7,8 +7,10 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
 import ru.icoltd.rvs.entity.Review;
+import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.entity.Vote;
 
+import java.sql.Date;
 import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 import java.util.List;
@@ -81,6 +83,18 @@ public class MockDataUtils {
     public static <T extends BaseEntity> T withId(T obj) {
         obj.setId(Long.valueOf(FAKER.number().randomNumber()).intValue());
         return obj;
+    }
+
+    public static User getMockUser() {
+        return User.builder()
+                .firstName(FAKER.name().firstName())
+                .lastName(FAKER.name().lastName())
+                .username(FAKER.name().username())
+                .password(FAKER.internet().password())
+                .email(FAKER.internet().emailAddress())
+                .dateOfBirth(new Date(System.currentTimeMillis()))
+
+                .build();
     }
 
     public static Vote getMockVote() {
