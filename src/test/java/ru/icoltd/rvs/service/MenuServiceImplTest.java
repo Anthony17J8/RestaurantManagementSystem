@@ -22,13 +22,12 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static ru.icoltd.rvs.util.MockDataUtils.ID;
 import static ru.icoltd.rvs.util.MockDataUtils.withId;
 import static ru.icoltd.rvs.util.MockDataUtils.getMockMenu;
 
 @ExtendWith(MockitoExtension.class)
 class MenuServiceImplTest {
-
-    private static final Integer ID = 1;
 
     @InjectMocks
     private MenuServiceImpl menuService;

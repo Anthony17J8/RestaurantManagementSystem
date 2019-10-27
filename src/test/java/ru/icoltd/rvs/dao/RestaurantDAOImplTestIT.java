@@ -15,12 +15,11 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static ru.icoltd.rvs.util.MockDataUtils.ID;
 
 
 @SpringJUnitWebConfig({ApplicationConfig.class, TestConfig.class})
 class RestaurantDAOImplTestIT {
-
-    private static final Integer ID = 1;
 
     @Autowired
     private RestaurantDAO dao;

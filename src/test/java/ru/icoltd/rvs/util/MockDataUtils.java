@@ -17,6 +17,8 @@ import java.util.stream.Stream;
 
 public class MockDataUtils {
 
+    public static final Integer ID = 1;
+
     private static final Faker FAKER = new Faker();
 
     private MockDataUtils() {
