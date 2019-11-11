@@ -93,7 +93,6 @@ public class MockDataUtils {
                 .password(FAKER.internet().password())
                 .email(FAKER.internet().emailAddress())
                 .dateOfBirth(new Date(System.currentTimeMillis()))
-
                 .build();
     }
 

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Vote;
 
 import javax.persistence.NoResultException;
+import java.util.List;
 
 @Repository
 public class VoteDAOImpl implements VoteDAO {
@@ -38,5 +39,13 @@ public class VoteDAOImpl implements VoteDAO {
         } catch (NoResultException exc) {
             return null;
         }
+    }
+
+    @Override
+    public List<Vote> findAllByUserId(int userId) {
+        Session currentSession = sessionFactory.getCurrentSession();
+        Query<Vote> query = currentSession.createQuery("from Vote where user.id=:userId", Vote.class);
+        query.setParameter("userId", userId);
+        return query.getResultList();
     }
 }
