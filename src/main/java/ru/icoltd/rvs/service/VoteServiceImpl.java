@@ -28,6 +28,7 @@ public class VoteServiceImpl implements VoteService {
 
         if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
             latestVote.setMenu(menu);
+            latestVote.setDateTime(now);
             dao.saveVote(latestVote);
         } else {
             dao.saveVote(new Vote(currentUser, menu, now));

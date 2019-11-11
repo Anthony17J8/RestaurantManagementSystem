@@ -57,7 +57,5 @@ class VoteServiceImplTest {
         verify(dao).saveVote(voteArgumentCaptor.capture());
 
         assertNotNull(voteArgumentCaptor.getValue().getId());
-        // todo fix test #72
-        // assertNotEquals(latest.getDateTime(), voteArgumentCaptor.getValue().getDateTime());
     }
 }
