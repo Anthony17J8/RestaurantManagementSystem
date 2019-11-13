@@ -42,7 +42,7 @@ public class MockDataUtils {
         return RestaurantDetail.builder()
                 .city(FAKER.address().city())
                 .country(FAKER.address().country())
-                .site(FAKER.internet().domainName())
+                .site(FAKER.internet().url())
                 .phone(FAKER.regexify("[1-9]{11}"))
                 .street(FAKER.address().streetAddress())
                 .build();
