@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.entity;
 
+import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,6 +27,13 @@ public class Role extends BaseEntity {
 
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
+
+    @Builder
+    public Role(Integer id, String name, Set<User> users) {
+        super(id);
+        this.name = name;
+        this.users = users;
+    }
 
     @Override
     public String toString() {

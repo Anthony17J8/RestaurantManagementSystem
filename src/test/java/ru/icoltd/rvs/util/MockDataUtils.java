@@ -7,6 +7,7 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
 import ru.icoltd.rvs.entity.Review;
+import ru.icoltd.rvs.entity.Role;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.entity.Vote;
 
@@ -98,5 +99,15 @@ public class MockDataUtils {
 
     public static Vote getMockVote() {
         return Vote.builder().dateTime(LocalDateTime.now()).build();
+    }
+
+    public static List<Role> getMockRoles(int count){
+        return Stream.generate(MockDataUtils::getMockRole).limit(count).collect(Collectors.toList());
+    }
+
+    public static Role getMockRole() {
+        return Role.builder()
+                .name(FAKER.company().profession())
+                .build();
     }
 }
