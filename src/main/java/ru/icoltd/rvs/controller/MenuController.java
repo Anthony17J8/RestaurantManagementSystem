@@ -12,8 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-import ru.icoltd.rvs.user.CurrentUser;
-import ru.icoltd.rvs.util.DateTimeUtils;
 import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
@@ -22,10 +20,11 @@ import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.VoteService;
+import ru.icoltd.rvs.user.CurrentUser;
+import ru.icoltd.rvs.util.DateTimeUtils;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -69,7 +68,7 @@ public class MenuController {
         Menu menu = menuService.getMenu(menuId);
         int restaurantId = menu.getRestaurant().getId();
 
-        if (DateTimeUtils.isNotBeforeNow(menu.getDate(), now)) {
+        if (DateTimeUtils.isNotAfter(menu.getDate(), now)) {
             voteService.saveOrUpdateVote(menu, now, currentUser);
         } else {
             model.addAttribute("restaurantId", restaurantId);
@@ -135,8 +134,8 @@ public class MenuController {
 
     @GetMapping("/toplist")
     public String filterMenus(WebRequest request, Model model) {
-        ZonedDateTime startDate = DateTimeUtils.parseStartZoneDateTime(request.getParameter("startDate"));
-        ZonedDateTime endDate = DateTimeUtils.parseEndZoneDateTime(request.getParameter("endDate"));
+        LocalDateTime startDate = DateTimeUtils.parseStartLocalDateTime(request.getParameter("startDate"));
+        LocalDateTime endDate = DateTimeUtils.parseEndLocalDateTime(request.getParameter("endDate"));
         List<Menu> menus = menuService.getBetweenDates(startDate, endDate);
         model.addAttribute("menus", menus);
         return "top-list";

@@ -17,7 +17,7 @@ import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.User;
-import ru.icoltd.rvs.formatters.ZoneDateTimeFormatter;
+import ru.icoltd.rvs.formatters.LocalDateTimeFormatter;
 import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
@@ -25,8 +25,6 @@ import ru.icoltd.rvs.service.VoteService;
 import ru.icoltd.rvs.util.MockDataUtils;
 
 import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Locale;
 
@@ -44,7 +42,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static ru.icoltd.rvs.util.MockDataUtils.*;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockDishes;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockMenu;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockMenus;
+import static ru.icoltd.rvs.util.MockDataUtils.getMockRestaurant;
+import static ru.icoltd.rvs.util.MockDataUtils.withId;
 
 @ExtendWith(MockitoExtension.class)
 class MenuControllerTest {
@@ -79,7 +81,7 @@ class MenuControllerTest {
     @BeforeEach
     void setUp() {
         FormattingConversionService conversionService = new FormattingConversionService();
-        conversionService.addFormatter(new ZoneDateTimeFormatter());
+        conversionService.addFormatter(new LocalDateTimeFormatter());
         mockMvc = MockMvcBuilders.standaloneSetup(controller).setConversionService(conversionService).build();
         mockMenu = withId(getMockMenu());
         mockRestaurant = withId(getMockRestaurant());
@@ -98,7 +100,7 @@ class MenuControllerTest {
 
     @Test
     void testVoteForMenuPastDate() throws Exception {
-        ZonedDateTime past = ZonedDateTime.of(LocalDateTime.now().minusDays(2), ZoneId.systemDefault());
+        LocalDateTime past = LocalDateTime.now().minusDays(2);
         mockMenu.setRestaurant(mockRestaurant);
         mockMenu.setDate(past);
 
@@ -116,7 +118,7 @@ class MenuControllerTest {
 
     @Test
     void testVoteForMenu() throws Exception {
-        ZonedDateTime past = ZonedDateTime.of(LocalDateTime.now().plusDays(2), ZoneId.systemDefault());
+        LocalDateTime past = LocalDateTime.now().plusDays(2);
         mockMenu.setRestaurant(mockRestaurant);
         mockMenu.setDate(past);
 
@@ -211,7 +213,7 @@ class MenuControllerTest {
     @Test
     void testFilterMenus() throws Exception {
         List<Menu> menus = getMockMenus(5);
-        when(menuService.getBetweenDates(any(ZonedDateTime.class), any(ZonedDateTime.class))).thenReturn(menus);
+        when(menuService.getBetweenDates(any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(menus);
         mockMvc.perform(get("/menu/toplist")
                 .param("startDate", "2019-05-05")
                 .param("endDate", "2019-05-30"))

@@ -21,9 +21,9 @@ import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
-import ru.icoltd.rvs.formatters.DateFormatter;
-import ru.icoltd.rvs.formatters.ZoneDateTimeFormatter;
 import ru.icoltd.rvs.exception.UnacceptablePropertyValueException;
+import ru.icoltd.rvs.formatters.DateFormatter;
+import ru.icoltd.rvs.formatters.LocalDateTimeFormatter;
 
 import javax.sql.DataSource;
 import java.beans.PropertyVetoException;
@@ -118,7 +118,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         // todo see link https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#format-CustomFormatAnnotations
-        registry.addFormatter(new ZoneDateTimeFormatter());
+        registry.addFormatter(new LocalDateTimeFormatter());
         registry.addFormatter(new DateFormatter());
     }
 

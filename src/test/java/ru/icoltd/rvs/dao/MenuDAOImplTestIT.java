@@ -12,14 +12,15 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.util.MockDataUtils;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.Month;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
 import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @SpringJUnitWebConfig({ApplicationConfig.class, TestConfig.class})
 class MenuDAOImplTestIT {
@@ -71,15 +72,13 @@ class MenuDAOImplTestIT {
     @Test
     @Transactional
     void testGetBetweenDates() {
-        ZonedDateTime from = ZonedDateTime.of(
+        LocalDateTime from = LocalDateTime.of(
                 LocalDate.of(2019, Month.FEBRUARY, 9),
-                LocalTime.now(),
-                ZoneId.systemDefault());
+                LocalTime.now());
 
-        ZonedDateTime to = ZonedDateTime.of(
+        LocalDateTime to = LocalDateTime.of(
                 LocalDate.of(2019, Month.FEBRUARY, 14),
-                LocalTime.now(),
-                ZoneId.systemDefault());
+                LocalTime.now());
 
         List<Menu> result = dao.getBetweenDates(from, to);
         assertNotNull(result);

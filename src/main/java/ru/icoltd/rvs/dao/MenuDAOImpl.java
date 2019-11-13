@@ -10,7 +10,7 @@ import ru.icoltd.rvs.entity.Menu;
 
 import javax.persistence.NoResultException;
 import javax.persistence.TemporalType;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 
@@ -56,7 +56,7 @@ public class MenuDAOImpl implements MenuDAO {
     }
 
     @Override
-    public List<Menu> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate) {
+    public List<Menu> getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
         Session currentSession = sessionFactory.getCurrentSession();
         Query<Menu> query = currentSession.createQuery(
                 "from Menu m " +

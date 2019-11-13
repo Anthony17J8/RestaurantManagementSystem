@@ -13,7 +13,6 @@ import ru.icoltd.rvs.entity.Vote;
 
 import java.sql.Date;
 import java.time.LocalDateTime;
-import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -51,7 +50,7 @@ public class MockDataUtils {
     public static Menu getMockMenu() {
         return Menu.builder()
                 .name(FAKER.funnyName().name())
-                .date(ZonedDateTime.now())
+                .date(LocalDateTime.now())
                 .build();
     }
 

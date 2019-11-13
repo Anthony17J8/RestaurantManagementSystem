@@ -11,10 +11,8 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.util.DateTimeUtils;
 
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.ChronoUnit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -23,8 +21,8 @@ import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static ru.icoltd.rvs.util.MockDataUtils.ID;
-import static ru.icoltd.rvs.util.MockDataUtils.withId;
 import static ru.icoltd.rvs.util.MockDataUtils.getMockMenu;
+import static ru.icoltd.rvs.util.MockDataUtils.withId;
 
 @ExtendWith(MockitoExtension.class)
 class MenuServiceImplTest {
@@ -73,8 +71,8 @@ class MenuServiceImplTest {
 
     @Test
     void testGetBetweenDates() {
-        ZonedDateTime start = ZonedDateTime.now(ZoneId.systemDefault());
-        ZonedDateTime end = start.plus(2, ChronoUnit.DAYS);
+        LocalDateTime start = LocalDateTime.now();
+        LocalDateTime end = start.plusDays(2);
 
         menuService.getBetweenDates(start, end);
 
@@ -85,8 +83,8 @@ class MenuServiceImplTest {
     void testGetBetweenUnboundedDates() {
         menuService.getBetweenDates(null, null);
         verify(dao).getBetweenDates(
-                eq(ZonedDateTime.of(DateTimeUtils.MIN_DATE, LocalTime.MIN, DateTimeUtils.ZONE_ID_UTC)),
-                eq(ZonedDateTime.of(DateTimeUtils.MAX_DATE, LocalTime.MAX, DateTimeUtils.ZONE_ID_UTC)));
+                eq(LocalDateTime.of(DateTimeUtils.MIN_DATE, LocalTime.MIN)),
+                eq(LocalDateTime.of(DateTimeUtils.MAX_DATE, LocalTime.MAX)));
     }
 
     @Test

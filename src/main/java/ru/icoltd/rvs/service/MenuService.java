@@ -2,7 +2,7 @@ package ru.icoltd.rvs.service;
 
 import ru.icoltd.rvs.entity.Menu;
 
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface MenuService {
@@ -13,7 +13,7 @@ public interface MenuService {
 
     void deleteMenu(Menu menu);
 
-    List<Menu> getBetweenDates(ZonedDateTime startDate, ZonedDateTime endDate);
+    List<Menu> getBetweenDates(LocalDateTime startDate, LocalDateTime endDate);
 
     List<Menu> findAllByRestaurantId(int restaurantId);
 }

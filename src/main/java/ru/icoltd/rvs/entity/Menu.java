@@ -19,7 +19,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.time.ZonedDateTime;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -38,7 +38,7 @@ public class Menu extends BaseEntity {
 
     @NotNull
     @Column(name = "date")
-    private ZonedDateTime date;
+    private LocalDateTime date;
 
     @ManyToOne(cascade = {
             CascadeType.DETACH, CascadeType.MERGE,
@@ -55,7 +55,7 @@ public class Menu extends BaseEntity {
     private List<Vote> votes;
 
     @Builder
-    public Menu(Integer id, String name, ZonedDateTime date, Restaurant restaurant, List<Dish> dishes, List<Vote> votes) {
+    public Menu(Integer id, String name, LocalDateTime date, Restaurant restaurant, List<Dish> dishes, List<Vote> votes) {
         super(id);
         this.name = name;
         this.date = date;

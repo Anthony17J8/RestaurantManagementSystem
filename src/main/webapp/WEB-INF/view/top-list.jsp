@@ -45,7 +45,7 @@
         <tr>
             <td><c:out value="${menu.restaurant.name}"/></td>
             <td><a href="${fn:escapeXml(viewMenu)}"><c:out value="${menu.name}"/></a></td>
-            <td><c:out value="${fnc:formatZonedDateTime(menu.date)}"/></td>
+            <td><c:out value="${fnc:formatLocalDateTime(menu.date)}"/></td>
             <td><c:out value="${menu.votes.size()}"/></td>
 
         </tr>
