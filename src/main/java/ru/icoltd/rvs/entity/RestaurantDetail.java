@@ -43,7 +43,7 @@ public class RestaurantDetail extends BaseEntity {
 
     @NotNull
     @Column(name = "site")
-    @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www.)?[a-z0-9-]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
+    @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www\\.)?[a-z0-9]+[-]?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
     private String site;
 
     @Builder
