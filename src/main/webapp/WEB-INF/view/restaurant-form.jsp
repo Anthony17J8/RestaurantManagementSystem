@@ -59,7 +59,7 @@
                 <td><form:errors path="phone"/></td>
             </tr>
 
-            <td>Email (*):</td>
+            <td>Site (*):</td>
             <td><form:input path="site"/></td>
             <td><form:errors path="site"/></td>
 
