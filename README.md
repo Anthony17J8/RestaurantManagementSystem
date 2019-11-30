@@ -1,5 +1,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e881334d3a3243f9a2be5f4d1e71e0f4)](https://app.codacy.com/app/kiselev.anton.ev/RestaurantManagementSystem?utm_source=github.com&utm_medium=referral&utm_content=Anthony17J8/RestaurantManagementSystem&utm_campaign=Badge_Grade_Dashboard)
 [![CircleCI](https://circleci.com/gh/Anthony17J8/RestaurantManagementSystem.svg?style=svg)](https://circleci.com/gh/Anthony17J8/RestaurantManagementSystem)
+[![codecov](https://codecov.io/gh/Anthony17J8/RestaurantManagementSystem/branch/master/graph/badge.svg)](https://codecov.io/gh/Anthony17J8/RestaurantManagementSystem)
+
 <p>Design and implement API using Hibernate/Spring/SpringMVC (or Spring-Boot) </p>
 <p>The task is:</p>
 <p>Build a voting system for deciding where to have lunch.</p>
