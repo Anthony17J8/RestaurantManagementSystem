@@ -90,7 +90,9 @@ public class ApplicationConfig implements WebMvcConfigurer {
     private Properties getHibernateProperties() {
         Properties props = new Properties();
         props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
-        props.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
+        props.setProperty("hibernate.hbm2ddl.auto", "update");
+        props.setProperty("hibernate.format_sql", "true");
+        props.setProperty("hibernate.use_sql_comments", "true");
 
         return props;
     }

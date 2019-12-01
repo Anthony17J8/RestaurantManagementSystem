@@ -108,7 +108,7 @@ class RestaurantControllerTest {
 
     @Test
     void testAddRestaurant() throws Exception {
-        RestaurantDetail detail = withId(getMockRestaurantDetail());
+        RestaurantDetail detail = getMockRestaurantDetail();
         MultiValueMap<String, String> valueMap = new LinkedMultiValueMap<>();
         valueMap.put("id", Lists.newArrayList(String.valueOf(returned.getId())));
         valueMap.put("name", Lists.newArrayList(returned.getName()));

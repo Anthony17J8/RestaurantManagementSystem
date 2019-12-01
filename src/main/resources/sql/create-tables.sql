@@ -4,23 +4,6 @@ USE hb_restaurants;
 SET FOREIGN_KEY_CHECKS = 0;
 
 --
--- Table structure for restaurant_detail
---
-
-DROP TABLE IF EXISTS restaurant_details;
-
-CREATE TABLE restaurant_details
-(
-    id      int(11) NOT NULL AUTO_INCREMENT,
-    city    varchar(128) DEFAULT NULL,
-    country varchar(128) DEFAULT NULL,
-    street  varchar(128) DEFAULT NULL,
-    phone   varchar(128) DEFAULT NULL,
-    site    varchar(45)  DEFAULT NULL,
-    PRIMARY KEY (id)
-);
-
---
 -- Table structure for restaurant
 --
 
@@ -30,11 +13,13 @@ CREATE TABLE restaurants
 (
     id                   int(11) NOT NULL AUTO_INCREMENT,
     name                 varchar(128) DEFAULT NULL,
-    restaurant_detail_id int(11)      DEFAULT NULL,
+    city    varchar(128) DEFAULT NULL,
+    country varchar(128) DEFAULT NULL,
+    street  varchar(128) DEFAULT NULL,
+    phone   varchar(128) DEFAULT NULL,
+    site    varchar(45)  DEFAULT NULL,
     primary key (id),
-    UNIQUE KEY name_unique (name),
-    KEY fk_address_idx (restaurant_detail_id),
-    CONSTRAINT fk_address FOREIGN KEY (restaurant_detail_id) REFERENCES restaurant_details (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    UNIQUE KEY name_unique (name)
 );
 
 --
@@ -205,22 +190,13 @@ VALUES (1, 1),
        (5, 2);
 
 --
--- Data for table restaurant_detail
---
-
-INSERT INTO restaurant_details(city, country, street, phone, site)
-VALUES ('Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
-       ('Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
-       ('Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
-
---
 -- Data for table restaurant
 --
 
-INSERT INTO restaurants(name, restaurant_detail_id)
-VALUES ('Osteria Francescana', 1),
-       ('El Celler de Can Roca', 2),
-       ('Mirazur', 3);
+INSERT INTO restaurants(name, city, country, street, phone, site)
+VALUES ('Osteria Francescana', 'Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
+       ('El Celler de Can Roca', 'Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
+       ('Mirazur', 'Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
 
 --
 -- Data for table menu

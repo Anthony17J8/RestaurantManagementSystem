@@ -29,23 +29,15 @@ VALUES (1, 1),
        (4, 2),
        (5, 2);
 
---
--- Data for table restaurant_detail
---
-
-INSERT INTO restaurant_details(city, country, street, phone, site)
-VALUES ('Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
-       ('Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
-       ('Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
 
 --
 -- Data for table restaurant
 --
 
-INSERT INTO restaurants(name, restaurant_detail_id)
-VALUES ('Osteria Francescana', 1),
-       ('El Celler de Can Roca', 2),
-       ('Mirazur', 3);
+INSERT INTO restaurants(name, city, country, street, phone, site)
+VALUES ('Osteria Francescana', 'Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
+       ('El Celler de Can Roca', 'Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
+       ('Mirazur', 'Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
 
 --
 -- Data for table menu

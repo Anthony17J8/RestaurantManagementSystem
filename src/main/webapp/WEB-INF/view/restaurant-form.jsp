@@ -34,7 +34,6 @@
             <td><form:errors path="name"/></td>
         </tr>
         <form:form action="save" method="post" modelAttribute="detail">
-            <form:hidden path="id"/>
             <tr>
                 <td>Country (*):</td>
                 <td><form:input path="country"/></td>

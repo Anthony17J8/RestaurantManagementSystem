@@ -9,8 +9,7 @@ import lombok.Setter;
 import lombok.ToString;
 
 import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Table;
+import javax.persistence.Embeddable;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
@@ -20,39 +19,29 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 @ToString
-@Entity
-@Table(name = "restaurant_details")
-public class RestaurantDetail extends BaseEntity {
+@Embeddable
+@Builder
+public class RestaurantDetail {
 
     @NotNull
-    @Column(name = "country")
+    @Column(nullable = false)
     private String country;
 
     @NotNull
-    @Column(name = "city")
+    @Column(nullable = false)
     private String city;
 
     @NotNull
-    @Column(name = "street")
+    @Column(nullable = false)
     private String street;
 
     @NotNull
-    @Column(name = "phone")
+    @Column(nullable = false)
     @Pattern(regexp = "^\\+*(?:[0-9] ?){6,14}[0-9]$")
     private String phone;
 
     @NotNull
-    @Column(name = "site")
+    @Column(nullable = false)
     @Pattern(regexp = "^((https?|ftp|smtp):\\/\\/)?(www\\.)?[a-z0-9]+[-]?[a-z0-9]+\\.[a-z]+(\\/[a-zA-Z0-9#]+\\/?)*$")
     private String site;
-
-    @Builder
-    public RestaurantDetail(Integer id, String country, String city, String street, String phone, String site) {
-        super(id);
-        this.country = country;
-        this.city = city;
-        this.street = street;
-        this.phone = phone;
-        this.site = site;
-    }
 }

@@ -1,15 +1,5 @@
 DROP TABLE IF EXISTS restaurant_details;
 
-CREATE TABLE restaurant_details
-(
-    id      int(11) NOT NULL AUTO_INCREMENT,
-    city    varchar(128) DEFAULT NULL,
-    country varchar(128) DEFAULT NULL,
-    street  varchar(128) DEFAULT NULL,
-    phone   varchar(128) DEFAULT NULL,
-    site    varchar(45)  DEFAULT NULL,
-    PRIMARY KEY (id)
-);
 
 --
 -- Table structure for restaurant
@@ -21,10 +11,13 @@ CREATE TABLE restaurants
 (
     id                   int(11) NOT NULL AUTO_INCREMENT,
     name                 varchar(128) DEFAULT NULL,
-    restaurant_detail_id int(11)      DEFAULT NULL,
+    city    varchar(128) DEFAULT NULL,
+    country varchar(128) DEFAULT NULL,
+    street  varchar(128) DEFAULT NULL,
+    phone   varchar(128) DEFAULT NULL,
+    site    varchar(45)  DEFAULT NULL,
     primary key (id),
-    UNIQUE (name),
-    CONSTRAINT fk_address FOREIGN KEY (restaurant_detail_id) REFERENCES restaurant_details (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    UNIQUE (name)
 );
 
 --
