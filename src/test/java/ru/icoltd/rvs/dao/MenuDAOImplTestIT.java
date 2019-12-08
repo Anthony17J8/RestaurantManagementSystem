@@ -11,6 +11,7 @@ import ru.icoltd.rvs.config.TestConfig;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.util.MockDataUtils;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -91,5 +92,20 @@ class MenuDAOImplTestIT {
         List<Menu> result = dao.findAllByRestaurantId(ID);
         assertNotNull(result);
         assertEquals(2, result.size());
+    }
+
+    @Test
+    @Transactional
+    void testGetVotesAmount() throws Exception {
+        assertEquals(3L, dao.findById(3).getVotesAmount());
+    }
+
+    @Test
+    @Transactional
+    void testGetTotalAmount() throws Exception {
+        assertEquals(
+                new BigDecimal(270).doubleValue(),
+                dao.findById(ID).getTotalAmount().doubleValue()
+        );
     }
 }

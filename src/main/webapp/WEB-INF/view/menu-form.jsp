@@ -84,7 +84,7 @@
             </sec:authorize>
             <tr>
                 <td>Total amount:</td>
-                <td><c:out value="${totalAmount}"/></td>
+                <td><c:out value="${menu.totalAmount}"/></td>
             </tr>
         </c:if>
 

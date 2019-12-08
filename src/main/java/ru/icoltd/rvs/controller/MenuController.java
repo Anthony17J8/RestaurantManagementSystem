@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.User;
@@ -25,6 +24,7 @@ import ru.icoltd.rvs.util.DateTimeUtils;
 
 import javax.validation.Valid;
 import java.time.LocalDateTime;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Optional;
@@ -46,7 +46,7 @@ public class MenuController {
 
     @Autowired
     public MenuController(MenuService menuService, VoteService voteService, RestaurantService restaurantService,
-                           MessageSource messageSource, DishService dishService) {
+                          MessageSource messageSource, DishService dishService) {
         this.menuService = menuService;
         this.voteService = voteService;
         this.restaurantService = restaurantService;
@@ -58,7 +58,6 @@ public class MenuController {
     public String showMenuDetails(Model model, @RequestParam("menuId") int menuId) {
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
-        model.addAttribute("totalAmount", getTotalAmount(menu.getDishes()));
         return "menu-details";
     }
 
@@ -127,7 +126,6 @@ public class MenuController {
     public String updateMenu(@RequestParam("menuId") int menuId, Model model) {
         Menu menu = menuService.getMenu(menuId);
         model.addAttribute("menu", menu);
-        model.addAttribute("totalAmount", getTotalAmount(menu.getDishes()));
         model.addAttribute("restaurantId", menu.getRestaurant().getId());
         return "menu-form";
     }
@@ -137,11 +135,8 @@ public class MenuController {
         LocalDateTime startDate = DateTimeUtils.parseStartLocalDateTime(request.getParameter("startDate"));
         LocalDateTime endDate = DateTimeUtils.parseEndLocalDateTime(request.getParameter("endDate"));
         List<Menu> menus = menuService.getBetweenDates(startDate, endDate);
+        menus.sort(Comparator.comparing(Menu::getDate).thenComparingLong(Menu::getVotesAmount).reversed());
         model.addAttribute("menus", menus);
         return "top-list";
-    }
-
-    private double getTotalAmount(List<Dish> dishes) {
-        return dishes.stream().mapToDouble(Dish::getPrice).sum();
     }
 }

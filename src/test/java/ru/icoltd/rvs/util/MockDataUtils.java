@@ -11,6 +11,7 @@ import ru.icoltd.rvs.entity.Role;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.entity.Vote;
 
+import java.math.BigDecimal;
 import java.sql.Date;
 import java.time.LocalDateTime;
 import java.util.List;
@@ -51,6 +52,8 @@ public class MockDataUtils {
         return Menu.builder()
                 .name(FAKER.funnyName().name())
                 .date(LocalDateTime.now())
+                .votesAmount(FAKER.number().randomNumber())
+                .totalAmount(new BigDecimal(FAKER.number().randomNumber()))
                 .build();
     }
 
@@ -100,7 +103,7 @@ public class MockDataUtils {
         return Vote.builder().dateTime(LocalDateTime.now()).build();
     }
 
-    public static List<Role> getMockRoles(int count){
+    public static List<Role> getMockRoles(int count) {
         return Stream.generate(MockDataUtils::getMockRole).limit(count).collect(Collectors.toList());
     }
 
