@@ -7,8 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,14 +18,15 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = false)
-@ToString(exclude = {"dishes", "votes"})
+@ToString(exclude = {"dishes"})
 @Entity
 @Table(name = "menus")
 public class Menu extends BaseEntity {
@@ -40,19 +39,15 @@ public class Menu extends BaseEntity {
     @Column(name = "date")
     private LocalDateTime date;
 
-    @ManyToOne(cascade = {
-            CascadeType.DETACH, CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
+    @ManyToOne
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
     @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Dish> dishes;
+    private Collection<Dish> dishes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "menu", cascade = CascadeType.ALL)
-    @Fetch(value = FetchMode.SUBSELECT)
-    private List<Vote> votes;
+    @OneToMany(mappedBy = "menu", cascade = CascadeType.REMOVE)
+    private Collection<Vote> votes = new ArrayList<>();
 
     @org.hibernate.annotations.Formula(value = "(select count(*) from votes v where v.menu_id = id)")
     private Long votesAmount;
@@ -61,8 +56,9 @@ public class Menu extends BaseEntity {
     private BigDecimal totalAmount;
 
     @Builder
-    public Menu(Integer id, String name, LocalDateTime date, Restaurant restaurant, List<Dish> dishes, List<Vote> votes,
-                Long votesAmount, BigDecimal totalAmount) {
+    public Menu(Integer id, String name, LocalDateTime date,
+                Restaurant restaurant, Collection<Dish> dishes,
+                Collection<Vote> votes, Long votesAmount, BigDecimal totalAmount) {
         super(id);
         this.name = name;
         this.date = date;

@@ -10,9 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
-import java.util.Set;
 
 @Getter
 @Setter
@@ -25,14 +23,10 @@ public class Role extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(mappedBy = "roles")
-    private Set<User> users;
-
     @Builder
-    public Role(Integer id, String name, Set<User> users) {
+    public Role(Integer id, String name) {
         super(id);
         this.name = name;
-        this.users = users;
     }
 
     @Override

@@ -135,7 +135,8 @@ public class MenuController {
         LocalDateTime startDate = DateTimeUtils.parseStartLocalDateTime(request.getParameter("startDate"));
         LocalDateTime endDate = DateTimeUtils.parseEndLocalDateTime(request.getParameter("endDate"));
         List<Menu> menus = menuService.getBetweenDates(startDate, endDate);
-        menus.sort(Comparator.comparing(Menu::getDate).thenComparingLong(Menu::getVotesAmount).reversed());
+        menus.sort(Comparator.comparing((Menu menu) -> menu.getDate().toLocalDate())
+                .thenComparingLong(Menu::getVotesAmount).reversed());
         model.addAttribute("menus", menus);
         return "top-list";
     }

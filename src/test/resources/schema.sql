@@ -9,8 +9,8 @@ DROP TABLE IF EXISTS restaurants;
 
 CREATE TABLE restaurants
 (
-    id                   int(11) NOT NULL AUTO_INCREMENT,
-    name                 varchar(128) DEFAULT NULL,
+    id      int(11) NOT NULL AUTO_INCREMENT,
+    name    varchar(128) DEFAULT NULL,
     city    varchar(128) DEFAULT NULL,
     country varchar(128) DEFAULT NULL,
     street  varchar(128) DEFAULT NULL,
@@ -51,7 +51,7 @@ CREATE TABLE menus
     name          varchar(45) DEFAULT NULL,
     restaurant_id int(11)     DEFAULT NULL,
     date          datetime    DEFAULT NULL,
-    CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id),
     PRIMARY KEY (id)
 );
 
@@ -67,7 +67,7 @@ CREATE TABLE dishes
     description varchar(255)   DEFAULT NULL,
     price       decimal(15, 2) DEFAULT NULL,
     menu_id     int(11)        DEFAULT NULL,
-    CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id),
     PRIMARY KEY (id)
 );
 
@@ -84,8 +84,8 @@ CREATE TABLE votes
     menu_id int(11)  DEFAULT NULL,
     date    datetime DEFAULT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id),
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );
 
 --
@@ -115,12 +115,10 @@ CREATE TABLE user_roles
     PRIMARY KEY (user_id, role_id),
 
     CONSTRAINT fk_user FOREIGN KEY (user_id)
-        REFERENCES users (id)
-        ON DELETE NO ACTION ON UPDATE NO ACTION,
+        REFERENCES users (id),
 
     CONSTRAINT fk_role FOREIGN KEY (role_id)
         REFERENCES roles (id)
-        ON DELETE NO ACTION ON UPDATE NO ACTION
 );
 
 DROP TABLE IF EXISTS persistent_logins;
@@ -142,6 +140,6 @@ CREATE TABLE reviews
     restaurant_id INTEGER      NOT NULL,
     created_at    TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (user_id) REFERENCES users (id),
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
 );

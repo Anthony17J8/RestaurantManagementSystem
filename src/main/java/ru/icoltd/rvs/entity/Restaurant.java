@@ -15,7 +15,8 @@ import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 @Getter
 @Setter
@@ -34,14 +35,14 @@ public class Restaurant extends BaseEntity {
     private RestaurantDetail restaurantDetail;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private List<Menu> menus;
+    private Collection<Menu> menus = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant", cascade = CascadeType.ALL)
-    private List<Review> reviews;
+    private Collection<Review> reviews = new ArrayList<>();
 
     @Builder
     public Restaurant(Integer id, String name, RestaurantDetail restaurantDetail,
-                      List<Menu> menus, List<Review> reviews) {
+                      Collection<Menu> menus, Collection<Review> reviews) {
         super(id);
         this.name = name;
         this.restaurantDetail = restaurantDetail;

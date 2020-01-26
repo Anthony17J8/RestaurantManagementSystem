@@ -28,7 +28,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
@@ -154,7 +154,7 @@ class MenuControllerTest {
 
         Menu savedMenu = menuCaptor.getValue();
 
-        assertNull(savedMenu.getDishes());
+        assertEquals(mockRestaurant, savedMenu.getRestaurant());
     }
 
     @Test

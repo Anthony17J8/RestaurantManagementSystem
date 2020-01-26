@@ -2,14 +2,14 @@
 <configuration scan="true" scanPeriod="30 seconds">
 
 
-    <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${RVS_HOME}/log/app.log</file>
+<!--    <appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
+<!--        <file>${RVS_HOME}/log/app.log</file>-->
 
-        <encoder>
-            <charset>UTF-8</charset>
-            <pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern>
-        </encoder>
-    </appender>
+<!--        <encoder>-->
+<!--            <charset>UTF-8</charset>-->
+<!--            <pattern>%date %-5level %logger{0} [%file:%line] %msg%n</pattern>-->
+<!--        </encoder>-->
+<!--    </appender>-->
 
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <encoder>
