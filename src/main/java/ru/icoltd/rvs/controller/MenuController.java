@@ -23,6 +23,7 @@ import ru.icoltd.rvs.user.CurrentUser;
 import ru.icoltd.rvs.util.DateTimeUtils;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Comparator;
 import java.util.List;
@@ -67,12 +68,12 @@ public class MenuController {
         Menu menu = menuService.getMenu(menuId);
         int restaurantId = menu.getRestaurant().getId();
 
-        if (DateTimeUtils.isNotAfter(menu.getDate(), now)) {
+        if (DateTimeUtils.isNotAfter(menu.getDate(), now.toLocalDate())) {
             voteService.saveOrUpdateVote(menu, now, currentUser);
         } else {
             model.addAttribute("restaurantId", restaurantId);
             model.addAttribute("message", messageSource.getMessage("error.vote.date",
-                    new Object[]{menu.getName(), menu.getDate().toLocalDate()}, Locale.getDefault()));
+                    new Object[]{menu.getName(), menu.getDate()}, Locale.getDefault()));
             return "error-page";
         }
         return "redirect:/restaurant/menus?restId=" + restaurantId;
@@ -132,11 +133,10 @@ public class MenuController {
 
     @GetMapping("/toplist")
     public String filterMenus(WebRequest request, Model model) {
-        LocalDateTime startDate = DateTimeUtils.parseStartLocalDateTime(request.getParameter("startDate"));
-        LocalDateTime endDate = DateTimeUtils.parseEndLocalDateTime(request.getParameter("endDate"));
+        LocalDate startDate = DateTimeUtils.parseStartLocalDate(request.getParameter("startDate"));
+        LocalDate endDate = DateTimeUtils.parseEndLocalDate(request.getParameter("endDate"));
         List<Menu> menus = menuService.getBetweenDates(startDate, endDate);
-        menus.sort(Comparator.comparing((Menu menu) -> menu.getDate().toLocalDate())
-                .thenComparingLong(Menu::getVotesAmount).reversed());
+        menus.sort(Comparator.comparing(Menu::getDate).thenComparingLong(Menu::getVotesAmount).reversed());
         model.addAttribute("menus", menus);
         return "top-list";
     }

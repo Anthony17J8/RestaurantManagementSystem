@@ -17,13 +17,14 @@ import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.User;
-import ru.icoltd.rvs.formatters.LocalDateTimeFormatter;
+import ru.icoltd.rvs.formatters.DateTimeFormatters;
 import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.VoteService;
 import ru.icoltd.rvs.util.MockDataUtils;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
@@ -81,7 +82,7 @@ class MenuControllerTest {
     @BeforeEach
     void setUp() {
         FormattingConversionService conversionService = new FormattingConversionService();
-        conversionService.addFormatter(new LocalDateTimeFormatter());
+        conversionService.addFormatter(new DateTimeFormatters.LocalDateFormatter());
         mockMvc = MockMvcBuilders.standaloneSetup(controller).setConversionService(conversionService).build();
         mockMenu = withId(getMockMenu());
         mockRestaurant = withId(getMockRestaurant());
@@ -99,7 +100,7 @@ class MenuControllerTest {
 
     @Test
     void testVoteForMenuPastDate() throws Exception {
-        LocalDateTime past = LocalDateTime.now().minusDays(2);
+        LocalDate past = LocalDate.now().minusDays(2);
         mockMenu.setRestaurant(mockRestaurant);
         mockMenu.setDate(past);
 
@@ -117,7 +118,7 @@ class MenuControllerTest {
 
     @Test
     void testVoteForMenu() throws Exception {
-        LocalDateTime past = LocalDateTime.now().plusDays(2);
+        LocalDate past = LocalDate.now().plusDays(2);
         mockMenu.setRestaurant(mockRestaurant);
         mockMenu.setDate(past);
 
@@ -211,7 +212,7 @@ class MenuControllerTest {
     @Test
     void testFilterMenus() throws Exception {
         List<Menu> menus = getMockMenus(5);
-        when(menuService.getBetweenDates(any(LocalDateTime.class), any(LocalDateTime.class))).thenReturn(menus);
+        when(menuService.getBetweenDates(any(LocalDate.class), any(LocalDate.class))).thenReturn(menus);
         mockMvc.perform(get("/menu/toplist")
                 .param("startDate", "2019-05-05")
                 .param("endDate", "2019-05-30"))

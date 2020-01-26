@@ -45,7 +45,7 @@
                 <c:param name="menuId" value="${menu.id}"/>
             </c:url>
             <td><a href="${fn:escapeXml(menuDetailsLink)}"><c:out value="${menu.name}"/></a></td>
-            <td><c:out value="${fnc:formatLocalDateTime(menu.date)}"/></td>
+            <td><c:out value="${menu.date}"/></td>
             <td><c:out value="${menu.votesAmount}"/></td>
 
             <sec:authorize access="hasRole('ADMIN')">

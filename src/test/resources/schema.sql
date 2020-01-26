@@ -50,7 +50,7 @@ CREATE TABLE menus
     id            int(11) NOT NULL AUTO_INCREMENT,
     name          varchar(45) DEFAULT NULL,
     restaurant_id int(11)     DEFAULT NULL,
-    date          datetime    DEFAULT NULL,
+    date          date        DEFAULT NULL,
     CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id),
     PRIMARY KEY (id)
 );

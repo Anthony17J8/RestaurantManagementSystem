@@ -25,10 +25,8 @@ public class DateTimeUtils {
         return src.isAfter(lowerBound) && src.isBefore(upperBound);
     }
 
-    public static boolean isNotAfter(LocalDateTime dateTime, LocalDateTime now) {
-        LocalDate currentDate = now.toLocalDate();
-        LocalDate menuPublishedDate = dateTime.toLocalDate();
-        return !currentDate.isAfter(menuPublishedDate);
+    public static boolean isNotAfter(LocalDate date, LocalDate now) {
+        return !now.isAfter(date);
     }
 
     public static String toString(LocalDateTime localDateTime) {
@@ -36,18 +34,15 @@ public class DateTimeUtils {
                 localDateTime.format(DateTimeFormatter.ISO_DATE_TIME).replace('T', ' ') : StringUtils.EMPTY;
     }
 
-    public static LocalDateTime parseStartLocalDateTime(String startDate) {
-        return parseLocalDateTime(startDate, LocalTime.MIN);
+    public static LocalDate parseStartLocalDate(String startDate) {
+        return parseLocalDate(startDate);
     }
 
-    public static LocalDateTime parseEndLocalDateTime(String endDate) {
-        return parseLocalDateTime(endDate, LocalTime.MAX);
+    public static LocalDate parseEndLocalDate(String endDate) {
+        return parseLocalDate(endDate);
     }
 
-    private static LocalDateTime parseLocalDateTime(String sDate, LocalTime localTime) {
-        return !StringUtils.isEmpty(sDate) ?
-                LocalDateTime.of(
-                        LocalDate.parse(sDate, DateTimeFormatter.ISO_LOCAL_DATE), localTime
-                ) : null;
+    private static LocalDate parseLocalDate(String sDate) {
+        return !StringUtils.isEmpty(sDate) ? LocalDate.parse(sDate, DateTimeFormatter.ISO_LOCAL_DATE) : null;
     }
 }

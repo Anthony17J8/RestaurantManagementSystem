@@ -13,6 +13,7 @@ import ru.icoltd.rvs.entity.Vote;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -51,7 +52,7 @@ public class MockDataUtils {
     public static Menu getMockMenu() {
         return Menu.builder()
                 .name(FAKER.funnyName().name())
-                .date(LocalDateTime.now())
+                .date(LocalDate.now())
                 .votesAmount(FAKER.number().randomNumber())
                 .totalAmount(new BigDecimal(FAKER.number().randomNumber()))
                 .build();

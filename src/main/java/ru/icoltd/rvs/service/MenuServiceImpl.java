@@ -8,8 +8,7 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.util.DateTimeUtils;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -46,10 +45,10 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     @Transactional
-    public List<Menu> getBetweenDates(LocalDateTime startDate, LocalDateTime endDate) {
+    public List<Menu> getBetweenDates(LocalDate startDate, LocalDate endDate) {
         return dao.getBetweenDates(
-                Optional.ofNullable(startDate).orElse(LocalDateTime.of(DateTimeUtils.MIN_DATE, LocalTime.MIN)),
-                Optional.ofNullable(endDate).orElse(LocalDateTime.of(DateTimeUtils.MAX_DATE, LocalTime.MAX))
+                Optional.ofNullable(startDate).orElse(DateTimeUtils.MIN_DATE),
+                Optional.ofNullable(endDate).orElse(DateTimeUtils.MAX_DATE)
         );
     }
 

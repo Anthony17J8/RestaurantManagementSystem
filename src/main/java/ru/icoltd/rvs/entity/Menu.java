@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 
@@ -37,7 +37,7 @@ public class Menu extends BaseEntity {
 
     @NotNull
     @Column(name = "date")
-    private LocalDateTime date;
+    private LocalDate date;
 
     @ManyToOne
     @JoinColumn(name = "restaurant_id")
@@ -56,7 +56,7 @@ public class Menu extends BaseEntity {
     private BigDecimal totalAmount;
 
     @Builder
-    public Menu(Integer id, String name, LocalDateTime date,
+    public Menu(Integer id, String name, LocalDate date,
                 Restaurant restaurant, Collection<Dish> dishes,
                 Collection<Vote> votes, Long votesAmount, BigDecimal totalAmount) {
         super(id);

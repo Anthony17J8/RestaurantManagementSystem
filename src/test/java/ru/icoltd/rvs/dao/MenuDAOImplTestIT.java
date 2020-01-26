@@ -13,8 +13,6 @@ import ru.icoltd.rvs.util.MockDataUtils;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.Month;
 import java.util.List;
 
@@ -73,13 +71,9 @@ class MenuDAOImplTestIT {
     @Test
     @Transactional
     void testGetBetweenDates() {
-        LocalDateTime from = LocalDateTime.of(
-                LocalDate.of(2019, Month.FEBRUARY, 9),
-                LocalTime.now());
+        LocalDate from = LocalDate.of(2019, Month.FEBRUARY, 9);
 
-        LocalDateTime to = LocalDateTime.of(
-                LocalDate.of(2019, Month.FEBRUARY, 14),
-                LocalTime.now());
+        LocalDate to = LocalDate.of(2019, Month.FEBRUARY, 14);
 
         List<Menu> result = dao.getBetweenDates(from, to);
         assertNotNull(result);

@@ -11,8 +11,7 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 import ru.icoltd.rvs.util.DateTimeUtils;
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
+import java.time.LocalDate;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -71,8 +70,8 @@ class MenuServiceImplTest {
 
     @Test
     void testGetBetweenDates() {
-        LocalDateTime start = LocalDateTime.now();
-        LocalDateTime end = start.plusDays(2);
+        LocalDate start = LocalDate.now();
+        LocalDate end = start.plusDays(2);
 
         menuService.getBetweenDates(start, end);
 
@@ -83,8 +82,8 @@ class MenuServiceImplTest {
     void testGetBetweenUnboundedDates() {
         menuService.getBetweenDates(null, null);
         verify(dao).getBetweenDates(
-                eq(LocalDateTime.of(DateTimeUtils.MIN_DATE, LocalTime.MIN)),
-                eq(LocalDateTime.of(DateTimeUtils.MAX_DATE, LocalTime.MAX)));
+                eq(DateTimeUtils.MIN_DATE),
+                eq(DateTimeUtils.MAX_DATE));
     }
 
     @Test

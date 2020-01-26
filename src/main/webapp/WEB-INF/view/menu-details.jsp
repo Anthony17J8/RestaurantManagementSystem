@@ -11,7 +11,7 @@
 
 <body>
 
-<h3><c:out value="${menu.restaurant.name}"/>. <br>Menu Details (<c:out value="${fnc:formatLocalDateTime(menu.date)}"/> )</h3>
+<h3><c:out value="${menu.restaurant.name}"/>. <br>Menu Details (<c:out value="${menu.date}"/>)</h3>
 <hr>
 
 <c:out value="${menu.name}"/>

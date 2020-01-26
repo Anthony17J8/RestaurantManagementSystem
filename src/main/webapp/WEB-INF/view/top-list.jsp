@@ -45,7 +45,7 @@
         <tr>
             <td><c:out value="${menu.restaurant.name}"/></td>
             <td><a href="${fn:escapeXml(viewMenu)}"><c:out value="${menu.name}"/></a></td>
-            <td><c:out value="${menu.date.toLocalDate()}"/></td>
+            <td><c:out value="${menu.date}"/></td>
             <td><c:out value="${menu.votesAmount}"/></td>
 
         </tr>
