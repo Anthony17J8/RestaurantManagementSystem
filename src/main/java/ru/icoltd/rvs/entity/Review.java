@@ -29,6 +29,7 @@ public class Review extends BaseEntity {
     private String text;
 
     @Column(name = "created_at")
+    @org.hibernate.annotations.CreationTimestamp
     private LocalDateTime createdAt;
 
     @ManyToOne

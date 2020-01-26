@@ -14,7 +14,6 @@ import ru.icoltd.rvs.service.ReviewService;
 import ru.icoltd.rvs.user.CurrentUser;
 
 import javax.validation.Valid;
-import java.time.LocalDateTime;
 
 @Controller
 @RequestMapping("/review")
@@ -35,8 +34,6 @@ public class ReviewController {
                              @RequestParam("restId") int restaurantId, @CurrentUser User currentUser) {
         review.setRestaurant(restaurantService.getRestaurant(restaurantId));
         review.setUser(currentUser);
-        // refactoring maybe
-        review.setCreatedAt(LocalDateTime.now());
         reviewService.saveReview(review);
         return "redirect:/restaurant/reviews?restId=" + restaurantId;
     }
