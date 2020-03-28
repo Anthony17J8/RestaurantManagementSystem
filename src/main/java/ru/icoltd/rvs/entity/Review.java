@@ -11,6 +11,7 @@ import lombok.ToString;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDateTime;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 @Table(name = "reviews")
 public class Review extends BaseEntity {
 
+    @Lob
     @Column(name = "review_text")
     private String text;
 

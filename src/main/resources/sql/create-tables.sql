@@ -143,10 +143,10 @@ CREATE TABLE persistent_logins
 DROP TABLE IF EXISTS reviews;
 CREATE TABLE reviews
 (
-    id            int(11)      NOT NULL AUTO_INCREMENT,
-    review_text   VARCHAR(255) NOT NULL,
-    user_id       INTEGER      NOT NULL,
-    restaurant_id INTEGER      NOT NULL,
+    id            int(11) NOT NULL AUTO_INCREMENT,
+    review_text   text    NOT NULL,
+    user_id       INTEGER NOT NULL,
+    restaurant_id INTEGER NOT NULL,
     created_at    TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
