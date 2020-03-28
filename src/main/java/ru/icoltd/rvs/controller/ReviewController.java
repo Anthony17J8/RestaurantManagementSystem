@@ -1,7 +1,10 @@
 package ru.icoltd.rvs.controller;
 
+import javax.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,15 +16,14 @@ import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.ReviewService;
 import ru.icoltd.rvs.user.CurrentUser;
 
-import javax.validation.Valid;
-
 @Controller
 @RequestMapping("/review")
+@Slf4j
 public class ReviewController {
 
-    private ReviewService reviewService;
+    private final ReviewService reviewService;
 
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
 
     @Autowired
     public ReviewController(ReviewService reviewService, RestaurantService restaurantService) {
@@ -30,11 +32,19 @@ public class ReviewController {
     }
 
     @PostMapping("/save")
-    public String saveReview(@ModelAttribute("newReview") @Valid Review review, BindingResult bindingResult,
-                             @RequestParam("restId") int restaurantId, @CurrentUser User currentUser) {
-        review.setRestaurant(restaurantService.getRestaurant(restaurantId));
+    public String saveReview(@ModelAttribute("newReview") @Valid Review review,
+                             BindingResult bindingResult, @CurrentUser User currentUser,
+                             @RequestParam("restId") Integer restId, Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute("restaurant", restaurantService.getRestaurant(restId));
+            model.addAttribute("reviews", reviewService.findAllByRestaurantId(restId));
+            bindingResult.getFieldErrors()
+                    .forEach(e -> log.error("Invalid data of Review: {} - {}", e.getField(), e.getDefaultMessage()));
+            return "reviews";
+        }
+        review.setRestaurant(restaurantService.getRestaurant(restId));
         review.setUser(currentUser);
         reviewService.saveReview(review);
-        return "redirect:/restaurant/reviews?restId=" + restaurantId;
+        return "redirect:/restaurant/reviews?restId=" + restId;
     }
 }

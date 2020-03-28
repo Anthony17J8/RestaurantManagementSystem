@@ -14,6 +14,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 @Getter
@@ -28,6 +29,7 @@ public class Review extends BaseEntity {
 
     @Lob
     @Column(name = "review_text")
+    @NotBlank
     private String text;
 
     @Column(name = "created_at")

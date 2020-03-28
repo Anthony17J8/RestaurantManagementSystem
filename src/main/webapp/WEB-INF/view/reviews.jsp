@@ -24,6 +24,8 @@
         <th>Date of review</th>
         <th>Text</th>
     </tr>
+    </thead>
+    <tbody>
     <c:forEach items="${reviews}" var="review">
         <tr>
             <th>${fn:escapeXml(review.user.username)}</th>
@@ -31,7 +33,7 @@
             <th>${fn:escapeXml(review.text)}</th>
         </tr>
     </c:forEach>
-    </thead>
+    </tbody>
 </table>
 
 <c:url var="save" value="/review/save">
@@ -42,6 +44,7 @@
     <form:hidden path="id"/>
 
     <form:textarea path="text"/>
+    <form:errors path="text"/>
 
     <button type="submit">Save</button>
 </form:form>
