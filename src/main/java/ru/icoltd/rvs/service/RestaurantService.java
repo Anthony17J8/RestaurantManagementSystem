@@ -6,11 +6,14 @@ import java.util.List;
 
 public interface RestaurantService {
 
-    List<Restaurant> getRestaurants();
+    List<Restaurant> findAll();
 
-    Restaurant getRestaurant(int restaurantId);
+    Restaurant findById(Long id);
 
-    void saveRestaurant(Restaurant restaurant);
+    Restaurant save(Restaurant restaurant);
 
-    void deleteRestaurant(Restaurant restaurant);
+    void remove(Restaurant restaurant);
+
+    Restaurant findByIdWithReviews(Long restaurantId);
+
 }

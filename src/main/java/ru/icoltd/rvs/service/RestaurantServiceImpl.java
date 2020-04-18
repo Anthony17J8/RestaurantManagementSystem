@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import com.google.common.collect.Lists;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.RestaurantDAO;
@@ -8,42 +9,41 @@ import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class RestaurantServiceImpl implements RestaurantService {
 
-    private RestaurantDAO restaurantDAO;
+    private final RestaurantDAO restaurantDAO;
 
-    @Autowired
-    public RestaurantServiceImpl(RestaurantDAO restaurantDAO) {
-        this.restaurantDAO = restaurantDAO;
+    @Override
+    public List<Restaurant> findAll() {
+        return Lists.newArrayList(restaurantDAO.findAll());
+    }
+
+    @Override
+    public Restaurant findById(Long restaurantId) {
+        return restaurantDAO.findById(restaurantId).orElseThrow(
+                () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
+        );
     }
 
     @Override
     @Transactional
-    public List<Restaurant> getRestaurants() {
-        return restaurantDAO.getRestaurants();
+    public Restaurant save(Restaurant restaurant) {
+        return restaurantDAO.makePersistent(restaurant);
     }
 
     @Override
     @Transactional
-    public Restaurant getRestaurant(int restaurantId) {
-        return Optional.ofNullable(restaurantDAO.findById(restaurantId))
-                .orElseThrow(
-                        () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
-                );
+    public void remove(Restaurant restaurant) {
+        restaurantDAO.remove(restaurant);
     }
 
     @Override
-    @Transactional
-    public void saveRestaurant(Restaurant restaurant) {
-        restaurantDAO.saveRestaurant(restaurant);
-    }
-
-    @Override
-    @Transactional
-    public void deleteRestaurant(Restaurant restaurant) {
-        restaurantDAO.deleteRestaurant(restaurant);
+    public Restaurant findByIdWithReviews(Long restaurantId) {
+        return restaurantDAO.findByIdWithReviews(restaurantId).orElseThrow(
+                () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
+        );
     }
 }

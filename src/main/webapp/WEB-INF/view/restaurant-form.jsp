@@ -24,7 +24,7 @@
 
 <hr>
 
-<form:form action="save" method="post" modelAttribute="restaurant">
+<form:form action="${pageContext.request.contextPath}/restaurant/save" method="POST" modelAttribute="restaurant">
     <form:hidden path="id"/>
     <table>
         <tbody>

@@ -1,64 +1,41 @@
 package ru.icoltd.rvs.dao;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Restaurant;
 
-import javax.persistence.NoResultException;
-import java.util.List;
+import javax.persistence.EntityGraph;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.JoinType;
+import javax.persistence.criteria.Root;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 @Repository
 @Slf4j
-public class RestaurantDAOImpl implements RestaurantDAO {
+public class RestaurantDAOImpl extends GenericDAOImpl<Restaurant, Long> implements RestaurantDAO {
 
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public RestaurantDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public RestaurantDAOImpl() {
+        super(Restaurant.class);
     }
 
     @Override
-    public List<Restaurant> getRestaurants() {
-
-        Session currentSession = sessionFactory.getCurrentSession();
-
-        return currentSession.createQuery("from Restaurant r", Restaurant.class).getResultList();
+    public Optional<Restaurant> findByIdWithReviews(Long restaurantId) {
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Restaurant> query = cb.createQuery(Restaurant.class);
+        Root<Restaurant> r = query.from(Restaurant.class);
+        r.fetch("reviews", JoinType.LEFT);
+        query.select(r).where(cb.equal(r.get("id"), restaurantId));
+        return Optional.of(em.createQuery(query).getSingleResult());
     }
 
     @Override
-    public Restaurant findById(int restaurantId) {
-
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Restaurant> query = currentSession.createQuery(
-                "from Restaurant r where r.id=:restaurantId",
-                Restaurant.class);
-        query.setParameter("restaurantId", restaurantId);
-
-        Restaurant result = null;
-
-        try {
-            result = query.getSingleResult();
-        } catch (NoResultException exc) {
-            log.warn("Entity 'Restaurant' is not found with id {}", restaurantId);
-        }
-
-        return result;
-    }
-
-    @Override
-    public void saveRestaurant(Restaurant restaurant) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(restaurant);
-    }
-
-    @Override
-    public void deleteRestaurant(Restaurant restaurant) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.delete(restaurant);
+    public Optional<Restaurant> findByIdWithMenus(Long restaurantId) {
+        EntityGraph<?> eg = em.getEntityGraph("RestaurantMenus");
+        Map<String, Object> properties = new HashMap<>();
+        properties.put("javax.persistence.fetchgraph", eg);
+        return Optional.ofNullable(em.find(Restaurant.class, restaurantId, properties));
     }
 }

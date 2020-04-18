@@ -17,7 +17,7 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 @NoArgsConstructor
-@ToString
+@ToString(exclude = {"menu", "user"})
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "votes")
@@ -34,15 +34,8 @@ public class Vote extends BaseEntity {
     @Column(name = "date")
     private LocalDateTime dateTime;
 
-    public Vote(User user, Menu menu, LocalDateTime dateTime) {
-        this.user = user;
-        this.menu = menu;
-        this.dateTime = dateTime;
-    }
-
     @Builder
-    public Vote(Integer id, User user, Menu menu, LocalDateTime dateTime) {
-        super(id);
+    public Vote(User user, Menu menu, LocalDateTime dateTime) {
         this.user = user;
         this.menu = menu;
         this.dateTime = dateTime;

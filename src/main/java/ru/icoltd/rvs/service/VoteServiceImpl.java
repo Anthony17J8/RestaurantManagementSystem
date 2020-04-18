@@ -24,7 +24,7 @@ public class VoteServiceImpl implements VoteService {
     @Override
     @Transactional
     public void saveOrUpdateVote(Menu menu, LocalDateTime now, User currentUser) {
-        Vote latestVote = dao.getLatestVoteByUserId(currentUser.getId());
+        Vote latestVote = dao.getLatestVoteByUserId(1);
 
         if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
             latestVote.setMenu(menu);

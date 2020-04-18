@@ -1,23 +1,18 @@
 package ru.icoltd.rvs.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.RestaurantDetail;
-import ru.icoltd.rvs.entity.Review;
-import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
-import ru.icoltd.rvs.service.ReviewService;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -25,36 +20,16 @@ import java.util.List;
 @Controller
 @Slf4j
 @RequestMapping("/restaurant")
+@RequiredArgsConstructor
 public class RestaurantController {
 
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
 
-    private ReviewService reviewService;
-
-    private MenuService menuService;
-
-    @Autowired
-    public RestaurantController(RestaurantService restaurantService, ReviewService reviewService,
-                                MenuService menuService) {
-        this.restaurantService = restaurantService;
-        this.reviewService = reviewService;
-        this.menuService = menuService;
-    }
-
-    @GetMapping("/list")
+    @GetMapping("/showAll")
     public String listRestaurants(Model model) {
-        List<Restaurant> restaurants = restaurantService.getRestaurants();
+        List<Restaurant> restaurants = restaurantService.findAll();
         model.addAttribute("restaurants", restaurants);
         return "restaurant-list";
-    }
-
-    @GetMapping("/menus")
-    public String listMenus(@RequestParam(name = "restId") int restaurantId, Model model) {
-        List<Menu> menus = menuService.findAllByRestaurantId(restaurantId);
-        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
-        model.addAttribute("menus", menus);
-        model.addAttribute("restaurant", restaurant);
-        return "menu-list";
     }
 
     @GetMapping("/showFormForAdd")
@@ -78,33 +53,22 @@ public class RestaurantController {
         }
 
         restaurant.setRestaurantDetail(detail);
-        restaurantService.saveRestaurant(restaurant);
-        return "redirect:/restaurant/list";
+        restaurantService.save(restaurant);
+        return "redirect:/restaurant/showAll";
     }
 
-    @GetMapping("/delete")
-    public String delete(@RequestParam("restId") int restaurantId) {
-        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
-        restaurantService.deleteRestaurant(restaurant);
-        return "redirect:/restaurant/list";
+    @GetMapping("/{id}/delete")
+    public String delete(@PathVariable("id") Long restaurantId) {
+        Restaurant restaurant = restaurantService.findById(restaurantId);
+        restaurantService.remove(restaurant);
+        return "redirect:/restaurant/showAll";
     }
 
-    @GetMapping("/update")
-    public String update(@RequestParam("restId") int restaurantId, Model model) {
-        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
+    @GetMapping("/{id}/update")
+    public String update(@PathVariable("id") Long restaurantId, Model model) {
+        Restaurant restaurant = restaurantService.findById(restaurantId);
         model.addAttribute("restaurant", restaurant);
         model.addAttribute("detail", restaurant.getRestaurantDetail());
         return "restaurant-form";
-    }
-
-    @GetMapping("/reviews")
-    public String showReviews(@RequestParam("restId") int restaurantId, Model model) {
-        List<Review> reviews = reviewService.findAllByRestaurantId(restaurantId);
-        Review newReview = new Review();
-        Restaurant restaurant = restaurantService.getRestaurant(restaurantId);
-        model.addAttribute("newReview", newReview);
-        model.addAttribute("reviews", reviews);
-        model.addAttribute("restaurant", restaurant);
-        return "reviews";
     }
 }

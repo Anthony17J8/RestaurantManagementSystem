@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface DishService {
 
-    void saveDish(Dish dish);
+    Dish save(Dish dish);
 
-    Dish getDish(int dishId);
+    List<Dish> findAllByMenuId(Long menuId);
 
-    void deleteDish(Dish dish);
+    Dish findById(Long id);
 
-    List<Dish> getDishListByMenuId(int menuId);
+    void deleteById(Long id);
 }

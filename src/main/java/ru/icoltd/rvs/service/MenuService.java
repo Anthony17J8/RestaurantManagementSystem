@@ -2,18 +2,15 @@ package ru.icoltd.rvs.service;
 
 import ru.icoltd.rvs.entity.Menu;
 
-import java.time.LocalDate;
 import java.util.List;
 
 public interface MenuService {
 
-    Menu getMenu(int menuId);
+    Menu save(Menu menu);
 
-    void saveMenu(Menu menu);
+    void removeById(Long id);
 
-    void deleteMenu(Menu menu);
+    List<Menu> findAllByRestaurantId(Long restId);
 
-    List<Menu> getBetweenDates(LocalDate startDate, LocalDate endDate);
-
-    List<Menu> findAllByRestaurantId(int restaurantId);
+    Menu findById(Long menuId);
 }

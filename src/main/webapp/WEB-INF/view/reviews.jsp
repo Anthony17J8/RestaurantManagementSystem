@@ -26,7 +26,7 @@
     </tr>
     </thead>
     <tbody>
-    <c:forEach items="${reviews}" var="review">
+    <c:forEach items="${restaurant.reviews}" var="review">
         <tr>
             <th>${fn:escapeXml(review.user.username)}</th>
             <th>${fn:escapeXml(fnc:formatLocalDateTime(review.createdAt))}</th>
@@ -36,9 +36,7 @@
     </tbody>
 </table>
 
-<c:url var="save" value="/review/save">
-    <c:param name="restId" value="${restaurant.id}"/>
-</c:url>
+<c:url var="save" value="/restaurant/${restaurant.id}/review/save"/>
 <br><br>
 <form:form action="${save}" method="post" modelAttribute="newReview">
     <form:hidden path="id"/>
@@ -49,7 +47,7 @@
     <button type="submit">Save</button>
 </form:form>
 <br/>
-<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">View all restaurants</a>
+<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/showAll">View all restaurants</a>
 </body>
 
 <jsp:include page="footer.jsp"/>

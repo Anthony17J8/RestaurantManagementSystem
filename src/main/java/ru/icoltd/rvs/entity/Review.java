@@ -22,8 +22,9 @@ import java.time.LocalDateTime;
 @ToString
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(callSuper = false)
+@EqualsAndHashCode(callSuper = false, exclude = "restaurant")
 @Entity
+@Builder
 @Table(name = "reviews")
 public class Review extends BaseEntity {
 
@@ -44,11 +45,8 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @Builder
-    public Review(Integer id, String text, LocalDateTime createdAt, Restaurant restaurant, User user) {
-        super(id);
+    public Review(String text, Restaurant restaurant, User user) {
         this.text = text;
-        this.createdAt = createdAt;
         this.restaurant = restaurant;
         this.user = user;
     }

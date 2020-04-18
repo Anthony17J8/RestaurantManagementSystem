@@ -24,8 +24,7 @@ public class Role extends BaseEntity {
     private String name;
 
     @Builder
-    public Role(Integer id, String name) {
-        super(id);
+    public Role(String name) {
         this.name = name;
     }
 

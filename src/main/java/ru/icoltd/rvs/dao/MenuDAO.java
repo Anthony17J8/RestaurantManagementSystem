@@ -2,18 +2,9 @@ package ru.icoltd.rvs.dao;
 
 import ru.icoltd.rvs.entity.Menu;
 
-import java.time.LocalDate;
-import java.util.List;
+public interface MenuDAO extends GenericDAO<Menu, Long> {
 
-public interface MenuDAO {
+    Iterable<Menu> findAllByRestaurantId(Long restaurantId);
 
-    Menu findById(int menuId);
-
-    void saveMenu(Menu menu);
-
-    void deleteMenu(Menu menu);
-
-    List<Menu> getBetweenDates(LocalDate startDate, LocalDate endDate);
-
-    List<Menu> findAllByRestaurantId(int restaurantId);
+    void removeById(Long id);
 }

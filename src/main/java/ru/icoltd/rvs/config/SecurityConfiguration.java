@@ -60,12 +60,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                .antMatchers("/register/**", "/resources/**").permitAll()
                 .antMatchers("/**/showFormForAdd", "/**/update", "/**/delete").hasRole("ADMIN")
+                .antMatchers("/register/**", "/resources/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
-                .logout()
-                .permitAll()
+                .logout().permitAll()
                 .and()
                 .exceptionHandling()
                 .accessDeniedPage("/accessDenied")

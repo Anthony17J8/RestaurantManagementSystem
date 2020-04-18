@@ -1,6 +1,12 @@
 package ru.icoltd.rvs.util;
 
 import com.github.javafaker.Faker;
+import java.sql.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import ru.icoltd.rvs.entity.BaseEntity;
 import ru.icoltd.rvs.entity.Dish;
 import ru.icoltd.rvs.entity.Menu;
@@ -10,14 +16,6 @@ import ru.icoltd.rvs.entity.Review;
 import ru.icoltd.rvs.entity.Role;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.entity.Vote;
-
-import java.math.BigDecimal;
-import java.sql.Date;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MockDataUtils {
 
@@ -53,8 +51,8 @@ public class MockDataUtils {
         return Menu.builder()
                 .name(FAKER.funnyName().name())
                 .date(LocalDate.now())
-                .votesAmount(FAKER.number().randomNumber())
-                .totalAmount(new BigDecimal(FAKER.number().randomNumber()))
+//                .votesAmount(FAKER.number().randomNumber())
+//                .totalAmount(new BigDecimal(FAKER.number().randomNumber()))
                 .build();
     }
 
@@ -85,7 +83,7 @@ public class MockDataUtils {
     }
 
     public static <T extends BaseEntity> T withId(T obj) {
-        obj.setId(Long.valueOf(FAKER.number().randomNumber()).intValue());
+        obj.setId(FAKER.number().randomNumber());
         return obj;
     }
 

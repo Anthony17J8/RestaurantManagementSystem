@@ -22,7 +22,6 @@
            onclick="window.location.href='showFormForAdd'; return false"/>
 
 </sec:authorize>
-<br><br>
 
 <table border="1" cellpadding="20">
     <thead>
@@ -51,22 +50,16 @@
                     <c:out value="${detail.street}"/>
                 </td>
                 <td>
-                    <c:url var="menuList" value="/restaurant/menus">
-                        <c:param name="restId" value="${restaurant.id}"/>
-                    </c:url>
+                    <c:url var="menuList" value="/restaurant/${restaurant.id}/menu/showAll"/>
                     <a href="${fn:escapeXml(menuList)}">View menus</a>
                 </td>
 
                 <sec:authorize access="hasRole('ADMIN')">
 
                     <td>
-                        <c:url var="updateLink" value="/restaurant/update">
-                            <c:param name="restId" value="${restaurant.id}"/>
-                        </c:url>
+                        <c:url var="updateLink" value="/restaurant/${restaurant.id}/update"/>
 
-                        <c:url var="deleteLink" value="/restaurant/delete">
-                            <c:param name="restId" value="${restaurant.id}"/>
-                        </c:url>
+                        <c:url var="deleteLink" value="/restaurant/${restaurant.id}/delete"/>
 
                         <a href="${fn:escapeXml(updateLink)}">Update</a>
                         |
@@ -75,9 +68,7 @@
                 </sec:authorize>
 
                 <td>
-                    <c:url var="showReviewLink" value="/restaurant/reviews">
-                        <c:param name="restId" value="${restaurant.id}"/>
-                    </c:url>
+                    <c:url var="showReviewLink" value="/restaurant/${restaurant.id}/review/showAll"/>
                     <a href="${fn:escapeXml(showReviewLink)}">Show reviews</a>
                 </td>
 
@@ -88,6 +79,4 @@
     </form:form>
 </table>
 </body>
-
-<jsp:include page="footer.jsp"/>
 </html>

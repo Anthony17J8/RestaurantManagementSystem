@@ -18,13 +18,10 @@
 
 <sec:authorize access="hasRole('ADMIN')">
 
-    <c:url value="/menu/showFormForAdd" var="formForAdd">
-        <c:param name="restId" value="${restaurant.id}"/>
-    </c:url>
+    <c:url value="/restaurant/${restaurant.id}/menu/showFormForAdd" var="formForAdd"/>
     <a href="${fn:escapeXml(formForAdd)}">Add menu</a>
 
 </sec:authorize>
-<br><br>
 
 <table border="1" cellpadding="20">
     <thead>
@@ -41,21 +38,16 @@
     <c:forEach var="menu" items="${menus}">
         <tbody>
         <tr>
-            <c:url value="/menu/showDetails" var="menuDetailsLink">
-                <c:param name="menuId" value="${menu.id}"/>
-            </c:url>
+            <c:url value="/restaurant/${restaurant.id}/menu/${menu.id}/dish/showAll" var="menuDetailsLink"/>
             <td><a href="${fn:escapeXml(menuDetailsLink)}"><c:out value="${menu.name}"/></a></td>
             <td><c:out value="${menu.date}"/></td>
-            <td><c:out value="${menu.votesAmount}"/></td>
+                <%--todo through DTO object--%>
+            <td><c:out value="1"/></td>
 
             <sec:authorize access="hasRole('ADMIN')">
-                <c:url var="deleteLink" value="/menu/delete">
-                    <c:param name="menuId" value="${menu.id}"/>
-                </c:url>
+                <c:url var="deleteLink" value="/restaurant/${restaurant.id}/menu/${menu.id}/delete"/>
 
-                <c:url var="updateLink" value="/menu/update">
-                    <c:param name="menuId" value="${menu.id}"/>
-                </c:url>
+                <c:url var="updateLink" value="/restaurant/${restaurant.id}/menu/${menu.id}/update"/>
 
                 <td>
                     <a href="${fn:escapeXml(updateLink)}">Update</a>
@@ -68,8 +60,6 @@
     </c:forEach>
 
 </table>
-<br/>
-<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">View all restaurants</a>
 </body>
 
 <jsp:include page="footer.jsp"/>

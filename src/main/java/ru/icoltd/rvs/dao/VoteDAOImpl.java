@@ -15,11 +15,6 @@ public class VoteDAOImpl implements VoteDAO {
 
     private SessionFactory sessionFactory;
 
-    @Autowired
-    public VoteDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
-
     @Override
     public void saveVote(Vote vote) {
         Session currentSession = sessionFactory.getCurrentSession();

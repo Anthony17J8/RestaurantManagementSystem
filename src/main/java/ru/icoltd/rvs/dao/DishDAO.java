@@ -2,15 +2,9 @@ package ru.icoltd.rvs.dao;
 
 import ru.icoltd.rvs.entity.Dish;
 
-import java.util.List;
+public interface DishDAO extends GenericDAO<Dish, Long> {
 
-public interface DishDAO {
+    Iterable<Dish> findAllInMenu(Long menuId);
 
-    void saveDish(Dish dish);
-
-    Dish getDish(int dishId);
-
-    void deleteDish(Dish dish);
-
-    List<Dish> getDishListByMenuId(int menuId);
+    void deleteById(Long id);
 }

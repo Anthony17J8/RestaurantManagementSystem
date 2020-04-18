@@ -2,15 +2,11 @@ package ru.icoltd.rvs.dao;
 
 import ru.icoltd.rvs.entity.Restaurant;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface RestaurantDAO {
+public interface RestaurantDAO extends GenericDAO<Restaurant, Long> {
 
-    List<Restaurant> getRestaurants();
+    Optional<Restaurant> findByIdWithReviews(Long restaurantId);
 
-    Restaurant findById(int restaurantId);
-
-    void saveRestaurant(Restaurant restaurant);
-
-    void deleteRestaurant(Restaurant restaurant);
+    Optional<Restaurant> findByIdWithMenus(Long restaurantId);
 }

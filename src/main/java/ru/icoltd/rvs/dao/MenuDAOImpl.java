@@ -1,77 +1,29 @@
 package ru.icoltd.rvs.dao;
 
 import lombok.extern.slf4j.Slf4j;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Menu;
-
-import javax.persistence.NoResultException;
-import javax.persistence.TemporalType;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.List;
 
 
 @Repository
 @Slf4j
-public class MenuDAOImpl implements MenuDAO {
+public class MenuDAOImpl extends GenericDAOImpl<Menu, Long> implements MenuDAO {
 
-    private SessionFactory sessionFactory;
-
-    @Autowired
-    public MenuDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
+    public MenuDAOImpl() {
+        super(Menu.class);
     }
 
     @Override
-    public Menu findById(int menuId) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Menu> query = currentSession.createQuery(
-                "from Menu m left join fetch m.dishes" +
-                        " join fetch m.restaurant where m.id=:menuId", Menu.class);
-        query.setParameter("menuId", menuId);
-
-        Menu result = null;
-        try {
-            result = query.getSingleResult();
-        } catch (NoResultException exc) {
-            log.warn("Entity 'Menu' is not found with id {}", menuId);
-        }
-
-        return result;
+    public Iterable<Menu> findAllByRestaurantId(Long restaurantId) {
+        return em.createQuery(
+                "SELECT m FROM Menu m WHERE m.restaurant.id = :restaurantId", Menu.class)
+                .setParameter("restaurantId", restaurantId).getResultList();
     }
 
     @Override
-    public void saveMenu(Menu menu) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(menu);
-    }
-
-    @Override
-    public void deleteMenu(Menu menu) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.delete(menu);
-    }
-
-    @Override
-    public List<Menu> getBetweenDates(LocalDate startDate, LocalDate endDate) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Menu> query = currentSession.createQuery(
-                "from Menu m " +
-                        "where m.date between :startDate and :endDate", Menu.class);
-        query.setParameter("endDate", endDate, TemporalType.DATE);
-        query.setParameter("startDate", startDate, TemporalType.DATE);
-        return query.getResultList();
-    }
-
-    @Override
-    public List<Menu> findAllByRestaurantId(int restaurantId) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Menu> query = currentSession.createQuery("FROM Menu WHERE restaurant.id=:restaurantId", Menu.class);
-        query.setParameter("restaurantId", restaurantId);
-        return query.getResultList();
+    public void removeById(Long id) {
+        em.createQuery("DELETE FROM Menu m WHERE m.id = :id")
+                .setParameter("id", id)
+                .executeUpdate();
     }
 }

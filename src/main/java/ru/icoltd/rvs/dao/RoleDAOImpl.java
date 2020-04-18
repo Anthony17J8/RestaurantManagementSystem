@@ -12,12 +12,7 @@ import java.util.Set;
 @Repository
 public class RoleDAOImpl implements RoleDAO {
 
-    private final SessionFactory sessionFactory;
-
-    @Autowired
-    public RoleDAOImpl(SessionFactory sessionFactory) {
-        this.sessionFactory = sessionFactory;
-    }
+    private SessionFactory sessionFactory;
 
     @Override
     public Set<Role> findAll() {

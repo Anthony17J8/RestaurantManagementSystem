@@ -28,9 +28,7 @@
 <table>
     <tbody>
 
-    <c:url var="saveLink" value="/dish/save">
-        <c:param name="menuId" value="${menuId}"/>
-    </c:url>
+    <c:url var="saveLink" value="/restaurant/${menu.restaurant.id}/menu/${menu.id}/dish/save"/>
 
     <form:form action="${saveLink}" method="post" modelAttribute="dish">
         <form:hidden path="id"/>

@@ -2,4 +2,4 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <br/>
 <hr>
-<a href="${fn:escapeXml(pageContext.request.contextPath)}/menu/toplist">Home Page</a>
+<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/showAll">Home Page</a>

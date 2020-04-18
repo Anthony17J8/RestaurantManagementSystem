@@ -54,7 +54,7 @@ CREATE TABLE menus
     restaurant_id int(11)     DEFAULT NULL,
     date          date        DEFAULT NULL,
     KEY fk_restaurant_idx (restaurant_id),
-    CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE ON UPDATE NO ACTION,
     PRIMARY KEY (id)
 );
 
@@ -71,7 +71,7 @@ CREATE TABLE dishes
     price       decimal(15, 2) DEFAULT NULL,
     menu_id     int(11)        DEFAULT NULL,
     KEY fk_menu_idx (menu_id),
-    CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE CASCADE ON UPDATE NO ACTION,
     PRIMARY KEY (id)
 );
 
@@ -88,8 +88,8 @@ CREATE TABLE votes
     menu_id int(11)  DEFAULT NULL,
     date    datetime DEFAULT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE CASCADE ON UPDATE NO ACTION,
+    CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE NO ACTION,
     KEY fk_user_idx (user_id)
 );
 
@@ -149,8 +149,8 @@ CREATE TABLE reviews
     restaurant_id INTEGER NOT NULL,
     created_at    TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
-    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE ON UPDATE NO ACTION,
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE ON UPDATE NO ACTION
 );
 
 SET FOREIGN_KEY_CHECKS = 1;

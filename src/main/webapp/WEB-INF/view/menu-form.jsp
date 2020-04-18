@@ -23,9 +23,7 @@
 </c:choose>
 <hr>
 
-<c:url var="save" value="/menu/save">
-    <c:param name="restId" value="${restaurantId}"/>
-</c:url>
+<c:url var="save" value="/restaurant/${restaurant.id}/menu/save"/>
 
 <form:form action="${save}" method="post" modelAttribute="menu">
 
@@ -43,51 +41,6 @@
             <td><form:input type="date" path="date"/></td>
             <td><form:errors path="date"/></td>
         </tr>
-
-        <c:if test="${menu.id != null}">
-
-            <tr>
-                <td><h4>List dishes:</h4></td>
-            </tr>
-            <c:forEach items="${menu.dishes}" varStatus="status" var="dish">
-
-                <tr>
-                    <td>Dish #${status.index + 1}</td>
-                    <td><c:out value="${dish.description}"/></td>
-
-                    <sec:authorize access="hasRole('ADMIN')">
-
-                        <c:url value="/dish/update" var="updateLink">
-                            <c:param name="dishId" value="${dish.id}"/>
-                        </c:url>
-                        <c:url value="/dish/delete" var="deleteLink">
-                            <c:param name="dishId" value="${dish.id}"/>
-                        </c:url>
-
-                        <td><a href="${fn:escapeXml(updateLink)}">Update</a></td>
-                        <td><a href="${fn:escapeXml(deleteLink)}">Delete</a></td>
-
-                    </sec:authorize>
-                </tr>
-            </c:forEach>
-
-            <sec:authorize access="hasRole('ADMIN')">
-
-                <c:url var="showFormLink" value="/dish/showFormForAdd">
-                    <c:param name="menuId" value="${menu.id}"/>
-                </c:url>
-                <tr>
-                    <td></td>
-                    <td><a href="${fn:escapeXml(showFormLink)}">Add new dish</a></td>
-                </tr>
-
-            </sec:authorize>
-            <tr>
-                <td>Total amount:</td>
-                <td><c:out value="${menu.totalAmount}"/></td>
-            </tr>
-        </c:if>
-
         <sec:authorize access="hasRole('ADMIN')">
             <tr>
                 <td>
