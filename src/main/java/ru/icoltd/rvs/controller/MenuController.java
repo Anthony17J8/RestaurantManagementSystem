@@ -1,18 +1,13 @@
 package ru.icoltd.rvs.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.User;
@@ -29,25 +24,17 @@ import java.util.Locale;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/restaurant/{restId}/menu")
 public class MenuController {
 
-    private MenuService menuService;
+    private final MenuService menuService;
 
-    private VoteService voteService;
+    private final VoteService voteService;
 
-    private RestaurantService restaurantService;
+    private final RestaurantService restaurantService;
 
-    private MessageSource messageSource;
-
-    @Autowired
-    public MenuController(MenuService menuService, VoteService voteService, RestaurantService restaurantService,
-                          MessageSource messageSource) {
-        this.menuService = menuService;
-        this.voteService = voteService;
-        this.restaurantService = restaurantService;
-        this.messageSource = messageSource;
-    }
+    private final MessageSource messageSource;
 
     @InitBinder("restaurant")
     public void initRestaurantBinder(WebDataBinder dataBinder) {
@@ -66,16 +53,15 @@ public class MenuController {
         return "menu-list";
     }
 
-    @PostMapping("/{id}/addVote")
-    public String voteForMenu(Model model, @PathVariable("id") Long menuId, @CurrentUser User currentUser,
-                              Restaurant restaurant) {
-        Menu menu = new Menu();
+    @GetMapping("/{id}/vote")
+    public String voteForMenu(Model model, @PathVariable("id") Long menuId, @CurrentUser User currentUser) {
+        Menu menu = menuService.findById(menuId);
         LocalDateTime now = LocalDateTime.now();
-        if (DateTimeUtils.isNotAfter(menu.getDate(), now.toLocalDate())) {
+        if (DateTimeUtils.isNotInPast(menu.getDate().toLocalDate(), now.toLocalDate())) {
             voteService.saveOrUpdateVote(menu, now, currentUser);
         } else {
             model.addAttribute("message", messageSource.getMessage("error.vote.date",
-                    new Object[]{menu.getName(), menu.getDate()},
+                    new Object[]{menu.getName(), menu.getDate().toLocalDate()},
                     Locale.getDefault()));
             return "error-page";
         }

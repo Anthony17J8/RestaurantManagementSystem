@@ -1,18 +1,9 @@
 package ru.icoltd.rvs.config;
 
 import com.mchange.v2.c3p0.ComboPooledDataSource;
-import java.beans.PropertyVetoException;
-import java.util.Objects;
-import java.util.Properties;
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.context.annotation.PropertySource;
+import org.springframework.context.annotation.*;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.format.FormatterRegistry;
@@ -29,6 +20,12 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 import ru.icoltd.rvs.exception.UnacceptablePropertyValueException;
 import ru.icoltd.rvs.formatters.DateTimeFormatters;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.beans.PropertyVetoException;
+import java.util.Objects;
+import java.util.Properties;
 
 @Configuration
 @EnableWebMvc
@@ -92,6 +89,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
     private Properties getHibernateProperties() {
         Properties props = new Properties();
         props.setProperty("hibernate.dialect", env.getProperty("hibernate.dialect"));
+        props.setProperty("hibernate.jdbc.time_zone", "UTC");
         props.setProperty("hibernate.hbm2ddl.auto", "update");
         props.setProperty("hibernate.format_sql", "true");
         props.setProperty("hibernate.use_sql_comments", "true");

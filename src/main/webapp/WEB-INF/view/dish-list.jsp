@@ -26,15 +26,8 @@
 <div>
     <a href="${pageContext.request.contextPath}/restaurant/${menu.restaurant.id}/menu/${menu.id}/dish/addNew">Add New</a>
 </div>
-<%--<c:url value="/menu/addVote" var="voteLink">--%>
-<%--    <c:param name="menuId" value="${menu.id}"/>--%>
-<%--</c:url>--%>
 
-<%--<form:form method="post" action="${voteLink}">--%>
-<%--    <input type="submit" value="Vote">--%>
-<%--</form:form>--%>
-
-<c:url value="${pageContext.request.contextPath}/restaurant/${menu.restaurant.id}/menu/showAll" var="redirectLink"/>
+<c:url value="/restaurant/${menu.restaurant.id}/menu/showAll" var="redirectLink"/>
 
 <a href="${fn:escapeXml(redirectLink)}">View all menus of restaurant</a>
 </body>

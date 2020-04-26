@@ -20,7 +20,7 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements Gene
 
     @Override
     public Optional<T> findById(ID id) {
-        return Optional.of(em.find(entityClass, id));
+        return Optional.ofNullable(em.find(entityClass, id));
     }
 
     @Override

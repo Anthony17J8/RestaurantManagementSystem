@@ -1,6 +1,6 @@
 package ru.icoltd.rvs.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.VoteDAO;
@@ -10,28 +10,26 @@ import ru.icoltd.rvs.entity.Vote;
 import ru.icoltd.rvs.util.DateTimeUtils;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class VoteServiceImpl implements VoteService {
 
-    private VoteDAO dao;
-
-    @Autowired
-    public VoteServiceImpl(VoteDAO dao) {
-        this.dao = dao;
-    }
+    private final VoteDAO dao;
 
     @Override
     @Transactional
     public void saveOrUpdateVote(Menu menu, LocalDateTime now, User currentUser) {
-        Vote latestVote = dao.getLatestVoteByUserId(1);
+        Optional<Vote> latestVote = dao.getLatestVoteByUserId(currentUser.getId());
 
-        if (latestVote != null && DateTimeUtils.isBetween(latestVote.getDateTime(), now)) {
-            latestVote.setMenu(menu);
-            latestVote.setDateTime(now);
-            dao.saveVote(latestVote);
+        if (latestVote.isPresent() && DateTimeUtils.isBetweenRange(latestVote.get().getDateTime(), now)) {
+            Vote latest = latestVote.get();
+            latest.setDateTime(now);
+            latest.setMenu(menu);
+            dao.makePersistent(latest);
         } else {
-            dao.saveVote(new Vote(currentUser, menu, now));
+            dao.makePersistent(new Vote(currentUser, menu, now));
         }
     }
 }

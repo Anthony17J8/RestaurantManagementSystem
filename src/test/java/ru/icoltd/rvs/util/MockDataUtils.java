@@ -1,25 +1,17 @@
 package ru.icoltd.rvs.util;
 
 import com.github.javafaker.Faker;
+import ru.icoltd.rvs.entity.*;
+
 import java.sql.Date;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-import ru.icoltd.rvs.entity.BaseEntity;
-import ru.icoltd.rvs.entity.Dish;
-import ru.icoltd.rvs.entity.Menu;
-import ru.icoltd.rvs.entity.Restaurant;
-import ru.icoltd.rvs.entity.RestaurantDetail;
-import ru.icoltd.rvs.entity.Review;
-import ru.icoltd.rvs.entity.Role;
-import ru.icoltd.rvs.entity.User;
-import ru.icoltd.rvs.entity.Vote;
 
 public class MockDataUtils {
 
-    public static final Integer ID = 1;
+    public static final Long ID = 1L;
 
     private static final Faker FAKER = new Faker();
 
@@ -50,9 +42,8 @@ public class MockDataUtils {
     public static Menu getMockMenu() {
         return Menu.builder()
                 .name(FAKER.funnyName().name())
-                .date(LocalDate.now())
-//                .votesAmount(FAKER.number().randomNumber())
-//                .totalAmount(new BigDecimal(FAKER.number().randomNumber()))
+                .date(LocalDateTime.now())
+                .votesAmount(FAKER.number().randomNumber())
                 .build();
     }
 

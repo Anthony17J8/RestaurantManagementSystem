@@ -8,6 +8,15 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.icoltd.rvs.dao.DishDAO;
 import ru.icoltd.rvs.entity.Dish;
+import ru.icoltd.rvs.exception.ObjNotFoundException;
+import ru.icoltd.rvs.util.MockDataUtils;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+import static ru.icoltd.rvs.util.MockDataUtils.*;
 
 @ExtendWith(MockitoExtension.class)
 class DishServiceImplTest {
@@ -22,43 +31,36 @@ class DishServiceImplTest {
 
     @BeforeEach
     void setUp() {
-//        mockDish = withId(getMockDish());
+        mockDish = withId(getMockDish());
     }
 
     @Test
     void testSaveDish() {
-//        dishService.saveDish(mockDish);
-
-//        verify(dao).saveDish(eq(mockDish));
+        dishService.save(mockDish);
+        verify(dao).makePersistent(eq(mockDish));
     }
 
     @Test
     void testGetDish() {
-//        when(dao.getDish(ID)).thenReturn(mockDish);
-
-//        dishService.getDish(ID);
-
-//        verify(dao).getDish(ID);
+        dishService.deleteById(mockDish.getId());
+        verify(dao).deleteById(mockDish.getId());
     }
 
     @Test
     void testGetDishNotFound() {
-//        assertThrows(ObjNotFoundException.class, () -> dishService.getDish(ID), "Dish id not found: " + ID);
+        assertThrows(ObjNotFoundException.class, () -> dishService.findById(ID), "Dish id not found: " + ID);
     }
 
     @Test
     void testDeleteDish() {
-//        dishService.deleteDish(mockDish);
-
-//        verify(dao).deleteDish(mockDish);
+        dishService.deleteById(mockDish.getId());
+        verify(dao).deleteById(mockDish.getId());
     }
 
     @Test
     void testGetDishListByMenuId() {
-//        when(dao.getDishListByMenuId(ID)).thenReturn(MockDataUtils.getMockDishes(3));
-
-//        dishService.getDishListByMenuId(ID);
-
-//        verify(dao).getDishListByMenuId(eq(ID));
+        when(dao.findAllInMenu(anyLong())).thenReturn(MockDataUtils.getMockDishes(3));
+        dishService.findAllByMenuId(ID);
+        verify(dao).findAllInMenu(eq(ID));
     }
 }

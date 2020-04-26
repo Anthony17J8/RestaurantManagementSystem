@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.dao;
 
+import com.google.common.collect.Sets;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
@@ -42,9 +43,8 @@ class UserDAOImplTestIT {
     @Rollback
     void testSaveUser() {
         User saved = MockDataUtils.getMockUser();
-        saved.setRoles(roleDAO.findAll());
-        dao.saveUser(saved);
-        assertEquals(saved, dao.findUserByUserName(saved.getUsername()));
+        saved.setRoles(Sets.newHashSet(roleDAO.findAll()));
+        assertEquals(dao.makePersistent(saved), dao.findUserByUserName(saved.getUsername()));
     }
 
 

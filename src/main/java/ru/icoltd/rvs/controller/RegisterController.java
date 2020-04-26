@@ -1,7 +1,7 @@
 package ru.icoltd.rvs.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,21 +21,15 @@ import java.util.Optional;
 
 @Controller
 @Slf4j
+@RequiredArgsConstructor
 @RequestMapping("/register")
 public class RegisterController {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private RoleService roleService;
+    private final RoleService roleService;
 
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
-    public RegisterController(UserService userService, RoleService roleService, PasswordEncoder passwordEncoder) {
-        this.userService = userService;
-        this.roleService = roleService;
-        this.passwordEncoder = passwordEncoder;
-    }
+    private final PasswordEncoder passwordEncoder;
 
     @GetMapping("/showRegistrationForm")
     public String showRegistrationForm(Model model) {

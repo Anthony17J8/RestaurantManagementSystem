@@ -1,20 +1,10 @@
 package ru.icoltd.rvs.entity;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -31,17 +21,20 @@ public class Menu extends BaseEntity {
 
     @NotNull
     @Column(name = "date")
-    private LocalDate date;
+    private LocalDateTime date;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id")
     private Restaurant restaurant;
 
+    @org.hibernate.annotations.Formula(value = "(select count(*) from votes v where v.menu_id = id)")
+    private Long votesAmount;
+
     @Builder
-    public Menu(String name, LocalDate date,
-                Restaurant restaurant) {
+    public Menu(String name, LocalDateTime date, Restaurant restaurant, Long votesAmount) {
         this.name = name;
         this.date = date;
         this.restaurant = restaurant;
+        this.votesAmount = votesAmount;
     }
 }

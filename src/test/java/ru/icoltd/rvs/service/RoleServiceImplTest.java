@@ -8,7 +8,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.icoltd.rvs.dao.RoleDAO;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.anySet;
 import static org.mockito.Mockito.verify;
 
@@ -24,14 +23,12 @@ class RoleServiceImplTest {
     @Test
     void findAll() {
         service.findAll();
-
         verify(dao).findAll();
     }
 
     @Test
     void findByName() {
         service.findByName(Sets.newHashSet());
-
         verify(dao).findByName(anySet());
     }
 }

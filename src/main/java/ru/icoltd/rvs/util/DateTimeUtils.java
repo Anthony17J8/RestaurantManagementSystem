@@ -19,13 +19,13 @@ public class DateTimeUtils {
     private DateTimeUtils() {
     }
 
-    public static boolean isBetween(LocalDateTime src, LocalDateTime now) {
+    public static boolean isBetweenRange(LocalDateTime src, LocalDateTime now) {
         LocalDateTime lowerBound = LocalDateTime.of(now.toLocalDate(), TIME_BOUND);
         LocalDateTime upperBound = lowerBound.plusDays(1);
         return src.isAfter(lowerBound) && src.isBefore(upperBound);
     }
 
-    public static boolean isNotAfter(LocalDate date, LocalDate now) {
+    public static boolean isNotInPast(LocalDate date, LocalDate now) {
         return !now.isAfter(date);
     }
 

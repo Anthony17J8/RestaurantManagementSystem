@@ -24,7 +24,7 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public Restaurant findById(Long restaurantId) {
         return restaurantDAO.findById(restaurantId).orElseThrow(
-                () -> new ObjNotFoundException("Restaurant id not found: " + restaurantId)
+                () -> new ObjNotFoundException("Restaurant not found with id: " + restaurantId)
         );
     }
 

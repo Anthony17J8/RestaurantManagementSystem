@@ -1,6 +1,6 @@
 package ru.icoltd.rvs.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -11,14 +11,10 @@ import ru.icoltd.rvs.entity.User;
 import java.util.Optional;
 
 @Service
+@RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    private UserDAO dao;
-
-    @Autowired
-    public UserServiceImpl(UserDAO dao) {
-        this.dao = dao;
-    }
+    private final UserDAO dao;
 
     @Override
     @Transactional
@@ -32,7 +28,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public void saveUser(User user) {
-        dao.saveUser(user);
+        dao.makePersistent(user);
     }
 
     @Override

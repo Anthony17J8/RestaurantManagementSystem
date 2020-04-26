@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration scan="true" scanPeriod="30 seconds">
 
-
 <!--    <appender name="FILE" class="ch.qos.logback.core.FileAppender">-->
 <!--        <file>${RVS_HOME}/log/app.log</file>-->
 
@@ -25,6 +24,6 @@
 
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
-        <appender-ref ref="FILE"/>
+<!--        <appender-ref ref="FILE"/>-->
     </root>
 </configuration>

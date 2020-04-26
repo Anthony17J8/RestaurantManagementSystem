@@ -13,16 +13,14 @@ import ru.icoltd.rvs.entity.Vote;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static ru.icoltd.rvs.util.MockDataUtils.getMockMenu;
-import static ru.icoltd.rvs.util.MockDataUtils.getMockUser;
-import static ru.icoltd.rvs.util.MockDataUtils.getMockVote;
-import static ru.icoltd.rvs.util.MockDataUtils.withId;
+import static ru.icoltd.rvs.util.MockDataUtils.*;
 
 @ExtendWith(MockitoExtension.class)
 class VoteServiceImplTest {
@@ -39,9 +37,7 @@ class VoteServiceImplTest {
     @Test
     void testSaveOrUpdateVoteWhenNew() {
         service.saveOrUpdateVote(withId(getMockMenu()), LocalDateTime.now(), withId(getMockUser()));
-
-        verify(dao).saveVote(voteArgumentCaptor.capture());
-
+        verify(dao).makePersistent(voteArgumentCaptor.capture());
         assertNull(voteArgumentCaptor.getValue().getId());
     }
 
@@ -49,13 +45,9 @@ class VoteServiceImplTest {
     void testSaveOrUpdateVoteWhenExist() {
         Vote latest = withId(getMockVote());
         latest.setDateTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 30)));
-
-        when(dao.getLatestVoteByUserId(anyInt())).thenReturn(latest);
-
+        when(dao.getLatestVoteByUserId(anyLong())).thenReturn(Optional.of(latest));
         service.saveOrUpdateVote(withId(getMockMenu()), LocalDateTime.now(), withId(getMockUser()));
-
-        verify(dao).saveVote(voteArgumentCaptor.capture());
-
+        verify(dao).makePersistent(voteArgumentCaptor.capture());
         assertNotNull(voteArgumentCaptor.getValue().getId());
     }
 }

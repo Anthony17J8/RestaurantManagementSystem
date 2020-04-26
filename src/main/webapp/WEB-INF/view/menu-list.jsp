@@ -40,9 +40,12 @@
         <tr>
             <c:url value="/restaurant/${restaurant.id}/menu/${menu.id}/dish/showAll" var="menuDetailsLink"/>
             <td><a href="${fn:escapeXml(menuDetailsLink)}"><c:out value="${menu.name}"/></a></td>
-            <td><c:out value="${menu.date}"/></td>
-                <%--todo through DTO object--%>
-            <td><c:out value="1"/></td>
+            <td><c:out value="${menu.date.toLocalDate()}"/></td>
+
+            <td>
+                <a href="${pageContext.request.contextPath}/restaurant/${restaurant.id}/menu/${menu.id}/vote">
+                        ${menu.votesAmount}</a>
+            </td>
 
             <sec:authorize access="hasRole('ADMIN')">
                 <c:url var="deleteLink" value="/restaurant/${restaurant.id}/menu/${menu.id}/delete"/>

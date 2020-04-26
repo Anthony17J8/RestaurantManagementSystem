@@ -2,13 +2,11 @@ package ru.icoltd.rvs.dao;
 
 import ru.icoltd.rvs.entity.Vote;
 
-import java.util.List;
+import java.util.Optional;
 
-public interface VoteDAO {
+public interface VoteDAO extends GenericDAO<Vote, Long> {
 
-    void saveVote(Vote vote);
+    Optional<Vote> getLatestVoteByUserId(Long userId);
 
-    Vote getLatestVoteByUserId(int userId);
-
-    List<Vote> findAllByUserId(int userId);
+    Iterable<Vote> findAllByUserId(Long userId);
 }

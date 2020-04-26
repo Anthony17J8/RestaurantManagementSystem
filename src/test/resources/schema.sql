@@ -1,6 +1,5 @@
 DROP TABLE IF EXISTS restaurant_details;
 
-
 --
 -- Table structure for restaurant
 --
@@ -50,8 +49,8 @@ CREATE TABLE menus
     id            int(11) NOT NULL AUTO_INCREMENT,
     name          varchar(45) DEFAULT NULL,
     restaurant_id int(11)     DEFAULT NULL,
-    date          date        DEFAULT NULL,
-    CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id),
+    date          timestamp   DEFAULT NULL,
+    CONSTRAINT fk_restaurant_id FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
 
@@ -67,7 +66,7 @@ CREATE TABLE dishes
     description varchar(255)   DEFAULT NULL,
     price       decimal(15, 2) DEFAULT NULL,
     menu_id     int(11)        DEFAULT NULL,
-    CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id),
+    CONSTRAINT fk_menu_id FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE CASCADE,
     PRIMARY KEY (id)
 );
 
@@ -84,7 +83,7 @@ CREATE TABLE votes
     menu_id int(11)  DEFAULT NULL,
     date    datetime DEFAULT NULL,
     PRIMARY KEY (id),
-    CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id),
+    CONSTRAINT fk_menu FOREIGN KEY (menu_id) REFERENCES menus (id) ON DELETE CASCADE,
     CONSTRAINT fk_user_id FOREIGN KEY (user_id) REFERENCES users (id)
 );
 

@@ -1,46 +1,36 @@
 package ru.icoltd.rvs.dao;
 
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import ru.icoltd.rvs.entity.Vote;
 
 import javax.persistence.NoResultException;
-import java.util.List;
+import java.util.Optional;
 
 @Repository
-public class VoteDAOImpl implements VoteDAO {
+public class VoteDAOImpl extends GenericDAOImpl<Vote, Long> implements VoteDAO {
 
-    private SessionFactory sessionFactory;
-
-    @Override
-    public void saveVote(Vote vote) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        currentSession.saveOrUpdate(vote);
+    public VoteDAOImpl() {
+        super(Vote.class);
     }
 
     @Override
-    public Vote getLatestVoteByUserId(int userId) {
+    public Optional<Vote> getLatestVoteByUserId(Long userId) {
         try {
-            Session currentSession = sessionFactory.getCurrentSession();
-
-            Query<Vote> query = currentSession.createQuery(
-                    "from Vote where user.id=:userId order by dateTime desc", Vote.class)
-                    .setMaxResults(1);
-            query.setParameter("userId", userId);
-            return query.getSingleResult();
+            return Optional.of(em.createQuery(
+                    "SELECT v from Vote v where v.user.id=:userId order by v.dateTime desc", Vote.class)
+                    .setMaxResults(1)
+                    .setParameter("userId", userId)
+                    .getSingleResult());
         } catch (NoResultException exc) {
-            return null;
+            return Optional.empty();
         }
     }
 
     @Override
-    public List<Vote> findAllByUserId(int userId) {
-        Session currentSession = sessionFactory.getCurrentSession();
-        Query<Vote> query = currentSession.createQuery("from Vote where user.id=:userId", Vote.class);
-        query.setParameter("userId", userId);
-        return query.getResultList();
+    public Iterable<Vote> findAllByUserId(Long userId) {
+        return  em.createQuery("SELECT v from Vote v where v.user.id = :userId", Vote.class)
+        .setParameter("userId", userId)
+        .getResultList();
+
     }
 }

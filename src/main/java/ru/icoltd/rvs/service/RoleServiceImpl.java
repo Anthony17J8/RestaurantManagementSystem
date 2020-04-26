@@ -1,5 +1,6 @@
 package ru.icoltd.rvs.service;
 
+import com.google.common.collect.Sets;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -19,14 +20,13 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    @Transactional
     public Set<Role> findAll() {
-        return dao.findAll();
+        return Sets.newHashSet(dao.findAll());
     }
 
     @Override
     @Transactional
     public Set<Role> findByName(Set<String> roleNames) {
-        return dao.findByName(roleNames);
+        return Sets.newHashSet(dao.findByName(roleNames));
     }
 }

@@ -49,7 +49,7 @@ class UserServiceImplTest {
     @Test
     void testSaveUser() {
         service.saveUser(mockUser);
-        verify(dao).saveUser(eq(mockUser));
+        verify(dao).makePersistent(eq(mockUser));
     }
 
     @Test

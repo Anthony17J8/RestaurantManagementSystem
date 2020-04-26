@@ -27,7 +27,7 @@ public class DateTimeFormatters {
 
         @Override
         public LocalDateTime parse(String pattern, Locale locale) throws ParseException {
-            return LocalDateTime.parse(pattern, DateTimeFormatter.ISO_LOCAL_DATE_TIME);
+            return LocalDateTime.of(LocalDate.parse(pattern, DateTimeFormatter.ISO_LOCAL_DATE), LocalTime.now());
         }
 
         @Override

@@ -14,7 +14,7 @@
 
 <c:choose>
     <c:when test="${restaurant.id == null}">
-        <a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/${restaurant.id}/menu/toplist">
+        <a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/showAll">
             Go Home page
         </a>
     </c:when>

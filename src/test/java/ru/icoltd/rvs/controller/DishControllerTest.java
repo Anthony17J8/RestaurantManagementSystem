@@ -1,6 +1,5 @@
 package ru.icoltd.rvs.controller;
 
-import org.hamcrest.Matchers;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -16,20 +15,19 @@ import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.Mockito.verifyZeroInteractions;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
-import static ru.icoltd.rvs.util.MockDataUtils.ID;
-import static ru.icoltd.rvs.util.MockDataUtils.getMockMenu;
-import static ru.icoltd.rvs.util.MockDataUtils.withId;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static ru.icoltd.rvs.util.MockDataUtils.*;
 
 @ExtendWith(MockitoExtension.class)
 class DishControllerTest {
+
+    private static final String DISH_BASE_PATH = "/restaurant/{restId}/menu/{menuId}/dish";
 
     @InjectMocks
     private DishController controller;
@@ -48,49 +46,40 @@ class DishControllerTest {
 
     @BeforeEach
     void setUp() {
-//        mockDish = withId(getMockDish());
+        mockDish = withId(getMockDish());
         mockMenu = withId(getMockMenu());
         mockMvc = MockMvcBuilders.standaloneSetup(controller).build();
     }
 
     @Test
-    void testShowFormForAdd() throws Exception {
-//        when(menuService.getMenu(ID)).thenReturn(mockMenu);
-
-        mockMvc.perform(get("/dish/showFormForAdd?menuId={id}", ID))
-                .andExpect(status().isOk())
-                .andExpect(view().name("dish-form"))
-                .andExpect(model().attribute("dish", Matchers.notNullValue(Dish.class)))
-                .andExpect(model().attribute("menuId", mockMenu.getId()));
-    }
-
-    @Test
     void testSaveDish() throws Exception {
         ArgumentCaptor<Dish> dishCaptor = ArgumentCaptor.forClass(Dish.class);
-//        when(menuService.getMenu(anyInt())).thenReturn(mockMenu);
+        when(menuService.findById(anyLong())).thenReturn(mockMenu);
 
-        mockMvc.perform(post("/dish/save?menuId={id}", mockMenu.getId())
+        mockMvc.perform(post(DISH_BASE_PATH + "/save", ID, mockMenu.getId())
                 .param("description", "desc")
                 .param("price", "10.0")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/menu/update?menuId=" + mockMenu.getId()));
+                .andExpect(redirectedUrlTemplate(DISH_BASE_PATH + "/showAll", ID, mockMenu.getId()));
 
-//        verify(dishService).saveDish(dishCaptor.capture());
+        verify(dishService).save(dishCaptor.capture());
 
         Dish value = dishCaptor.getValue();
         assertNotNull(value);
-//        assertEquals(mockMenu, value.getMenu());
+        assertEquals(mockMenu, value.getMenu());
     }
 
     @Test
     void testSaveDishHasErrors() throws Exception {
-        mockMvc.perform(post("/dish/save?menuId={id}", mockMenu.getId())
+        when(menuService.findById(anyLong())).thenReturn(mockMenu);
+
+        mockMvc.perform(post(DISH_BASE_PATH + "/save", ID, mockMenu.getId())
                 .param("price", "-2")
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED))
                 .andExpect(status().isOk())
                 .andExpect(view().name("dish-form"))
-                .andExpect(model().attribute("menuId", mockMenu.getId()))
+                .andExpect(model().attribute("menu", mockMenu))
                 .andExpect(model().attributeExists("dish"))
                 .andExpect(model().attributeHasFieldErrors("dish", "description", "price"));
 
@@ -100,25 +89,28 @@ class DishControllerTest {
 
     @Test
     void testUpdateDish() throws Exception {
-//        mockDish.setMenu(mockMenu);
-//        when(dishService.getDish(ID)).thenReturn(mockDish);
+        mockDish.setMenu(mockMenu);
 
-        mockMvc.perform(get("/dish/update?dishId={id}", ID))
+        when(menuService.findById(anyLong())).thenReturn(mockMenu);
+        when(dishService.findById(ID)).thenReturn(mockDish);
+
+        mockMvc.perform(get(DISH_BASE_PATH + "/{id}/update", ID, mockMenu.getId(), ID))
                 .andExpect(status().isOk())
                 .andExpect(view().name("dish-form"))
                 .andExpect(model().attribute("dish", mockDish))
-                .andExpect(model().attribute("menuId", mockMenu.getId()));
+                .andExpect(model().attribute("menu", mockMenu));
     }
 
     @Test
     void testDeleteDish() throws Exception {
-//        mockDish.setMenu(mockMenu);
-//        when(dishService.getDish(ID)).thenReturn(mockDish);
+        mockDish.setMenu(mockMenu);
 
-        mockMvc.perform(get("/dish/delete?dishId={id}", ID))
+        when(menuService.findById(anyLong())).thenReturn(mockMenu);
+
+        mockMvc.perform(get(DISH_BASE_PATH + "/{id}/delete", ID, mockMenu.getId(), mockDish.getId()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrl("/menu/update?menuId=" + mockMenu.getId()));
+                .andExpect(redirectedUrlTemplate(DISH_BASE_PATH + "/showAll", ID, mockMenu.getId()));
 
-//        verify(dishService).deleteDish(eq(mockDish));
+        verify(dishService).deleteById(mockDish.getId());
     }
 }

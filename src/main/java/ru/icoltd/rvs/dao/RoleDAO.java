@@ -4,9 +4,7 @@ import ru.icoltd.rvs.entity.Role;
 
 import java.util.Set;
 
-public interface RoleDAO {
+public interface RoleDAO extends GenericDAO<Role, Long> {
 
-    Set<Role> findAll();
-
-    Set<Role> findByName(Set<String> roleNames);
+    Iterable<Role> findByName(Set<String> roleNames);
 }
