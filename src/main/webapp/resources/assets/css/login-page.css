@@ -1,0 +1,87 @@
+body {
+    background: url("../../img/tim-mossholder-FH3nWjvia-U-unsplash-min.jpg");
+    letter-spacing: 1px;
+    width: 100%;
+    height: 100%;
+    font-family: 'Roboto', sans-serif !important;
+    background-size: 100% 100%;
+}
+
+html {
+    height: 100%;
+}
+
+a {
+    outline: none;
+    text-decoration: none;
+    font-size: 1.2rem;
+    color: #009688 !important;
+}
+
+a:visited {
+    color: #00796B;
+}
+
+a:hover {
+    color: #00796B;
+    text-decoration: none !important;
+}
+
+h1 {
+    width: 100%;
+    color: white;
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #FF5722;
+    border: none;
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+}
+
+.form-info {
+    color: #FF5722;
+    font-size: 1.1rem;
+    width: 100%;
+}
+
+#main {
+    padding-top: 5rem;
+}
+
+#login {
+    background: #009688;
+    border-radius: 10px 10px 0 0;
+}
+
+#form-content {
+    background: white;
+    border-radius: 0 0 10px 10px;
+    opacity: 0.9;
+}
+
+button[type='submit'] {
+    background: #009688;
+    color: white;
+}
+
+input[type="checkbox"]:checked {
+    background: #FF5722;
+}
+
+button[type='submit']:hover {
+    background: #00796B;
+    color: #B2DFDB;
+}
+
+input:focus {
+    outline: none;
+}
+
+input[class="form-control"]:hover, input[class="form-control"]:focus {
+    border-color: #FF5722;
+    box-shadow: 1px 1px 1px #FF5722;
+}
+

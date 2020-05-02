@@ -2,42 +2,77 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib uri="http://www.webjars.org/tags" prefix="wj" %>
+<!DOCTYPE html>
 <html>
 <head>
-    <link rel="stylesheet" type="text/css" href="${fn:escapeXml(pageContext.request.contextPath)}/resources/css/style.css">
-    <title>Custom Login Page</title>
+    <title>Login Page</title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/login-page.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
 </head>
 <body>
-<h3>Custom Login Page</h3>
-
 <form:form action="${pageContext.request.contextPath}/authenticateTheUser" method="post">
+    <div class="container">
+        <section id="main">
+            <div class="row">
 
-    <%-- Check for login error --%>
-    <c:if test="${param.error != null}">
-        <i class="error">Sorry! You entered invalid username/password.</i>
-    </c:if>
+                <div class="col-6 offset-3">
+                    <div id="login" class="row m-0 px-0 py-3">
+                        <h1 class="text-center m-0">LOG IN</h1>
+                    </div>
+                    <div id="form-content" class="px-5 py-4">
 
-    <c:if test="${param.logout != null}">
-        <i class="error">You have been logged out.</i>
-    </c:if>
+                        <div class="row">
+                            <c:if test="${param.error != null}">
+                                <span class="form-info error text-center">You entered invalid username/password</span>
+                            </c:if>
+                        </div>
 
-    <p>
-        <label for="username">User name:</label> <input type="text" name="username" id="username"/>
-    </p>
+                        <div class="row">
+                            <c:if test="${param.logout != null}">
+                                <span class="form-info text-center">You have been logged out</span>
+                            </c:if>
+                        </div>
 
-    <p>
-        <label for="password">Password:</label> <input type="password" name="password" id="password"/>
-    </p>
+                        <div class="row mt-2">
+                            <div class="row-group col-12 px-0">
+                                <label for="username">User name</label>
+                                <input type="text" name="username" id="username" class="form-control">
+                            </div>
+                        </div>
 
-    <p>
-        <label for="remember-me">Remember me?:</label> <input type="checkbox" name="remember-me" id="remember-me">
-    </p>
+                        <div class="row mt-2">
+                            <div class="row-group col-12 px-0">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control">
+                            </div>
+                        </div>
 
-    <input type="submit" value="Login"/>
+                        <div class="row custom-control custom-checkbox mt-3">
+                            <input type="checkbox" class="custom-control-input" name="remember-me" id="remember-me">
+                            <label for="remember-me" class="custom-control-label">Remember me?</label>
+                        </div>
 
+                        <div class="row mt-3">
+                            <button type="submit" class="btn btn-block">LOGIN</button>
+                        </div>
+                        <div class="row mt-4 px-0">
+                            <div class="col-6 px-0">
+                                <a href="${fn:escapeXml(pageContext.request.contextPath)}/register/showRegistrationForm">
+                                    Sign up</a>
+                            </div>
+                            <div class="col-6 px-0 text-right"><a href="#">Forgot password?</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
 </form:form>
 
-<a href="${fn:escapeXml(pageContext.request.contextPath)}/register/showRegistrationForm">Register New User</a>
-
+<script type='text/javascript' src='<wj:locate path="jquery.min.js" relativeTo="META-INF/resources"/>'></script>
+<script type='text/javascript' src='<wj:locate path="js/bootstrap.min.js" relativeTo="META-INF/resources"/>'></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/login-page.js"></script>
 </body>
 </html>

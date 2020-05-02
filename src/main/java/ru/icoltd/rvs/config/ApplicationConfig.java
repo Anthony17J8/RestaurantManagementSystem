@@ -134,7 +134,7 @@ public class ApplicationConfig implements WebMvcConfigurer {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/resources/**")
-                .addResourceLocations("/resources/");
+        registry.addResourceHandler("/resources/**", "/webjars/**")
+                .addResourceLocations("/resources/", "classpath:/META-INF/resources/webjars/");
     }
 }

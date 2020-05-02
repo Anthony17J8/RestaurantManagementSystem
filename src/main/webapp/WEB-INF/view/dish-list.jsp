@@ -11,7 +11,7 @@
 
 <body>
 
-<h1><c:out value="${menu.name}"/> <c:out value=" (${menu.date})"/></h1>
+<h1><c:out value="${menu.name}"/> <c:out value=" (${menu.date.toLocalDate()})"/></h1>
 <h2>Dishes</h2>
 
 <c:forEach var="dish" items="${dishes}">

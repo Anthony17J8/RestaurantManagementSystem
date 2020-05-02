@@ -22,7 +22,7 @@
     <logger name="org.hibernate.type" level="ALL" />
     <logger name="org.hibernate" level="DEBUG" />
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="CONSOLE"/>
 <!--        <appender-ref ref="FILE"/>-->
     </root>
