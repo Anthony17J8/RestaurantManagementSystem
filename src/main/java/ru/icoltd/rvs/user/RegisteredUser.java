@@ -7,6 +7,7 @@ import ru.icoltd.rvs.validation.FieldMatch;
 import ru.icoltd.rvs.validation.UniqueUsername;
 import ru.icoltd.rvs.validation.ValidEmail;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Date;
@@ -18,7 +19,7 @@ import java.util.Set;
 @FieldMatch(
         first = "password",
         second = "matchingPassword",
-        message = "The password fields must match")
+        message = "Passwords must match")
 public class RegisteredUser {
 
     @NotNull
@@ -41,6 +42,7 @@ public class RegisteredUser {
     private String matchingPassword;
 
     @ValidEmail
+    @Email
     private String email;
 
     @NotNull

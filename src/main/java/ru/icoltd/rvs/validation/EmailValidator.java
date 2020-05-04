@@ -1,36 +1,27 @@
 package ru.icoltd.rvs.validation;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.UserService;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 @Component
 @Slf4j
+@RequiredArgsConstructor
 public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
 
-    private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-+]+(\\.[_A-Za-z0-9-]+)*@"
-            + "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-
-    private UserService userService;
-
-    @Autowired
-    public EmailValidator(UserService userService) {
-        this.userService = userService;
-    }
+    private final UserService userService;
 
     @Override
     public boolean isValid(String email, ConstraintValidatorContext context) {
         if (email == null || email.isEmpty()) {
             return true;
         }
-        return isNotExistUserWith(email) && isMatchPattern(email);
+        return isNotExistUserWith(email);
     }
 
     private boolean isNotExistUserWith(String email) {
@@ -41,11 +32,5 @@ public class EmailValidator implements ConstraintValidator<ValidEmail, String> {
             result = false;
         }
         return result;
-    }
-
-    private boolean isMatchPattern(String email) {
-        Pattern pattern = Pattern.compile(EMAIL_PATTERN);
-        Matcher matcher = pattern.matcher(email);
-        return matcher.matches();
     }
 }

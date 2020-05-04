@@ -1,21 +1,14 @@
 body {
-    background: url("../../img/tim-mossholder-FH3nWjvia-U-unsplash-min.jpg");
+    background: url("../../img/background.jpg");
     letter-spacing: 1px;
-    width: 100%;
-    height: 100%;
-    font-family: 'Roboto', sans-serif !important;
-    background-size: 100% 100%;
-}
-
-html {
-    height: 100%;
+    font-family: 'Nadia Serif', sans-serif;
 }
 
 a {
     outline: none;
     text-decoration: none;
     font-size: 1.2rem;
-    color: #009688 !important;
+    color: #FF5722 !important;
 }
 
 a:visited {
@@ -23,13 +16,13 @@ a:visited {
 }
 
 a:hover {
-    color: #00796B;
+    color: #FF5722 !important;
     text-decoration: none !important;
 }
 
 h1 {
     width: 100%;
-    color: white;
+    color: #FF5722;
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
@@ -47,19 +40,29 @@ h1 {
     width: 100%;
 }
 
+#btn-cancel {
+    background: #FF5722;
+    color: white;
+}
+
+.shadow-form {
+    -webkit-box-shadow: 0 0 10px hsla(2, 0%, 0%, .3);
+}
+
+.input-group-text {
+    width: 50px;
+}
+
 #main {
     padding-top: 5rem;
 }
 
 #login {
-    background: #009688;
     border-radius: 10px 10px 0 0;
 }
 
 #form-content {
-    background: white;
     border-radius: 0 0 10px 10px;
-    opacity: 0.9;
 }
 
 button[type='submit'] {
