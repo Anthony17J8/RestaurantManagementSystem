@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ru.icoltd.rvs.dtos.RestaurantDto;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.User;
@@ -25,7 +26,7 @@ import java.util.Locale;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/restaurant/{restId}/menu")
+@RequestMapping("/restaurants/{restId}/menus")
 public class MenuController {
 
     private final MenuService menuService;
@@ -42,11 +43,11 @@ public class MenuController {
     }
 
     @ModelAttribute("restaurant")
-    public Restaurant restaurant(@PathVariable("restId") Long restId) {
+    public RestaurantDto restaurant(@PathVariable("restId") Long restId) {
         return restaurantService.findById(restId);
     }
 
-    @GetMapping("/showAll")
+    @GetMapping
     public String listMenus(@PathVariable("restId") Long restId, Model model) {
         List<Menu> menus = menuService.findAllByRestaurantId(restId);
         model.addAttribute("menus", menus);

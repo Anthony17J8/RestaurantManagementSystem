@@ -1,6 +1,8 @@
 package ru.icoltd.rvs.util;
 
 import com.github.javafaker.Faker;
+import ru.icoltd.rvs.dtos.RestaurantDetailDto;
+import ru.icoltd.rvs.dtos.RestaurantDto;
 import ru.icoltd.rvs.entity.*;
 
 import java.sql.Date;
@@ -23,6 +25,26 @@ public class MockDataUtils {
                 .name(FAKER.company().name())
                 .restaurantDetail(getMockRestaurantDetail())
                 .build();
+    }
+
+    public static RestaurantDto getMockRestaurantDto() {
+        Restaurant rMock = withId(getMockRestaurant());
+        RestaurantDetail dMock = getMockRestaurantDetail();
+        return RestaurantDto.builder()
+                .id(rMock.getId())
+                .name(rMock.getName())
+                .restaurantDetail(
+                        RestaurantDetailDto.builder()
+                                .city(dMock.getCity())
+                                .country(dMock.getCountry())
+                                .phoneNumber(dMock.getPhone())
+                                .street(dMock.getStreet())
+                                .url(dMock.getSite()).build()
+                ).build();
+    }
+
+    public static List<RestaurantDto> getMockRestaurantDtos(int count) {
+        return Stream.generate(MockDataUtils::getMockRestaurantDto).limit(count).collect(Collectors.toList());
     }
 
     public static List<Restaurant> getMockRestaurants(int count) {

@@ -21,7 +21,7 @@
     <div class="row py-3">
         <div class="shadow-form col-6 offset-3 px-0">
 
-            <div id="login" class="row m-0 px-0 py-3">
+            <div id="title" class="row m-0 px-0 py-3">
                 <h1 class="text-center m-0">Sign up</h1>
             </div>
 
@@ -95,7 +95,7 @@
     </div>
         <script type='text/javascript' src='<wj:locate path="jquery.min.js" relativeTo="META-INF/resources"/>'></script>
         <script type='text/javascript' src='<wj:locate path="js/bootstrap.min.js" relativeTo="META-INF/resources"/>'></script>
-        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/registration-page.js"></script>
+        <script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/form.js"></script>
 </body>
 
 </html>

@@ -32,5 +32,4 @@
 <a href="${fn:escapeXml(redirectLink)}">View all menus of restaurant</a>
 </body>
 
-<jsp:include page="footer.jsp"/>
 </html>

@@ -21,7 +21,7 @@
 
                 <div class="shadow-form col-6 offset-3 px-0">
 
-                    <div id="login" class="row m-0 px-0 py-3">
+                    <div id="title" class="row m-0 px-0 py-3">
                         <h1 class="text-center m-0">Log in</h1>
                     </div>
 

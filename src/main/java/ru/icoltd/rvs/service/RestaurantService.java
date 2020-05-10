@@ -1,19 +1,16 @@
 package ru.icoltd.rvs.service;
 
-import ru.icoltd.rvs.entity.Restaurant;
+import ru.icoltd.rvs.dtos.RestaurantDto;
 
 import java.util.List;
 
 public interface RestaurantService {
 
-    List<Restaurant> findAll();
+    List<RestaurantDto> findAll();
 
-    Restaurant findById(Long id);
+    RestaurantDto findById(Long id);
 
-    Restaurant save(Restaurant restaurant);
+    RestaurantDto save(RestaurantDto restaurant);
 
-    void remove(Restaurant restaurant);
-
-    Restaurant findByIdWithReviews(Long restaurantId);
-
+    void remove(RestaurantDto restaurant);
 }

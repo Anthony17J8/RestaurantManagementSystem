@@ -19,7 +19,7 @@
 <sec:authorize access="hasRole('ADMIN')">
 
     <input type="button" value="Add Restaurant"
-           onclick="window.location.href='showFormForAdd'; return false"/>
+           onclick="window.location.href='/restaurants/new'; return false"/>
 
 </sec:authorize>
 
@@ -36,30 +36,27 @@
     </tr>
 
     </thead>
-    <form:form modelAttribute="restaurants">
         <c:forEach var="restaurant" items="${restaurants}">
-
-            <c:set var="detail" value="${restaurant.restaurantDetail}"/>
             <tbody>
             <tr>
                 <td><c:out value="${restaurant.name}"/></td>
-                <td><c:out value="${detail.country}"/><br>
-                    <c:out value="${detail.city}"/><br>
-                    <c:out value="${detail.site}"/><br>
-                    <c:out value="${detail.phone}"/><br>
-                    <c:out value="${detail.street}"/>
+                <td><c:out value="${restaurant.restaurantDetail.country}"/><br>
+                    <c:out value="${restaurant.restaurantDetail.city}"/><br>
+                    <c:out value="${restaurant.restaurantDetail.url}"/><br>
+                    <c:out value="${restaurant.restaurantDetail.phoneNumber}"/><br>
+                    <c:out value="${restaurant.restaurantDetail.street}"/>
                 </td>
                 <td>
-                    <c:url var="menuList" value="/restaurant/${restaurant.id}/menu/showAll"/>
+                    <c:url var="menuList" value="/restaurants/${restaurant.id}/menu/showAll"/>
                     <a href="${fn:escapeXml(menuList)}">View menus</a>
                 </td>
 
                 <sec:authorize access="hasRole('ADMIN')">
 
                     <td>
-                        <c:url var="updateLink" value="/restaurant/${restaurant.id}/update"/>
+                        <c:url var="updateLink" value="/restaurants/${restaurant.id}/update"/>
 
-                        <c:url var="deleteLink" value="/restaurant/${restaurant.id}/delete"/>
+                        <c:url var="deleteLink" value="/restaurants/${restaurant.id}/delete"/>
 
                         <a href="${fn:escapeXml(updateLink)}">Update</a>
                         |
@@ -76,7 +73,6 @@
             </tbody>
 
         </c:forEach>
-    </form:form>
 </table>
 
 <form:form method="post" action="${pageContext.request.contextPath}/logout">

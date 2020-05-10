@@ -12,7 +12,7 @@
 <h2>Access Denied - You are not authorized to access this resource.</h2>
 
 <br>
-<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/list">Back to Home Page</a>
+<a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/showAll">Back to Home Page</a>
 
 </body>
 

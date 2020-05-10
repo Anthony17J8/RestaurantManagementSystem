@@ -12,10 +12,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.icoltd.rvs.dtos.RestaurantDto;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.Review;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.RestaurantService;
+import ru.icoltd.rvs.service.ReviewService;
 import ru.icoltd.rvs.user.CurrentUser;
 
 import javax.validation.Valid;
@@ -28,14 +30,16 @@ public class ReviewController {
 
     private final RestaurantService restaurantService;
 
+    private final ReviewService reviewService;
+
     @InitBinder("restaurant")
     public void initRestaurantBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id");
     }
 
-    @ModelAttribute("restaurant")//todo refactor?
-    public Restaurant restaurant(@PathVariable("restId") Long restId) {
-        return restaurantService.findByIdWithReviews(restId);
+    @ModelAttribute("restaurant")
+    public RestaurantDto restaurant(@PathVariable("restId") Long restId) {
+        return restaurantService.findById(restId);
     }
 
     @PostMapping("/save")
@@ -50,8 +54,7 @@ public class ReviewController {
 
         review.setUser(currentUser);
         review.setRestaurant(restaurant);
-        restaurant.getReviews().add(review);
-        restaurantService.save(restaurant);
+        reviewService.save(review);
         return "redirect:/restaurant/{restId}/review/showAll";
     }
 

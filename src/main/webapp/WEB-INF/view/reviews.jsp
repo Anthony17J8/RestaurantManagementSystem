@@ -50,5 +50,4 @@
 <a href="${fn:escapeXml(pageContext.request.contextPath)}/restaurant/showAll">View all restaurants</a>
 </body>
 
-<jsp:include page="footer.jsp"/>
 </html>

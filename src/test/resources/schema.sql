@@ -140,5 +140,5 @@ CREATE TABLE reviews
     created_at    TIMESTAMP DEFAULT NOW(),
     PRIMARY KEY (id),
     FOREIGN KEY (user_id) REFERENCES users (id),
-    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id)
+    FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
