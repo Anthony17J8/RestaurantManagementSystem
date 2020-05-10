@@ -51,7 +51,7 @@ public class MenuController {
     public String listMenus(@PathVariable("restId") Long restId, Model model) {
         List<Menu> menus = menuService.findAllByRestaurantId(restId);
         model.addAttribute("menus", menus);
-        return "menu-list";
+        return "menus";
     }
 
     @GetMapping("/{id}/vote")
@@ -66,37 +66,37 @@ public class MenuController {
                     Locale.getDefault()));
             return "error-page";
         }
-        return "redirect:/restaurant/{restId}/menu/showAll";
+        return "redirect:/restaurants/{restId}/menus";
     }
 
-    @GetMapping("/showFormForAdd")
+    @GetMapping("/new")
     public String showAddMenuForm(Model model) {
         Menu menu = new Menu();
         model.addAttribute("menu", menu);
-        return "menu-form";
+        return "menu-new";
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public String saveMenu(Restaurant restaurant, @Valid @ModelAttribute("menu") Menu menu,
                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Save menu error {}", bindingResult);
-            return "menu-form";
+            return "menu-new";
         }
         menu.setRestaurant(restaurant);
         menuService.save(menu);
-        return "redirect:/restaurant/{restId}/menu/showAll";
+        return "redirect:/restaurants/{restId}/menus";
     }
 
     @GetMapping("/{id}/delete")
     public String deleteMenu(@PathVariable("id") Long menuId) {
         menuService.removeById(menuId);
-        return "redirect:/restaurant/{restId}/menu/showAll";
+        return "redirect:/restaurants/{restId}/menus";
     }
 
     @GetMapping("/{id}/update")
     public String updateMenu(@PathVariable("id") Long menuId, Model model) {
         model.addAttribute("menu", menuService.findById(menuId));
-        return "menu-form";
+        return "menu-new";
     }
 }

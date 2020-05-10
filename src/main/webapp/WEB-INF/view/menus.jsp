@@ -18,8 +18,8 @@
 
 <sec:authorize access="hasRole('ADMIN')">
 
-    <c:url value="/restaurant/${restaurant.id}/menu/showFormForAdd" var="formForAdd"/>
-    <a href="${fn:escapeXml(formForAdd)}">Add menu</a>
+    <c:url value="/restaurants/${restaurant.id}/menus/new" var="addNewMenu"/>
+    <a href="${fn:escapeXml(addNewMenu)}">Add menu</a>
 
 </sec:authorize>
 

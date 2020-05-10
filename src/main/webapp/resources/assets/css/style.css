@@ -1,5 +1,4 @@
 body {
-    background: url("../../img/background.jpg");
     letter-spacing: 1px;
     font-family: 'Nadia Serif', sans-serif;
 }
@@ -8,21 +7,15 @@ a {
     outline: none;
     text-decoration: none;
     font-size: 1.2rem;
-    color: #FF5722 !important;
 }
 
-a:visited {
-    color: #00796B;
-}
-
-a:hover {
-    color: #FF5722 !important;
-    text-decoration: none !important;
-}
-
-h1 {
+div #title h1 {
     width: 100%;
     color: #FF5722;
+}
+
+#background-form {
+    background: url("../../img/background.jpg");
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
@@ -40,9 +33,41 @@ h1 {
     width: 100%;
 }
 
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover,
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: white;
+}
+
+.jumbotron h1 {
+    font-size: 3.25rem;
+}
+
+.navbar-light .navbar-brand, .jumbotron h1 {
+    color: rgba(0, 0, 0, 0.5);
+}
+
 #btn-cancel {
     background: #FF5722;
     color: white;
+}
+
+#navContent input[type="submit"] {
+    border: none;
+    width: 100%;
+    padding: 0;
+    margin: 0;
+    font-size: 1.2rem;
+    color: rgba(0, 0, 0, 0.5);
+    outline: none;
+    text-decoration: none;
+}
+
+#navContent input[type="submit"]:hover {
+    color: white;
+}
+
+.hvr-sweep-to-right:before {
+    background: #f5ac1b;
 }
 
 .shadow-form {
@@ -65,7 +90,16 @@ h1 {
     border-radius: 0 0 10px 10px;
 }
 
-button[type='submit'] {
+#form-content a {
+    color: #FF5722;
+}
+
+#form-content a:hover {
+    color: #FF5722;
+    text-decoration: none;
+}
+
+button.confirm {
     background: #009688;
     color: white;
 }
@@ -74,7 +108,7 @@ input[type="checkbox"]:checked {
     background: #FF5722;
 }
 
-button[type='submit']:hover {
+button.confirm:hover {
     background: #00796B;
     color: #B2DFDB;
 }

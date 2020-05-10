@@ -9,19 +9,19 @@
 
 <head>
     <title>Restaurant form</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
     <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
     <link rel='stylesheet' href='<wj:locate path="css/font-awesome.css" relativeTo="META-INF/resources"/>'>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/hover.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
 
-<body>
-
+<body id="background-form">
+<jsp:include page="navbar.jsp"/>
 <div class="container">
-    <section id="main">
         <form:form action="${pageContext.request.contextPath}/restaurants" method="POST"
                    modelAttribute="restaurant">
 
-            <div class="row">
+            <div class="row py-5">
                 <div class="shadow-form col-6 offset-3 px-0">
                     <div id="title" class="row m-0 px-0 py-3">
                         <h1 class="text-center m-0">
@@ -40,7 +40,7 @@
 
                     <div id="form-content" class="px-5 py-3">
                         <div class="form-group">
-                            <label for="rName">Restaurant Name</label>
+                            <label for="rName">Name</label>
                             <form:input path="name" id="rName" cssClass="form-control"/>
                             <form:errors path="name"/>
                         </div>
@@ -77,7 +77,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <button class="btn btn-block" type="submit">Save</button>
+                                <button class="btn btn-block confirm" type="submit">Save</button>
                             </div>
                             <div class="col">
                                 <button id="btn-cancel" class="btn btn-block" onclick="window.history.back()">Cancel
@@ -88,7 +88,6 @@
                 </div>
             </div>
         </form:form>
-    </section>
 </div>
 
 <script type='text/javascript' src='<wj:locate path="jquery.min.js" relativeTo="META-INF/resources"/>'></script>

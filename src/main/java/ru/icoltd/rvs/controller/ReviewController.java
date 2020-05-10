@@ -23,7 +23,7 @@ import ru.icoltd.rvs.user.CurrentUser;
 import javax.validation.Valid;
 
 @Controller
-@RequestMapping("/restaurant/{restId}/review")
+@RequestMapping("/restaurants/{restId}/reviews")
 @Slf4j
 @RequiredArgsConstructor
 public class ReviewController {
@@ -42,7 +42,7 @@ public class ReviewController {
         return restaurantService.findById(restId);
     }
 
-    @PostMapping("/save")
+    @PostMapping
     public String saveReview(@ModelAttribute("newReview") @Valid Review review,
                              BindingResult bindingResult, Restaurant restaurant,
                              @CurrentUser User currentUser) {
@@ -55,10 +55,10 @@ public class ReviewController {
         review.setUser(currentUser);
         review.setRestaurant(restaurant);
         reviewService.save(review);
-        return "redirect:/restaurant/{restId}/review/showAll";
+        return "redirect:/restaurants/{restId}/reviews";
     }
 
-    @GetMapping("/showAll")
+    @GetMapping
     public String showReviews(Model model) {
         Review review = new Review();
         model.addAttribute("newReview", review);

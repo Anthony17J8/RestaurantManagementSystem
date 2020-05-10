@@ -7,17 +7,17 @@
 <html>
 <head>
     <title>Login Page</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
     <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
     <link rel='stylesheet' href='<wj:locate path="css/font-awesome.css" relativeTo="META-INF/resources"/>'>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/hover.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
-<body>
+<body id="background-form">
 
 <div class="container">
-    <section id="main">
         <form:form action="${pageContext.request.contextPath}/authenticateTheUser" method="post">
 
-            <div class="row">
+            <div class="row mt-5">
 
                 <div class="shadow-form col-6 offset-3 px-0">
 
@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="row mt-3 mx-0">
-                            <button type="submit" class="btn btn-block">LOGIN</button>
+                            <button type="submit" class="btn btn-block confirm">LOGIN</button>
                         </div>
 
                         <div class="row mt-4 mx-0">

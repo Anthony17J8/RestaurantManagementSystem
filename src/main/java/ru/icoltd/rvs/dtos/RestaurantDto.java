@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -19,5 +20,6 @@ public class RestaurantDto implements Serializable {
     @NotNull
     private String name;
 
+    @Valid
     private RestaurantDetailDto restaurantDetail;
 }

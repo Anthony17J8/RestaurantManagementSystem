@@ -9,16 +9,17 @@
 <html>
 <head>
     <title>Registration Page</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
     <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/hover.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
-<body>
+<body id="background-form">
 
 <div class="container">
     <form:form action="${pageContext.request.contextPath}/register/processRegistration" method="POST"
                modelAttribute="regUser">
 
-    <div class="row py-3">
+    <div class="row py-4">
         <div class="shadow-form col-6 offset-3 px-0">
 
             <div id="title" class="row m-0 px-0 py-3">
@@ -82,7 +83,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-block" type="submit">Submit</button>
+                        <button class="btn btn-block confirm" type="submit">Submit</button>
                     </div>
                     <div class="col">
                         <button id="btn-cancel" class="btn btn-block" onclick="window.history.back()">Cancel</button>
