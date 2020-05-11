@@ -1,5 +1,5 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<nav class="navbar navbar-expand-md navbar-light bg-light p-0">
+<nav class="navbar fixed-top navbar-expand-md navbar-light bg-light p-0">
     <a class="navbar-brand px-3 py-2 hvr-sweep-to-right" href="${pageContext.request.contextPath}/restaurants">Restaurant Vote App</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navContent"
             aria-controls="navContent" aria-expanded="false" aria-label="Toggle navigation">

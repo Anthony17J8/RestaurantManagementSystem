@@ -77,7 +77,7 @@
 
                         <div class="row">
                             <div class="col">
-                                <button class="btn btn-block confirm" type="submit">Save</button>
+                                <button class="btn btn-block btn-prm" type="submit">Save</button>
                             </div>
                             <div class="col">
                                 <button id="btn-cancel" class="btn btn-block" onclick="window.history.back()">Cancel

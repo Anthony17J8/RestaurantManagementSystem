@@ -83,7 +83,7 @@
 
                 <div class="row">
                     <div class="col">
-                        <button class="btn btn-block confirm" type="submit">Submit</button>
+                        <button class="btn btn-block btn-prm" type="submit">Submit</button>
                     </div>
                     <div class="col">
                         <button id="btn-cancel" class="btn btn-block" onclick="window.history.back()">Cancel</button>

@@ -12,6 +12,7 @@ import javax.persistence.Table;
 @EqualsAndHashCode(callSuper = false)
 @Entity
 @Table(name = "restaurants")
+@AllArgsConstructor
 public class Restaurant extends BaseEntity {
 
     @Column(name = "name")
@@ -20,7 +21,8 @@ public class Restaurant extends BaseEntity {
     private RestaurantDetail restaurantDetail;
 
     @Builder
-    public Restaurant(String name, RestaurantDetail restaurantDetail) {
+    protected Restaurant(Long id, String name, RestaurantDetail restaurantDetail) {
+        super(id);
         this.name = name;
         this.restaurantDetail = restaurantDetail;
     }

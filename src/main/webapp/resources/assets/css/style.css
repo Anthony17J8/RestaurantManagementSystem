@@ -3,28 +3,16 @@ body {
     font-family: 'Nadia Serif', sans-serif;
 }
 
-a {
-    outline: none;
-    text-decoration: none;
-    font-size: 1.2rem;
+#main {
+    padding-top: 5rem;
 }
 
-div #title h1 {
-    width: 100%;
-    color: #FF5722;
+#title {
+    border-radius: 10px 10px 0 0;
 }
 
-#background-form {
-    background: url("../../img/background.jpg");
-}
-
-.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
-    background-color: #FF5722;
-    border: none;
-}
-
-.custom-control-input:focus ~ .custom-control-label::before {
-    box-shadow: none !important;
+#form-content {
+    border-radius: 0 0 10px 10px;
 }
 
 .form-info {
@@ -33,17 +21,52 @@ div #title h1 {
     width: 100%;
 }
 
-.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover,
-.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
-    color: white;
+a {
+    outline: none;
+    text-decoration: none;
+    font-size: 1.2rem;
+}
+
+#form-content a:hover {
+    color: #FF5722;
+    text-decoration: none;
+}
+
+#form-content a {
+    color: #FF5722;
+}
+
+.card .card-body:nth-of-type(1) a {
+    text-decoration: none;
+    color: rgba(0,0,0,0.9);
+}
+
+div #title h1 {
+    width: 100%;
+    color: #FF5722;
 }
 
 .jumbotron h1 {
     font-size: 3.25rem;
+    color: rgba(0, 0, 0, 0.5);
 }
 
-.navbar-light .navbar-brand, .jumbotron h1 {
-    color: rgba(0, 0, 0, 0.5);
+#background-form {
+    background: url("../../img/background.jpg");
+}
+
+.shadow-form {
+    -webkit-box-shadow: 0 0 10px hsla(2, 0%, 0%, .3);
+}
+
+.btn-prm {
+    background: #009688;
+    color: white;
+}
+
+.bnt-prm:hover {
+    background: #00796B;
+    color: #B2DFDB;
 }
 
 #btn-cancel {
@@ -66,51 +89,12 @@ div #title h1 {
     color: white;
 }
 
-.hvr-sweep-to-right:before {
-    background: #f5ac1b;
-}
-
-.shadow-form {
-    -webkit-box-shadow: 0 0 10px hsla(2, 0%, 0%, .3);
-}
-
 .input-group-text {
     width: 50px;
 }
 
-#main {
-    padding-top: 5rem;
-}
-
-#title {
-    border-radius: 10px 10px 0 0;
-}
-
-#form-content {
-    border-radius: 0 0 10px 10px;
-}
-
-#form-content a {
-    color: #FF5722;
-}
-
-#form-content a:hover {
-    color: #FF5722;
-    text-decoration: none;
-}
-
-button.confirm {
-    background: #009688;
-    color: white;
-}
-
 input[type="checkbox"]:checked {
     background: #FF5722;
-}
-
-button.confirm:hover {
-    background: #00796B;
-    color: #B2DFDB;
 }
 
 input:focus {
@@ -120,5 +104,27 @@ input:focus {
 input[class="form-control"]:hover, input[class="form-control"]:focus {
     border-color: #FF5722;
     box-shadow: 1px 1px 1px #FF5722;
+}
+
+.navbar-light .navbar-brand:focus, .navbar-light .navbar-brand:hover,
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+    color: white;
+}
+
+.navbar-light .navbar-brand {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.custom-checkbox .custom-control-input:checked ~ .custom-control-label::before {
+    background-color: #FF5722;
+    border: none;
+}
+
+.custom-control-input:focus ~ .custom-control-label::before {
+    box-shadow: none !important;
+}
+
+.hvr-sweep-to-right:before {
+    background: #f5ac1b;
 }
 

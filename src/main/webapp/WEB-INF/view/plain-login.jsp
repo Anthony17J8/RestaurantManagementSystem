@@ -77,7 +77,7 @@
                         </div>
 
                         <div class="row mt-3 mx-0">
-                            <button type="submit" class="btn btn-block confirm">LOGIN</button>
+                            <button type="submit" class="btn btn-block btn-prm">LOGIN</button>
                         </div>
 
                         <div class="row mt-4 mx-0">
