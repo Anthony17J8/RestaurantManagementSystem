@@ -18,12 +18,16 @@ public class Restaurant extends BaseEntity {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "description")
+    private String description;
+
     private RestaurantDetail restaurantDetail;
 
     @Builder
-    protected Restaurant(Long id, String name, RestaurantDetail restaurantDetail) {
+    protected Restaurant(Long id, String name, String description, RestaurantDetail restaurantDetail) {
         super(id);
         this.name = name;
+        this.description = description;
         this.restaurantDetail = restaurantDetail;
     }
 }

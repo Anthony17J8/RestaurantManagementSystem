@@ -34,10 +34,13 @@ VALUES (1, 1),
 -- Data for table restaurant
 --
 
-INSERT INTO restaurants(name, city, country, street, phone, site)
-VALUES ('Osteria Francescana', 'Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
-       ('El Celler de Can Roca', 'Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
-       ('Mirazur', 'Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
+INSERT INTO restaurants(name, city, country, street, phone, site, description)
+VALUES ('Osteria Francescana', 'Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it',
+        'Sed eu orci metus. Vestibulum non tristique nulla, consectetur dignissim erat. Proin in sollicitudin lorem, eget scelerisque elit. Donec ultrices hendrerit purus sed commodo. Integer consectetur nisl eget dui tincidunt sagittis non vel mauris. Curabitur eget dolor vel lorem mollis ultricies imperdiet sed justo. Phasellus gravida at nisi ac sagittis. Mauris venenatis ligula ligula, sit amet interdum erat rutrum vel. Curabitur malesuada placerat lectus, vel semper purus facilisis eget.'),
+       ('El Celler de Can Roca', 'Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com',
+        'Sed eu orci metus. Vestibulum non tristique nulla, consectetur dignissim erat. Proin in sollicitudin lorem, eget scelerisque elit. Donec ultrices hendrerit purus sed commodo. Integer consectetur nisl eget dui tincidunt sagittis non vel mauris. Curabitur eget dolor vel lorem mollis ultricies imperdiet sed justo. Phasellus gravida at nisi ac sagittis. Mauris venenatis ligula ligula, sit amet interdum erat rutrum vel. Curabitur malesuada placerat lectus, vel semper purus facilisis eget.'),
+       ('Mirazur', 'Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr',
+        'Sed eu orci metus. Vestibulum non tristique nulla, consectetur dignissim erat. Proin in sollicitudin lorem, eget scelerisque elit. Donec ultrices hendrerit purus sed commodo. Integer consectetur nisl eget dui tincidunt sagittis non vel mauris. Curabitur eget dolor vel lorem mollis ultricies imperdiet sed justo. Phasellus gravida at nisi ac sagittis. Mauris venenatis ligula ligula, sit amet interdum erat rutrum vel. Curabitur malesuada placerat lectus, vel semper purus facilisis eget.');
 
 --
 -- Data for table menu

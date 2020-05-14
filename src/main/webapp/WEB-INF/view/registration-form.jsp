@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/hover.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
-<body id="background-form">
+<body>
 
 <div class="container">
     <form:form action="${pageContext.request.contextPath}/register/processRegistration" method="POST"

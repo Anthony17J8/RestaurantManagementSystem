@@ -15,13 +15,13 @@
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
 
-<body id="background-form">
+<body>
 <jsp:include page="navbar.jsp"/>
 <div class="container">
         <form:form action="${pageContext.request.contextPath}/restaurants" method="POST"
                    modelAttribute="restaurant">
 
-            <div class="row py-5">
+            <div class="row pt-5 mt-5">
                 <div class="shadow-form col-6 offset-3 px-0">
                     <div id="title" class="row m-0 px-0 py-3">
                         <h1 class="text-center m-0">

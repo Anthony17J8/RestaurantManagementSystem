@@ -83,6 +83,7 @@ class RestaurantControllerTest {
         valueMap.put("phone", Lists.newArrayList(returned.getRestaurantDetail().getPhoneNumber()));
         valueMap.put("country", Lists.newArrayList(returned.getRestaurantDetail().getCountry()));
         valueMap.put("site", Lists.newArrayList(returned.getRestaurantDetail().getUrl()));
+        valueMap.put("description", Lists.newArrayList(returned.getDescription()));
 
         mockMvc.perform(post("/restaurants")
                 .params(valueMap)

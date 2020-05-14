@@ -11,13 +11,14 @@ DROP TABLE IF EXISTS restaurants;
 
 CREATE TABLE restaurants
 (
-    id      int(11) NOT NULL AUTO_INCREMENT,
-    name    varchar(128) DEFAULT NULL,
-    city    varchar(128) DEFAULT NULL,
-    country varchar(128) DEFAULT NULL,
-    street  varchar(128) DEFAULT NULL,
-    phone   varchar(128) DEFAULT NULL,
-    site    varchar(45)  DEFAULT NULL,
+    id          int(11)      NOT NULL AUTO_INCREMENT,
+    name        varchar(128) NOT NULL,
+    description text         NOT NULL,
+    city        varchar(128) NOT NULL,
+    country     varchar(128) NOT NULL,
+    street      varchar(128) NOT NULL,
+    phone       varchar(128) NOT NULL,
+    site        varchar(45)  NOT NULL,
     primary key (id),
     UNIQUE KEY name_unique (name)
 );
@@ -193,10 +194,11 @@ VALUES (1, 1),
 -- Data for table restaurant
 --
 
-INSERT INTO restaurants(name, city, country, street, phone, site)
-VALUES ('Osteria Francescana', 'Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it'),
-       ('El Celler de Can Roca', 'Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com'),
-       ('Mirazur', 'Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr');
+INSERT INTO restaurants(name, city, country, street, phone, site, description)
+VALUES ('Osteria Francescana', 'Modena', 'Italy', 'Via Stella, 22', '3215522', 'osteriafrancescana.it',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed nec lectus tellus. Phasellus pulvinar luctus nulla, at iaculis ipsum pulvinar at. Praesent odio dolor, imperdiet et aliquet eget, fringilla fermentum risus. Ut leo diam, placerat vitae augue iaculis, suscipit consequat leo. Maecenas eget commodo mi. Nunc eget eros vitae felis sollicitudin mattis. Quisque ullamcorper tellus ut tortor rhoncus, eget sollicitudin nisl dictum.'),
+       ('El Celler de Can Roca', 'Girona', 'Spain', 'Long st, 21', '1245654', 'cellercanroca.com', 'Sed eu orci metus. Vestibulum non tristique nulla, consectetur dignissim erat. Proin in sollicitudin lorem, eget scelerisque elit. Donec ultrices hendrerit purus sed commodo. Integer consectetur nisl eget dui tincidunt sagittis non vel mauris. Curabitur eget dolor vel lorem mollis ultricies imperdiet sed justo. Phasellus gravida at nisi ac sagittis. Mauris venenatis ligula ligula, sit amet interdum erat rutrum vel. Curabitur malesuada placerat lectus, vel semper purus facilisis eget.'),
+       ('Mirazur', 'Paris', 'France', '30, avenue Aristide Briand', '7235435', 'mirazur.fr', ' Quisque consectetur sapien et tristique malesuada. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nunc lobortis placerat fermentum. Pellentesque luctus ante id est posuere, ut rhoncus purus iaculis. Nulla bibendum elit justo, eu tristique arcu maximus in. Donec elementum lacus mi, nec gravida lectus aliquam nec. Nunc quis nulla dapibus, suscipit orci ac, maximus orci. Morbi tincidunt hendrerit diam, vitae fringilla urna fringilla nec.');
 
 --
 -- Data for table menu

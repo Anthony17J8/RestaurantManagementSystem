@@ -23,6 +23,7 @@ public class MockDataUtils {
     public static Restaurant getMockRestaurant() {
         return Restaurant.builder()
                 .name(FAKER.company().name())
+                .description(String.join("", FAKER.lorem().paragraphs(4)))
                 .restaurantDetail(getMockRestaurantDetail())
                 .build();
     }
@@ -33,6 +34,7 @@ public class MockDataUtils {
         return RestaurantDto.builder()
                 .id(rMock.getId())
                 .name(rMock.getName())
+                .description(rMock.getDescription())
                 .restaurantDetail(
                         RestaurantDetailDto.builder()
                                 .city(dMock.getCity())

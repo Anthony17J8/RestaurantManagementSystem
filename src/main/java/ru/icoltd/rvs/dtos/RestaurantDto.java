@@ -20,6 +20,9 @@ public class RestaurantDto implements Serializable {
     @NotNull
     private String name;
 
+    @NotNull
+    private String description;
+
     @Valid
     private RestaurantDetailDto restaurantDetail;
 }

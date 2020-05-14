@@ -1,6 +1,7 @@
 body {
     letter-spacing: 1px;
     font-family: 'Nadia Serif', sans-serif;
+    background: url("../../img/background.jpg");
 }
 
 #main {
@@ -19,6 +20,18 @@ body {
     color: #FF5722;
     font-size: 1.1rem;
     width: 100%;
+}
+
+.container-fluid {
+    padding: 0 5rem;
+}
+
+#restaurant-content {
+    margin-top: 7.0rem;
+}
+
+.jumbotron {
+    margin-top: 7.0rem;
 }
 
 a {
@@ -49,10 +62,6 @@ div #title h1 {
 .jumbotron h1 {
     font-size: 3.25rem;
     color: rgba(0, 0, 0, 0.5);
-}
-
-#background-form {
-    background: url("../../img/background.jpg");
 }
 
 .shadow-form {

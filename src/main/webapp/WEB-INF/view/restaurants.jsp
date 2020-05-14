@@ -20,7 +20,7 @@
 <div class="container">
 
     <div class="jumbotron py-5">
-        <h1 class="text-center">Restaurant Vote Service</h1>
+        <h1 class="text-center">Restaurant Vote App</h1>
         <hr class="my-4">
         <p class="lead text-center">
             This app will allow you to choose the tastiest menu from existing restaurants. Vote for menu and book a
