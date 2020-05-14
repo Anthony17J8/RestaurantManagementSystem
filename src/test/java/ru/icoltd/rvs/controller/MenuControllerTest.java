@@ -38,7 +38,7 @@ import static ru.icoltd.rvs.util.MockDataUtils.*;
 @Disabled
 class MenuControllerTest {
 
-    private static final String MENU_BASE_PATH = "/restaurant/{restId}/menu";
+    private static final String MENU_BASE_PATH = "/restaurants/{restId}/menus";
 
     @InjectMocks
     private MenuController controller;
@@ -80,9 +80,9 @@ class MenuControllerTest {
         when(menuService.findAllByRestaurantId(anyLong())).thenReturn(mockMenus);
         when(restaurantService.findById(anyLong())).thenReturn(mockRestaurant);
 
-        mockMvc.perform(get(MENU_BASE_PATH + "/showAll", ID, mockMenu.getId()))
+        mockMvc.perform(get(MENU_BASE_PATH, ID, mockMenu.getId()))
                 .andExpect(status().isOk())
-                .andExpect(view().name("menu-list"))
+                .andExpect(view().name("menus"))
                 .andExpect(model().attribute("restaurant", mockRestaurant))
                 .andExpect(model().attribute("menus", mockMenus));
     }
@@ -115,7 +115,7 @@ class MenuControllerTest {
 
         mockMvc.perform(get(MENU_BASE_PATH + "/{id}/vote", mockRestaurant.getId(), mockMenu.getId()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlTemplate(MENU_BASE_PATH + "/showAll", mockRestaurant.getId()));
+                .andExpect(redirectedUrlTemplate(MENU_BASE_PATH, mockRestaurant.getId()));
 
         verify(voteService).saveOrUpdateVote(eq(mockMenu), any(LocalDateTime.class), any(User.class));
     }
@@ -124,7 +124,7 @@ class MenuControllerTest {
     void testShowAddMenuForm() throws Exception {
         when(restaurantService.findById(anyLong())).thenReturn(mockRestaurant);
 
-        mockMvc.perform(get(MENU_BASE_PATH + "/showFormForAdd", mockRestaurant.getId()))
+        mockMvc.perform(get(MENU_BASE_PATH + "/new", mockRestaurant.getId()))
                 .andExpect(status().isOk())
                 .andExpect(view().name("menu-form"))
                 .andExpect(model().attribute("menu", Matchers.notNullValue(Menu.class)))
@@ -137,9 +137,10 @@ class MenuControllerTest {
 
         mockMvc.perform(post(MENU_BASE_PATH + "/save", mockRestaurant.getId())
                 .param("name", "new menu")
+                .param("description", "Description")
                 .param("date", "2019-05-31"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlTemplate(MENU_BASE_PATH + "/showAll", mockRestaurant.getId()));
+                .andExpect(redirectedUrlTemplate(MENU_BASE_PATH, mockRestaurant.getId()));
 
         verify(menuService).save(menuCaptor.capture());
 
@@ -176,7 +177,7 @@ class MenuControllerTest {
         when(restaurantService.findById(anyLong())).thenReturn(mockRestaurant);
         mockMvc.perform(get(MENU_BASE_PATH + "/{id}/delete", mockRestaurant.getId(), mockMenu.getId()))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(redirectedUrlTemplate(MENU_BASE_PATH + "/showAll", mockRestaurant.getId()));
+                .andExpect(redirectedUrlTemplate(MENU_BASE_PATH, mockRestaurant.getId()));
 
         verify(menuService).removeById(mockMenu.getId());
     }

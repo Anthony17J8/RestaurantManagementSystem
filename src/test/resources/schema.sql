@@ -8,13 +8,14 @@ DROP TABLE IF EXISTS restaurants;
 
 CREATE TABLE restaurants
 (
-    id      int(11) NOT NULL AUTO_INCREMENT,
-    name    varchar(128) DEFAULT NULL,
-    city    varchar(128) DEFAULT NULL,
-    country varchar(128) DEFAULT NULL,
-    street  varchar(128) DEFAULT NULL,
-    phone   varchar(128) DEFAULT NULL,
-    site    varchar(45)  DEFAULT NULL,
+    id          int(11)      NOT NULL AUTO_INCREMENT,
+    name        varchar(128) NOT NULL,
+    city        varchar(128) NOT NULL,
+    country     varchar(128) NOT NULL,
+    street      varchar(128) NOT NULL,
+    phone       varchar(128) NOT NULL,
+    site        varchar(45)  NOT NULL,
+    description text         NOT NULL,
     primary key (id),
     UNIQUE (name)
 );
