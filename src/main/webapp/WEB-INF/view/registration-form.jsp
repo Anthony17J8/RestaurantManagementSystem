@@ -10,7 +10,6 @@
 <head>
     <title>Registration Page</title>
     <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/hover.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
 <body>

@@ -8,9 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.dtos.RestaurantDto;
-import ru.icoltd.rvs.entity.Menu;
-import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
@@ -49,14 +48,14 @@ public class MenuController {
 
     @GetMapping
     public String listMenus(@PathVariable("restId") Long restId, Model model) {
-        List<Menu> menus = menuService.findAllByRestaurantId(restId);
+        List<MenuDto> menus = menuService.findAllByRestaurantId(restId);
         model.addAttribute("menus", menus);
         return "menus";
     }
 
     @GetMapping("/{id}/vote")
     public String voteForMenu(Model model, @PathVariable("id") Long menuId, @CurrentUser User currentUser) {
-        Menu menu = menuService.findById(menuId);
+        MenuDto menu = menuService.findById(menuId);
         LocalDateTime now = LocalDateTime.now();
         if (DateTimeUtils.isNotInPast(menu.getDate().toLocalDate(), now.toLocalDate())) {
             voteService.saveOrUpdateVote(menu, now, currentUser);
@@ -71,14 +70,13 @@ public class MenuController {
 
     @GetMapping("/new")
     public String showAddMenuForm(Model model) {
-        Menu menu = new Menu();
-        model.addAttribute("menu", menu);
+        model.addAttribute("menu", MenuDto.builder().build());
         return "menu-new";
     }
 
     @PostMapping
-    public String saveMenu(Restaurant restaurant, @Valid @ModelAttribute("menu") Menu menu,
-                           BindingResult bindingResult) {
+    public String saveMenu(@Valid @ModelAttribute("menu") MenuDto menu,
+                           BindingResult bindingResult, RestaurantDto restaurant) {
         if (bindingResult.hasErrors()) {
             log.error("Save menu error {}", bindingResult);
             return "menu-new";

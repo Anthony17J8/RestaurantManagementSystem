@@ -1,16 +1,16 @@
 package ru.icoltd.rvs.service;
 
-import ru.icoltd.rvs.entity.Menu;
+import ru.icoltd.rvs.dtos.MenuDto;
 
 import java.util.List;
 
 public interface MenuService {
 
-    Menu save(Menu menu);
+    MenuDto save(MenuDto menu);
 
     void removeById(Long id);
 
-    List<Menu> findAllByRestaurantId(Long restId);
+    List<MenuDto> findAllByRestaurantId(Long restId);
 
-    Menu findById(Long menuId);
+    MenuDto findById(Long menuId);
 }

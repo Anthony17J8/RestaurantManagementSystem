@@ -36,7 +36,7 @@ class VoteServiceImplTest {
 
     @Test
     void testSaveOrUpdateVoteWhenNew() {
-        service.saveOrUpdateVote(withId(getMockMenu()), LocalDateTime.now(), withId(getMockUser()));
+        service.saveOrUpdateVote(getMockMenuDto(), LocalDateTime.now(), withId(getMockUser()));
         verify(dao).makePersistent(voteArgumentCaptor.capture());
         assertNull(voteArgumentCaptor.getValue().getId());
     }
@@ -46,7 +46,7 @@ class VoteServiceImplTest {
         Vote latest = withId(getMockVote());
         latest.setDateTime(LocalDateTime.of(LocalDate.now(), LocalTime.of(14, 30)));
         when(dao.getLatestVoteByUserId(anyLong())).thenReturn(Optional.of(latest));
-        service.saveOrUpdateVote(withId(getMockMenu()), LocalDateTime.now(), withId(getMockUser()));
+        service.saveOrUpdateVote(getMockMenuDto(), LocalDateTime.now(), withId(getMockUser()));
         verify(dao).makePersistent(voteArgumentCaptor.capture());
         assertNotNull(voteArgumentCaptor.getValue().getId());
     }

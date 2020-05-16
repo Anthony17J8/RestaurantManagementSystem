@@ -11,7 +11,6 @@
     <title>Menus</title>
     <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
     <link rel='stylesheet' href='<wj:locate path="css/font-awesome.css" relativeTo="META-INF/resources"/>'>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/hover.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
 
@@ -26,9 +25,9 @@
             <h1><c:out value="${restaurant.name}"/></h1>
         </div>
 
-        <div class="row justify-content-between pt-3">
+        <div class="row justify-content-around pt-3">
 
-            <div class="col-5">
+            <div class="shadow-form col-5 p-2">
                 <div id="carouselControls" class="carousel slide mb-3" data-ride="carousel">
                     <div class="carousel-inner">
                         <div class="carousel-item active">
@@ -60,7 +59,7 @@
                         <sec:authorize access="hasRole('ADMIN')">
 
                             <c:url value="/restaurants/${restaurant.id}/menus/new" var="addNewMenu"/>
-                            <a  class="btn btn-prm" href="${fn:escapeXml(addNewMenu)}">New Menu</a>
+                            <a class="btn btn-prm" href="${fn:escapeXml(addNewMenu)}">New Menu</a>
 
                         </sec:authorize>
                     </div>
@@ -90,9 +89,9 @@
                             <td><c:out value="${menu.votesAmount}"/></td>
 
                             <sec:authorize access="hasRole('ADMIN')">
-                                <c:url var="deleteLink" value="/restaurant/${restaurant.id}/menu/${menu.id}/delete"/>
+                                <c:url var="deleteLink" value="/restaurants/${restaurant.id}/menus/${menu.id}/delete"/>
 
-                                <c:url var="updateLink" value="/restaurant/${restaurant.id}/menu/${menu.id}/update"/>
+                                <c:url var="updateLink" value="/restaurants/${restaurant.id}/menus/${menu.id}/update"/>
 
                                 <td>
                                     <a href="${fn:escapeXml(updateLink)}">Update</a>

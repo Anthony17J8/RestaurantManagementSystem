@@ -3,7 +3,6 @@ package ru.icoltd.rvs.entity;
 import lombok.*;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,11 +14,9 @@ import java.time.LocalDateTime;
 @Table(name = "menus")
 public class Menu extends BaseEntity {
 
-    @NotNull
     @Column(name = "name")
     private String name;
 
-    @NotNull
     @Column(name = "date")
     private LocalDateTime date;
 

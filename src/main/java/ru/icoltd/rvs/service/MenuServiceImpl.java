@@ -1,14 +1,16 @@
 package ru.icoltd.rvs.service;
 
-import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.MenuDAO;
-import ru.icoltd.rvs.entity.Menu;
+import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
+import ru.icoltd.rvs.mappers.MenuMapper;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -16,10 +18,12 @@ public class MenuServiceImpl implements MenuService {
 
     private final MenuDAO menuDAO;
 
+    private final MenuMapper mapper;
+
     @Override
     @Transactional
-    public Menu save(Menu menu) {
-        return menuDAO.makePersistent(menu);
+    public MenuDto save(MenuDto menu) {
+        return mapper.menuToMenuDto(menuDAO.makePersistent(mapper.menuDtoToMenu(menu)));
     }
 
     @Override
@@ -29,14 +33,16 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<Menu> findAllByRestaurantId(Long restId) {
-        return Lists.newArrayList(menuDAO.findAllByRestaurantId(restId));
+    public List<MenuDto> findAllByRestaurantId(Long restId) {
+        return StreamSupport.stream(menuDAO.findAllByRestaurantId(restId).spliterator(), false)
+                .map(mapper::menuToMenuDto)
+                .collect(Collectors.toList());
     }
 
     @Override
-    public Menu findById(Long menuId) {
-        return menuDAO.findById(menuId).orElseThrow(
+    public MenuDto findById(Long menuId) {
+        return mapper.menuToMenuDto(menuDAO.findById(menuId).orElseThrow(
                 () -> new ObjNotFoundException("Menu id not found: " + menuId)
-        );
+        ));
     }
 }

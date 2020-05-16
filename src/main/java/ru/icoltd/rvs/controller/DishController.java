@@ -21,10 +21,11 @@ import java.util.List;
 
 @Controller
 @Slf4j
-@RequestMapping("/restaurant/{restId}/menu/{menuId}/dish")
+@RequestMapping("/restaurants/{restId}/menus/{menuId}/dishes")
 public class DishController {
 
     private final DishService dishService;
+
     private final MenuService menuService;
 
     public DishController(DishService dishService, MenuService menuService) {
@@ -34,7 +35,8 @@ public class DishController {
 
     @ModelAttribute("menu")
     public Menu findMenu(@PathVariable("menuId") Long menuId) {
-        return menuService.findById(menuId);
+//        return menuService.findById(menuId);
+        return null;
     }
 
     @InitBinder("menu")

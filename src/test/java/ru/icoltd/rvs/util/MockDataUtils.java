@@ -1,6 +1,7 @@
 package ru.icoltd.rvs.util;
 
 import com.github.javafaker.Faker;
+import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.dtos.RestaurantDetailDto;
 import ru.icoltd.rvs.dtos.RestaurantDto;
 import ru.icoltd.rvs.entity.*;
@@ -73,6 +74,20 @@ public class MockDataUtils {
 
     public static List<Menu> getMockMenus(int count) {
         return Stream.generate(MockDataUtils::getMockMenu).limit(count).collect(Collectors.toList());
+    }
+
+    public static MenuDto getMockMenuDto() {
+        Menu menu = withId(getMockMenu());
+        return MenuDto.builder()
+                .id(menu.getId())
+                .name(menu.getName())
+                .date(menu.getDate())
+                .votesAmount(menu.getVotesAmount())
+                .build();
+    }
+
+    public static List<MenuDto> getMockMenuDtos(int count) {
+        return Stream.generate(MockDataUtils::getMockMenuDto).limit(count).collect(Collectors.toList());
     }
 
     public static Review getMockReview() {

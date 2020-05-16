@@ -17,7 +17,6 @@ import ru.icoltd.rvs.service.MenuService;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -54,7 +53,7 @@ class DishControllerTest {
     @Test
     void testSaveDish() throws Exception {
         ArgumentCaptor<Dish> dishCaptor = ArgumentCaptor.forClass(Dish.class);
-        when(menuService.findById(anyLong())).thenReturn(mockMenu);
+//        when(menuService.findById(anyLong())).thenReturn(mockMenu);
 
         mockMvc.perform(post(DISH_BASE_PATH + "/save", ID, mockMenu.getId())
                 .param("description", "desc")
@@ -72,7 +71,7 @@ class DishControllerTest {
 
     @Test
     void testSaveDishHasErrors() throws Exception {
-        when(menuService.findById(anyLong())).thenReturn(mockMenu);
+//        when(menuService.findById(anyLong())).thenReturn(mockMenu);
 
         mockMvc.perform(post(DISH_BASE_PATH + "/save", ID, mockMenu.getId())
                 .param("price", "-2")
@@ -91,7 +90,7 @@ class DishControllerTest {
     void testUpdateDish() throws Exception {
         mockDish.setMenu(mockMenu);
 
-        when(menuService.findById(anyLong())).thenReturn(mockMenu);
+//        when(menuService.findById(anyLong())).thenReturn(mockMenu);
         when(dishService.findById(ID)).thenReturn(mockDish);
 
         mockMvc.perform(get(DISH_BASE_PATH + "/{id}/update", ID, mockMenu.getId(), ID))
@@ -105,7 +104,7 @@ class DishControllerTest {
     void testDeleteDish() throws Exception {
         mockDish.setMenu(mockMenu);
 
-        when(menuService.findById(anyLong())).thenReturn(mockMenu);
+//        when(menuService.findById(anyLong())).thenReturn(mockMenu);
 
         mockMvc.perform(get(DISH_BASE_PATH + "/{id}/delete", ID, mockMenu.getId(), mockDish.getId()))
                 .andExpect(status().is3xxRedirection())

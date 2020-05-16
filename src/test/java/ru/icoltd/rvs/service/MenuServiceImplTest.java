@@ -7,8 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import ru.icoltd.rvs.dao.MenuDAO;
+import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.exception.ObjNotFoundException;
+import ru.icoltd.rvs.mappers.MenuMapper;
 
 import java.util.Optional;
 
@@ -28,17 +30,22 @@ class MenuServiceImplTest {
     @Mock
     private MenuDAO dao;
 
-    private Menu mockMenu;
+    @Mock
+    private MenuMapper mapper;
+
+    private MenuDto mockMenu;
 
     @BeforeEach
     void setUp() {
-        mockMenu = withId(getMockMenu());
+        mockMenu = getMockMenuDto();
     }
 
     @Test
     void testGetMenu() {
-        when(dao.findById(anyLong())).thenReturn(Optional.of(mockMenu));
-        Menu menu = menuService.findById(ID);
+        Menu returned = getMockMenu();
+        when(dao.findById(anyLong())).thenReturn(Optional.of(returned));
+        when(mapper.menuToMenuDto(eq(returned))).thenReturn(mockMenu);
+        MenuDto menu = menuService.findById(ID);
         assertEquals(mockMenu, menu);
         verify(dao).findById(anyLong());
     }
@@ -51,8 +58,9 @@ class MenuServiceImplTest {
 
     @Test
     void testSaveMenu() {
+        when(mapper.menuDtoToMenu(any(MenuDto.class))).thenReturn(Menu.builder().build());
         menuService.save(mockMenu);
-        verify(dao).makePersistent(eq(mockMenu));
+        verify(dao).makePersistent(any(Menu.class));
     }
 
     @Test
