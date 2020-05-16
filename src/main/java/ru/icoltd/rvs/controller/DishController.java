@@ -1,18 +1,14 @@
 package ru.icoltd.rvs.controller;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import ru.icoltd.rvs.entity.Dish;
-import ru.icoltd.rvs.entity.Menu;
+import org.springframework.web.bind.annotation.*;
+import ru.icoltd.rvs.dtos.DishDto;
+import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.service.DishService;
 import ru.icoltd.rvs.service.MenuService;
 
@@ -21,22 +17,19 @@ import java.util.List;
 
 @Controller
 @Slf4j
-@RequestMapping("/restaurants/{restId}/menus/{menuId}/dishes")
+@RequestMapping(DishController.DISH_BASE_PATH)
+@RequiredArgsConstructor
 public class DishController {
+
+    public static final String DISH_BASE_PATH = "/restaurants/{restId}/menus/{menuId}/dishes";
 
     private final DishService dishService;
 
     private final MenuService menuService;
 
-    public DishController(DishService dishService, MenuService menuService) {
-        this.dishService = dishService;
-        this.menuService = menuService;
-    }
-
     @ModelAttribute("menu")
-    public Menu findMenu(@PathVariable("menuId") Long menuId) {
-//        return menuService.findById(menuId);
-        return null;
+    public MenuDto findMenu(@PathVariable("menuId") Long menuId) {
+        return menuService.findById(menuId);
     }
 
     @InitBinder("menu")
@@ -44,42 +37,41 @@ public class DishController {
         dataBinder.setDisallowedFields("id", "name");
     }
 
-    @GetMapping("/showAll")
+    @GetMapping
     public String findDishes(@PathVariable("menuId") Long id, Model model) {
-        List<Dish> dishes = dishService.findAllByMenuId(id);
+        List<DishDto> dishes = dishService.findAllByMenuId(id);
         model.addAttribute("dishes", dishes);
-        return "dish-list";
+        return "dishes";
     }
 
-    @GetMapping("/addNew")
+    @GetMapping("/new")
     public String showFormForAdd(Model model) {
-        Dish dish = new Dish();
-        model.addAttribute("dish", dish);
-        return "dish-form";
+        model.addAttribute("dish", DishDto.builder().build());
+        return "dish-new";
     }
 
-    @PostMapping("/save")
-    public String saveDish(@Valid @ModelAttribute("dish") Dish dish, BindingResult bindingResult,
-                           Menu menu, Model model) {
+    @PostMapping
+    public String saveDish(@Valid @ModelAttribute("dish") DishDto dish, BindingResult bindingResult,
+                           MenuDto menu, Model model) {
         if (bindingResult.hasErrors()) {
             log.error("Dish save error: {}", bindingResult);
             model.addAttribute("dish", dish);
-            return "dish-form";
+            return "dish-new";
         }
         dish.setMenu(menu);
         dishService.save(dish);
-        return "redirect:/restaurant/{restId}/menu/{menuId}/dish/showAll";
+        return "redirect:" + DISH_BASE_PATH;
     }
 
     @GetMapping("/{id}/update")
     public String updateDish(@PathVariable("id") Long id, Model model) {
         model.addAttribute("dish", dishService.findById(id));
-        return "dish-form";
+        return "dish-new";
     }
 
     @GetMapping("/{id}/delete")
     public String deleteDish(@PathVariable("id") Long id) {
         dishService.deleteById(id);
-        return "redirect:/restaurant/{restId}/menu/{menuId}/dish/showAll";
+        return "redirect:" + DISH_BASE_PATH;
     }
 }

@@ -34,7 +34,7 @@ public class VoteServiceImpl implements VoteService {
             latest.setMenu(menu);
             dao.makePersistent(latest);
         } else {
-            dao.makePersistent(new Vote(currentUser, menu, now));
+            dao.makePersistent(Vote.builder().menu(menu).user(currentUser).dateTime(now).build());
         }
     }
 }

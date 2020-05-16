@@ -1,20 +1,8 @@
 package ru.icoltd.rvs.entity;
 
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.PositiveOrZero;
+import javax.persistence.*;
 
 @Getter
 @Setter
@@ -25,11 +13,9 @@ import javax.validation.constraints.PositiveOrZero;
 @Table(name = "dishes")
 public class Dish extends BaseEntity {
 
-    @NotBlank
     @Column(nullable = false)
     private String description;
 
-    @PositiveOrZero
     @Column(nullable = false)
     private double price;
 
@@ -38,8 +24,9 @@ public class Dish extends BaseEntity {
     private Menu menu;
 
     @Builder
-    public Dish(@NotNull String description, @PositiveOrZero double price) {
+    public Dish(String description, double price, Menu menu) {
         this.description = description;
+        this.menu = menu;
         this.price = price;
     }
 }

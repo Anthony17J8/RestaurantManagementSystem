@@ -37,7 +37,7 @@
 
                     <form:hidden path="id"/>
 
-                    <div id="form-content" class="px-5 py-3">
+                    <div id="form-content" class="px-5 py-4">
                         <div class="form-group">
                             <label for="rName">Name</label>
                             <form:input path="name" id="rName" cssClass="form-control"/>

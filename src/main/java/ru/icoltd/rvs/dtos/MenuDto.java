@@ -6,13 +6,14 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
 @Builder
 @AllArgsConstructor
-public class MenuDto {
+public class MenuDto implements Serializable {
 
     private Long id;
 

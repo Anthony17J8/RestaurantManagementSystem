@@ -1,16 +1,16 @@
 package ru.icoltd.rvs.service;
 
-import ru.icoltd.rvs.entity.Dish;
+import ru.icoltd.rvs.dtos.DishDto;
 
 import java.util.List;
 
 public interface DishService {
 
-    Dish save(Dish dish);
+    DishDto save(DishDto dish);
 
-    List<Dish> findAllByMenuId(Long menuId);
+    List<DishDto> findAllByMenuId(Long menuId);
 
-    Dish findById(Long id);
+    DishDto findById(Long id);
 
     void deleteById(Long id);
 }

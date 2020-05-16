@@ -64,7 +64,7 @@
                         </sec:authorize>
                     </div>
                 </div>
-                <table class="shadow-form table table-striped">
+                <table class="shadow-form table table-striped text-center">
                     <thead>
                     <tr>
                         <th scope="col">#</th>

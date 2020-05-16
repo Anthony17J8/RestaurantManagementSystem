@@ -25,8 +25,10 @@ import java.util.Locale;
 @Controller
 @Slf4j
 @RequiredArgsConstructor
-@RequestMapping("/restaurants/{restId}/menus")
+@RequestMapping(MenuController.MENU_BASE_PATH)
 public class MenuController {
+
+    public static final String MENU_BASE_PATH = "/restaurants/{restId}/menus";
 
     private final MenuService menuService;
 
@@ -65,7 +67,7 @@ public class MenuController {
                     Locale.getDefault()));
             return "error-page";
         }
-        return "redirect:/restaurants/{restId}/menus";
+        return "redirect:" + MENU_BASE_PATH;
     }
 
     @GetMapping("/new")
@@ -83,13 +85,13 @@ public class MenuController {
         }
         menu.setRestaurant(restaurant);
         menuService.save(menu);
-        return "redirect:/restaurants/{restId}/menus";
+        return "redirect:" + MENU_BASE_PATH;
     }
 
     @GetMapping("/{id}/delete")
     public String deleteMenu(@PathVariable("id") Long menuId) {
         menuService.removeById(menuId);
-        return "redirect:/restaurants/{restId}/menus";
+        return "redirect:" + MENU_BASE_PATH;
     }
 
     @GetMapping("/{id}/update")
