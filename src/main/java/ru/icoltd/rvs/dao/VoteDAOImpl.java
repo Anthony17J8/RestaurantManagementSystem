@@ -17,7 +17,7 @@ public class VoteDAOImpl extends GenericDAOImpl<Vote, Long> implements VoteDAO {
     public Optional<Vote> getLatestVoteByUserId(Long userId) {
         try {
             return Optional.of(em.createQuery(
-                    "SELECT v from Vote v where v.user.id=:userId order by v.dateTime desc", Vote.class)
+                    "SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.dateTime DESC", Vote.class)
                     .setMaxResults(1)
                     .setParameter("userId", userId)
                     .getSingleResult());
@@ -31,6 +31,5 @@ public class VoteDAOImpl extends GenericDAOImpl<Vote, Long> implements VoteDAO {
         return  em.createQuery("SELECT v from Vote v where v.user.id = :userId", Vote.class)
         .setParameter("userId", userId)
         .getResultList();
-
     }
 }

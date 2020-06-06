@@ -2,12 +2,12 @@ package ru.icoltd.rvs.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.dtos.RestaurantDto;
 import ru.icoltd.rvs.entity.User;
@@ -20,7 +20,7 @@ import ru.icoltd.rvs.util.DateTimeUtils;
 import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -35,8 +35,6 @@ public class MenuController {
     private final VoteService voteService;
 
     private final RestaurantService restaurantService;
-
-    private final MessageSource messageSource;
 
     @InitBinder("restaurant")
     public void initRestaurantBinder(WebDataBinder dataBinder) {
@@ -56,17 +54,32 @@ public class MenuController {
     }
 
     @GetMapping("/{id}/vote")
-    public String voteForMenu(Model model, @PathVariable("id") Long menuId, @CurrentUser User currentUser) {
-        MenuDto menu = menuService.findById(menuId);
-        LocalDateTime now = LocalDateTime.now();
-        if (DateTimeUtils.isNotInPast(menu.getDate().toLocalDate(), now.toLocalDate())) {
-            voteService.saveOrUpdateVote(menu, now, currentUser);
-        } else {
-            model.addAttribute("message", messageSource.getMessage("error.vote.date",
-                    new Object[]{menu.getName(), menu.getDate().toLocalDate()},
-                    Locale.getDefault()));
-            return "error-page";
+    public String voteForMenu(@PathVariable("id") Long menuId, @CurrentUser User currentUser,
+                              RedirectAttributes rAttributes) {
+        var menu = menuService.findById(menuId);
+        var now = LocalDateTime.now();
+        if (DateTimeUtils.isMenuOutDated(menu.getDate().toLocalDate(), now.toLocalDate())) {
+            rAttributes.addFlashAttribute("error",
+                    "Selected Menu has been outdated. Please choose another one");
+            return "redirect:" + MENU_BASE_PATH;
         }
+
+        var usersVote = voteService.getLatestVoteByUserId(currentUser.getId());
+        if (Objects.nonNull(usersVote)) {
+            if (menu.getId().equals(usersVote.getMenu().getId())) {
+                log.info("User has already voted for this menu");
+                rAttributes.addFlashAttribute("error", "Your vote has already been counted");
+                return "redirect:" + MENU_BASE_PATH;
+            }
+
+            if (DateTimeUtils.isWithinVoteInterval(usersVote.getDateTime(), now)) {
+                usersVote.setDateTime(now);
+                usersVote.setMenu(menu);
+            }
+        }
+
+        voteService.createNewVote(usersVote);
+        rAttributes.addFlashAttribute("success", "Your vote has been successfully counted!");
         return "redirect:" + MENU_BASE_PATH;
     }
 
@@ -78,7 +91,7 @@ public class MenuController {
 
     @PostMapping
     public String saveMenu(@Valid @ModelAttribute("menu") MenuDto menu,
-                           BindingResult bindingResult, RestaurantDto restaurant) {
+                           BindingResult bindingResult, @ModelAttribute("restaurant") RestaurantDto restaurant) {
         if (bindingResult.hasErrors()) {
             log.error("Save menu error {}", bindingResult);
             return "menu-new";

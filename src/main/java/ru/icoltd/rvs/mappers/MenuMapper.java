@@ -11,6 +11,5 @@ public interface MenuMapper {
     @Mapping(target = "restaurant", ignore = true)
     MenuDto menuToMenuDto(Menu menu);
 
-    @Mapping(target = "restaurant", ignore = true)
     Menu menuDtoToMenu(MenuDto menuDto);
 }

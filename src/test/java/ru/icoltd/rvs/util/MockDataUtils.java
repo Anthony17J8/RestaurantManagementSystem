@@ -1,10 +1,7 @@
 package ru.icoltd.rvs.util;
 
 import com.github.javafaker.Faker;
-import ru.icoltd.rvs.dtos.DishDto;
-import ru.icoltd.rvs.dtos.MenuDto;
-import ru.icoltd.rvs.dtos.RestaurantDetailDto;
-import ru.icoltd.rvs.dtos.RestaurantDto;
+import ru.icoltd.rvs.dtos.*;
 import ru.icoltd.rvs.entity.*;
 
 import java.sql.Date;
@@ -144,6 +141,10 @@ public class MockDataUtils {
 
     public static Vote getMockVote() {
         return Vote.builder().dateTime(LocalDateTime.now()).build();
+    }
+
+    public static VoteDto getMockVoteDto() {
+        return VoteDto.builder().dateTime(LocalDateTime.now()).build();
     }
 
     public static List<Role> getMockRoles(int count) {

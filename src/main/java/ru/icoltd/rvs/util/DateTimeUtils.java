@@ -19,14 +19,22 @@ public class DateTimeUtils {
     private DateTimeUtils() {
     }
 
-    public static boolean isBetweenRange(LocalDateTime src, LocalDateTime now) {
-        LocalDateTime lowerBound = LocalDateTime.of(now.toLocalDate(), TIME_BOUND);
-        LocalDateTime upperBound = lowerBound.plusDays(1);
+    public static boolean isWithinVoteInterval(LocalDateTime src, LocalDateTime now) {
+        var timePoint = LocalDateTime.of(now.toLocalDate(), TIME_BOUND);
+        LocalDateTime lowerBound;
+        LocalDateTime upperBound;
+        if (now.isBefore(timePoint)) {
+            upperBound = timePoint;
+            lowerBound = timePoint.minusDays(1L);
+        } else {
+            lowerBound = timePoint;
+            upperBound = timePoint.plusDays(1L);
+        }
         return src.isAfter(lowerBound) && src.isBefore(upperBound);
     }
 
-    public static boolean isNotInPast(LocalDate date, LocalDate now) {
-        return !now.isAfter(date);
+    public static boolean isMenuOutDated(LocalDate date, LocalDate now) {
+        return now.isAfter(date);
     }
 
     public static String toString(LocalDateTime localDateTime) {

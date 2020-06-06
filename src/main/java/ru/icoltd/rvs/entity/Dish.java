@@ -24,7 +24,8 @@ public class Dish extends BaseEntity {
     private Menu menu;
 
     @Builder
-    public Dish(String description, double price, Menu menu) {
+    public Dish(Long id, String description, double price, Menu menu) {
+        super(id);
         this.description = description;
         this.menu = menu;
         this.price = price;

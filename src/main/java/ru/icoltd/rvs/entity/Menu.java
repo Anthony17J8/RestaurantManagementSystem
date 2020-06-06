@@ -28,7 +28,8 @@ public class Menu extends BaseEntity {
     private Long votesAmount;
 
     @Builder
-    public Menu(String name, LocalDateTime date, Restaurant restaurant, Long votesAmount) {
+    public Menu(Long id, String name, LocalDateTime date, Restaurant restaurant, Long votesAmount) {
+        super(id);
         this.name = name;
         this.date = date;
         this.restaurant = restaurant;

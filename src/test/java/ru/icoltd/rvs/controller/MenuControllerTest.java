@@ -9,13 +9,13 @@ import org.mockito.Captor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.context.MessageSource;
 import org.springframework.format.support.FormattingConversionService;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.dtos.RestaurantDto;
+import ru.icoltd.rvs.dtos.VoteDto;
 import ru.icoltd.rvs.entity.Menu;
 import ru.icoltd.rvs.formatters.DateTimeFormatters;
 import ru.icoltd.rvs.service.MenuService;
@@ -24,10 +24,9 @@ import ru.icoltd.rvs.service.VoteService;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Locale;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.mockito.ArgumentMatchers.*;
+import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -51,17 +50,19 @@ class MenuControllerTest {
     @Mock
     private RestaurantService restaurantService;
 
-    @Mock
-    private MessageSource messageSource;
-
     @Captor
     private ArgumentCaptor<MenuDto> menuCaptor;
+
+    @Captor
+    private ArgumentCaptor<VoteDto> voteCaptor;
 
     private MenuDto mockMenu;
 
     private RestaurantDto mockRestaurant;
 
     private MockMvc mockMvc;
+
+    private VoteDto mockVote;
 
     @BeforeEach
     void setUp() {
@@ -75,6 +76,7 @@ class MenuControllerTest {
                 .setConversionService(conversionService)
                 .setViewResolvers(viewResolver).build();
         mockMenu = getMockMenuDto();
+        mockVote = getMockVoteDto();
         mockRestaurant = getMockRestaurantDto();
     }
 
@@ -99,13 +101,10 @@ class MenuControllerTest {
 
         when(restaurantService.findById(anyLong())).thenReturn(mockRestaurant);
         when(menuService.findById(anyLong())).thenReturn(mockMenu);
-        when(messageSource.getMessage(anyString(), any(Object[].class), any(Locale.class))).thenReturn("error occurred");
 
         mockMvc.perform(get(MENU_BASE_PATH + "/{id}/vote", mockRestaurant.getId(), mockMenu.getId()))
-                .andExpect(status().isOk())
-                .andExpect(view().name("error-page"))
-                .andExpect(model().attribute("restaurant", mockRestaurant))
-                .andExpect(model().attributeExists("message"));
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrlTemplate(MENU_BASE_PATH, mockRestaurant.getId()));
 
         verifyZeroInteractions(voteService);
     }
@@ -117,12 +116,15 @@ class MenuControllerTest {
 
         when(restaurantService.findById(anyLong())).thenReturn(mockRestaurant);
         when(menuService.findById(anyLong())).thenReturn(mockMenu);
+        mockVote.setMenu(getMockMenuDto());
+        when(voteService.getLatestVoteByUserId(anyLong())).thenReturn(mockVote);
 
         mockMvc.perform(get(MENU_BASE_PATH + "/{id}/vote", mockRestaurant.getId(), mockMenu.getId()))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(redirectedUrlTemplate(MENU_BASE_PATH, mockRestaurant.getId()));
 
-//        verify(voteService).saveOrUpdateVote(eq(mockMenu), any(LocalDateTime.class), any(User.class));
+        verify(voteService).createNewVote(voteCaptor.capture());
+        assertNotNull(voteCaptor.getValue());
     }
 
     @Test

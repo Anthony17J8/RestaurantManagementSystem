@@ -1,40 +1,30 @@
 package ru.icoltd.rvs.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ru.icoltd.rvs.dao.VoteDAO;
-import ru.icoltd.rvs.dtos.MenuDto;
-import ru.icoltd.rvs.entity.Menu;
-import ru.icoltd.rvs.entity.User;
-import ru.icoltd.rvs.entity.Vote;
-import ru.icoltd.rvs.mappers.MenuMapper;
-import ru.icoltd.rvs.util.DateTimeUtils;
-
-import java.time.LocalDateTime;
-import java.util.Optional;
+import ru.icoltd.rvs.dtos.VoteDto;
+import ru.icoltd.rvs.mappers.VoteMapper;
 
 @Service
 @RequiredArgsConstructor
+@Slf4j
 public class VoteServiceImpl implements VoteService {
 
     private final VoteDAO dao;
 
-    private final MenuMapper menuMapper;
+    private final VoteMapper mapper;
+
+    @Override
+    public VoteDto getLatestVoteByUserId(Long userId) {
+        return dao.getLatestVoteByUserId(userId).map(mapper::voteToVoteDto).orElse(null);
+    }
 
     @Override
     @Transactional
-    public void saveOrUpdateVote(MenuDto menuDto, LocalDateTime now, User currentUser) {
-        Optional<Vote> latestVote = dao.getLatestVoteByUserId(currentUser.getId());
-        Menu menu = menuMapper.menuDtoToMenu(menuDto);
-
-        if (latestVote.isPresent() && DateTimeUtils.isBetweenRange(latestVote.get().getDateTime(), now)) {
-            Vote latest = latestVote.get();
-            latest.setDateTime(now);
-            latest.setMenu(menu);
-            dao.makePersistent(latest);
-        } else {
-            dao.makePersistent(Vote.builder().menu(menu).user(currentUser).dateTime(now).build());
-        }
+    public VoteDto createNewVote(VoteDto vote) {
+        return mapper.voteToVoteDto(dao.makePersistent(mapper.voteDtoToVote(vote)));
     }
 }

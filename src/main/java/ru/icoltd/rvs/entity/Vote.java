@@ -31,7 +31,8 @@ public class Vote extends BaseEntity {
     private LocalDateTime dateTime;
 
     @Builder
-    public Vote(User user, Menu menu, LocalDateTime dateTime) {
+    public Vote(Long id, User user, Menu menu, LocalDateTime dateTime) {
+        super(id);
         this.user = user;
         this.menu = menu;
         this.dateTime = dateTime;

@@ -11,6 +11,7 @@ import ru.icoltd.rvs.service.RestaurantService;
 
 import javax.validation.Valid;
 import java.util.List;
+import java.util.Objects;
 
 @Controller
 @Slf4j
@@ -41,7 +42,9 @@ public class RestaurantController {
             log.error("Validation errors {}", restBindingResult);
             return "restaurant-new";
         }
-
+        if (Objects.isNull(restaurant.getDescription())) {
+            restaurant.setDescription("There is no description yet...");
+        }
         restaurantService.save(restaurant);
         return "redirect:/restaurants";
     }

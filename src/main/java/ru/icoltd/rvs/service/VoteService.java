@@ -1,12 +1,11 @@
 package ru.icoltd.rvs.service;
 
-import ru.icoltd.rvs.dtos.MenuDto;
-import ru.icoltd.rvs.entity.User;
-
-import java.time.LocalDateTime;
+import ru.icoltd.rvs.dtos.VoteDto;
 
 public interface VoteService {
 
-    void saveOrUpdateVote(MenuDto menu, LocalDateTime now, User currentUser);
+    VoteDto createNewVote(VoteDto vote);
+
+    VoteDto getLatestVoteByUserId(Long userId);
 
 }

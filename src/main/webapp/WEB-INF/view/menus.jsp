@@ -33,12 +33,12 @@
                         <div class="carousel-item active">
                             <img class="d-block w-100"
                                  src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-                                 alt=""/>
+                                 alt="restaurant image"/>
                         </div>
                         <div class="carousel-item">
                             <img class="d-block w-100"
                                  src="https://images.unsplash.com/photo-1549488344-1f9b8d2bd1f3?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"
-                                 alt=""/>
+                                 alt="restaurant image"/>
                         </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselControls" role="button" data-slide="prev">
@@ -53,6 +53,13 @@
                 <p class="text-left"><c:out value="${restaurant.description}"/></p>
             </div>
             <div class="col-7">
+                <c:if test="${error != null}">
+                    <div class="alert alert-danger" role="alert">${error}</div>
+                </c:if>
+                <c:if test="${success != null}">
+                    <div class="alert alert-success" role="alert">${success}</div>
+                </c:if>
+
                 <div class="row justify-content-between m-0 mb-2">
                     <div class="col-auto mr-auto"><h2 class="pb-0">Menus</h2></div>
                     <div class="col-auto pr-0">
@@ -71,6 +78,7 @@
                         <th scope="col">Name</th>
                         <th scope="col">Date</th>
                         <th scope="col">Votes</th>
+                        <th scope="col"></th>
 
                         <sec:authorize access="hasRole('ADMIN')">
                             <th scope="col">Action</th>
@@ -99,6 +107,11 @@
                                     <a href="${fn:escapeXml(deleteLink)}">Delete</a>
                                 </td>
                             </sec:authorize>
+                            <td>
+                                <form:form method="GET" action="/restaurants/${restaurant.id}/menus/${menu.id}/vote">
+                                    <button class="btn btn-warning">Like!</button>
+                                </form:form>
+                            </td>
                         </tr>
                         </tbody>
                     </c:forEach>

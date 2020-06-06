@@ -74,6 +74,12 @@
                             <form:errors path="restaurantDetail.phoneNumber"/>
                         </div>
 
+                        <div class="form-group">
+                            <label for="desc">Description</label>
+                            <form:textarea path="description" id="desc" cssClass="form-control" rows="15"/>
+                            <form:errors path="description"/>
+                        </div>
+
                         <div class="row">
                             <div class="col">
                                 <button class="btn btn-block btn-prm" type="submit">Save</button>

@@ -35,7 +35,6 @@ public abstract class GenericDAOImpl<T, ID extends Serializable> implements Gene
         return em.merge(entity);
     }
 
-
     @Override
     public void remove(T entity) {
         em.remove(em.merge(entity));

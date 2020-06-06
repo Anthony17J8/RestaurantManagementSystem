@@ -4,24 +4,23 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import ru.icoltd.rvs.entity.User;
 
-import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
-import java.io.Serializable;
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-@Builder
 @AllArgsConstructor
-public class RestaurantDto implements Serializable {
+@Builder
+public class VoteDto {
 
     private Long id;
 
+    private MenuDto menu;
+
+    private User user;
+
     @NotNull
-    private String name;
-
-    private String description;
-
-    @Valid
-    private RestaurantDetailDto restaurantDetail;
+    private LocalDateTime dateTime;
 }
