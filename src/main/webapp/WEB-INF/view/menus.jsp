@@ -18,7 +18,7 @@
 
 <jsp:include page="navbar.jsp"/>
 
-<div class="container-fluid">
+<div class="container-fluid pb-5">
     <section id="restaurant-content">
 
         <div class="row m-0">
@@ -81,7 +81,7 @@
                         <th scope="col"></th>
 
                         <sec:authorize access="hasRole('ADMIN')">
-                            <th scope="col">Action</th>
+                            <th scope="col"></th>
                         </sec:authorize>
                     </tr>
                     </thead>
@@ -102,7 +102,7 @@
                                 <c:url var="updateLink" value="/restaurants/${restaurant.id}/menus/${menu.id}/update"/>
 
                                 <td>
-                                    <a href="${fn:escapeXml(updateLink)}">Update</a>
+                                    <a href="${fn:escapeXml(updateLink)}">Edit</a>
                                     |
                                     <a href="${fn:escapeXml(deleteLink)}">Delete</a>
                                 </td>

@@ -23,7 +23,7 @@
         <hr class="my-4">
         <p class="lead text-center">
             This app will allow you to choose the tastiest menu from existing restaurants. Vote for menu and book a
-            table. It's up to where will you have a meal!
+            table. It's up to you where will you have a meal!
         </p>
     </div>
 

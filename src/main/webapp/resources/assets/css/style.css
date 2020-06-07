@@ -40,6 +40,10 @@ a {
     font-size: 1.2rem;
 }
 
+a.list-group-item {
+    font-size: 0.9rem;
+}
+
 #form-content a:hover {
     color: #FF5722;
     text-decoration: none;
@@ -175,4 +179,13 @@ input[class="form-control"]:hover, input[class="form-control"]:focus {
 .hvr-sweep-to-right:hover:before, .hvr-sweep-to-right:focus:before, .hvr-sweep-to-right:active:before {
     -webkit-transform: scaleX(1);
     transform: scaleX(1);
+}
+
+.list-group-item.active {
+    background-color: #f5ac1b;
+    border-color: white;
+}
+
+.table td, .table th {
+    vertical-align: baseline;
 }

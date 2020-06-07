@@ -38,9 +38,11 @@ public class DishController {
     }
 
     @GetMapping
-    public String findDishes(@PathVariable("menuId") Long id, Model model) {
+    public String findDishes(@PathVariable("menuId") Long id, @PathVariable("restId") Long restaurantId,
+                             Model model) {
         List<DishDto> dishes = dishService.findAllByMenuId(id);
         model.addAttribute("dishes", dishes);
+        model.addAttribute("restaurantId", restaurantId);
         return "dishes";
     }
 
