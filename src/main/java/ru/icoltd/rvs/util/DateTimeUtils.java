@@ -1,6 +1,8 @@
 package ru.icoltd.rvs.util;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.tuple.ImmutablePair;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -21,6 +23,11 @@ public class DateTimeUtils {
 
     public static boolean isWithinVoteInterval(LocalDateTime src, LocalDateTime now) {
         var timePoint = LocalDateTime.of(now.toLocalDate(), TIME_BOUND);
+        var bounds = getTimeBounds(now, timePoint);
+        return src.isAfter(bounds.getLeft()) && src.isBefore(bounds.getRight());
+    }
+
+    private static Pair<LocalDateTime, LocalDateTime> getTimeBounds(LocalDateTime now, LocalDateTime timePoint) {
         LocalDateTime lowerBound;
         LocalDateTime upperBound;
         if (now.isBefore(timePoint)) {
@@ -30,7 +37,7 @@ public class DateTimeUtils {
             lowerBound = timePoint;
             upperBound = timePoint.plusDays(1L);
         }
-        return src.isAfter(lowerBound) && src.isBefore(upperBound);
+        return ImmutablePair.of(lowerBound, upperBound);
     }
 
     public static boolean isMenuOutDated(LocalDate date, LocalDate now) {

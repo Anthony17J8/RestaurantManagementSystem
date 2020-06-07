@@ -47,17 +47,17 @@ public class DishController {
     }
 
     @GetMapping("/new")
-    public String showFormForAdd(Model model) {
+    public String showFormForAdd(@PathVariable("restId") Long restaurantId, Model model) {
         model.addAttribute("dish", DishDto.builder().build());
+        model.addAttribute("restaurantId", restaurantId);
         return "dish-new";
     }
 
     @PostMapping
-    public String saveDish(@Valid @ModelAttribute("dish") DishDto dish, BindingResult bindingResult,
-                           MenuDto menu, Model model) {
+    public String saveDish(@ModelAttribute("menu") MenuDto menu,
+                           @Valid @ModelAttribute("dish") DishDto dish, BindingResult bindingResult, Model model) {
         if (bindingResult.hasErrors()) {
             log.error("Dish save error: {}", bindingResult);
-            model.addAttribute("dish", dish);
             return "dish-new";
         }
         dish.setMenu(menu);
@@ -66,8 +66,9 @@ public class DishController {
     }
 
     @GetMapping("/{id}/update")
-    public String updateDish(@PathVariable("id") Long id, Model model) {
+    public String updateDish(@PathVariable("restId") Long restaurantId, @PathVariable("id") Long id, Model model) {
         model.addAttribute("dish", dishService.findById(id));
+        model.addAttribute("restaurantId", restaurantId);
         return "dish-new";
     }
 

@@ -3,14 +3,20 @@ package ru.icoltd.rvs.mappers;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import ru.icoltd.rvs.dtos.DishDto;
+import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.entity.Dish;
+import ru.icoltd.rvs.entity.Menu;
 
 @Mapper
 public interface DishMapper {
 
-    @Mapping(target = "menu", ignore = true)
-    Dish dishDtoToDish(DishDto dishDto);
+    Dish toDish(DishDto dishDto);
 
-    @Mapping(target = "menu", ignore = true)
-    DishDto dishToDishDto(Dish dish);
+    DishDto fromDish(Dish dish);
+
+    @Mapping(source = "restaurant", target = "restaurant", ignore = true)
+    MenuDto fromMenu(Menu menu);
+
+    @Mapping(source = "restaurant", target = "restaurant", ignore = true)
+    Menu toMenu(MenuDto menuDto);
 }

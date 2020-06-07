@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.icoltd.rvs.dtos.MenuDto;
 import ru.icoltd.rvs.dtos.RestaurantDto;
+import ru.icoltd.rvs.dtos.VoteDto;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
@@ -65,22 +66,35 @@ public class MenuController {
         }
 
         var usersVote = voteService.getLatestVoteByUserId(currentUser.getId());
-        if (Objects.nonNull(usersVote)) {
+        if (Objects.isNull(usersVote)) {
+            usersVote = buildNewDish(currentUser, menu, now);
+        } else {
             if (menu.getId().equals(usersVote.getMenu().getId())) {
                 log.info("User has already voted for this menu");
                 rAttributes.addFlashAttribute("error", "Your vote has already been counted");
                 return "redirect:" + MENU_BASE_PATH;
             }
 
-            if (DateTimeUtils.isWithinVoteInterval(usersVote.getDateTime(), now)) {
-                usersVote.setDateTime(now);
-                usersVote.setMenu(menu);
-            }
+            usersVote = getVoteToPersist(currentUser, menu, now, usersVote);
         }
 
         voteService.createNewVote(usersVote);
         rAttributes.addFlashAttribute("success", "Your vote has been successfully counted!");
         return "redirect:" + MENU_BASE_PATH;
+    }
+
+    private VoteDto buildNewDish(User currentUser, MenuDto menu, LocalDateTime now) {
+        return VoteDto.builder().menu(menu).user(currentUser).dateTime(now).build();
+    }
+
+    private VoteDto getVoteToPersist(User currentUser, MenuDto menu, LocalDateTime now, VoteDto usersVote) {
+        if (!DateTimeUtils.isWithinVoteInterval(usersVote.getDateTime(), now)) {
+            return buildNewDish(currentUser, menu, now);
+        }
+
+        usersVote.setDateTime(now);
+        usersVote.setMenu(menu);
+        return usersVote;
     }
 
     @GetMapping("/new")

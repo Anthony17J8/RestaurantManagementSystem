@@ -43,7 +43,7 @@ class DishServiceImplTest {
 
     @Test
     void testSaveDish() {
-        when(mapper.dishDtoToDish(mockDish)).thenReturn(Dish.builder().build());
+        when(mapper.toDish(mockDish)).thenReturn(Dish.builder().build());
         dishService.save(mockDish);
         verify(dao).makePersistent(any(Dish.class));
     }

@@ -23,8 +23,8 @@
             <div class="col-7">
                 <div class="list-group pb-3" id="list-tab" role="tablist">
                     <c:forEach varStatus="index" var="dish" items="${dishes}">
-                        <a class="list-group-item list-group-item-action" id="${index}" data-toggle="list"
-                           href="#list-home" role="tab" aria-controls="home">${dish.description} - ${dish.price}$</a>
+                        <a class="list-group-item list-group-item-action" id="${index.count}" data-toggle="list"
+                           href="#info-${index.count}" role="tab" aria-controls="home">${dish.description} - ${dish.price}$</a>
                     </c:forEach>
                 </div>
                 <a href="${pageContext.request.contextPath}/restaurants/${restaurantId}/menus/${menu.id}/dishes/new"
@@ -36,7 +36,7 @@
             <div class="col-5">
                 <div class="tab-content" id="nav-tabContent">
                     <c:forEach varStatus="index" items="${dishes}" var="dish">
-                        <div class="tab-pane fade" id="list-home" role="tabpanel" aria-labelledby="list-home-list">
+                        <div class="tab-pane fade" id="info-${index.count}" role="tabpanel" aria-labelledby="${index.count}">
                             <div class="container shadow-form">
                                 <div class="row p-3">
                                     <img src="https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80"

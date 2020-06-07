@@ -30,7 +30,7 @@
                             Add Menu
                         </c:when>
                         <c:otherwise>
-                            Update Menu
+                            Edit Menu
                         </c:otherwise>
                     </c:choose>
                 </h1>
@@ -50,18 +50,18 @@
                     <form:errors path="date"/>
                 </div>
 
-
-                <sec:authorize access="hasRole('ADMIN')">
-                    <div class="row">
+                <div class="row">
+                    <sec:authorize access="hasRole('ADMIN')">
                         <div class="col">
                             <button class="btn btn-block btn-prm" type="submit">Save</button>
                         </div>
-                        <div class="col">
-                            <button id="btn-cancel" class="btn btn-block" onclick="window.history.back()">Cancel
-                            </button>
-                        </div>
+                    </sec:authorize>
+                    <div class="col">
+                        <button id="btn-cancel" class="btn btn-block" onclick="window.history.back()">Cancel
+                        </button>
                     </div>
-                </sec:authorize>
+                </div>
+
             </div>
             </form:form>
         </div>

@@ -24,19 +24,19 @@ public class DishServiceImpl implements DishService {
     @Transactional
     public List<DishDto> findAllByMenuId(Long menuId) {
         return StreamSupport.stream(dao.findAllInMenu(menuId).spliterator(), false)
-                .map(mapper::dishToDishDto)
+                .map(mapper::fromDish)
                 .collect(Collectors.toList());
     }
 
     @Override
     @Transactional
     public DishDto save(DishDto dish) {
-        return mapper.dishToDishDto(dao.makePersistent(mapper.dishDtoToDish(dish)));
+        return mapper.fromDish(dao.makePersistent(mapper.toDish(dish)));
     }
 
     @Override
     public DishDto findById(Long id) {
-        return mapper.dishToDishDto(dao.findById(id).orElseThrow(
+        return mapper.fromDish(dao.findById(id).orElseThrow(
                 () -> new ObjNotFoundException("Dish with id is not found: " + id)
         ));
     }
