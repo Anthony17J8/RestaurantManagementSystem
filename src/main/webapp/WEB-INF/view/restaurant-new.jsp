@@ -26,10 +26,10 @@
                         <h1 class="text-center m-0">
                             <c:choose>
                                 <c:when test="${restaurant.id == null}">
-                                    Adding New Restaurant
+                                    Create Restaurant
                                 </c:when>
                                 <c:otherwise>
-                                    Updating Restaurant
+                                    Edit Restaurant
                                 </c:otherwise>
                             </c:choose>
                         </h1>

@@ -23,6 +23,8 @@ import java.util.Set;
         message = "Passwords must match")
 public class UserDto implements Serializable {
 
+    private Long id;
+
     @NotNull
     @Size(min = 1)
     private String firstName;

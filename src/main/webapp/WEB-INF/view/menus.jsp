@@ -54,7 +54,8 @@
                 <div class="container pt-1">
                     <div class="row mt-3 justify-content-between">
                         <div class="col-4"><a id="show-reviews" class="btn btn-prm btn-sm">Show Reviews</a></div>
-                        <div class="col-4"><a class="btn btn-warning btn-sm">Add New Review</a></div>
+                        <div class="col-4"><a href="${pageContext.request.contextPath}/restaurants/${restaurant.id}/reviews/new"
+                                              class="btn btn-warning btn-sm">Add New Review</a></div>
                     </div>
                 </div>
             </div>
@@ -123,26 +124,8 @@
                     </c:forEach>
                 </table>
             </div>
-            <div id='review' class="row w-100 mt-4 justify-content-start">
-<%--                <div id="review-list" class="col-5 px-0">--%>
-<%--                    <h2>Reviews</h2>--%>
-
-<%--                    <div class="card border-secondary mb-3">--%>
-<%--                        <div class="card-header text-left">Author - 21.04.2012 23:25</div>--%>
-<%--                        <div class="card-body text-dark">--%>
-<%--                            <p class="card-text text-left">Some quick example text to build on the card title and make--%>
-<%--                                up the bulk of the card's content.</p>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                    <div class="card border-secondary mb-3">--%>
-<%--                        <div class="card-header text-left">Author - 21.04.2012 23:25</div>--%>
-<%--                        <div class="card-body text-dark">--%>
-<%--                            <p class="card-text text-left">Some quick example text to build on the card title and make--%>
-<%--                                up the bulk of the card's content.</p>--%>
-<%--                        </div>--%>
-<%--                    </div>--%>
-<%--                </div>--%>
-            </div>
+            <div id='review' class="row w-100 mt-4 justify-content-start"></div>
+        </div>
     </section>
 
 

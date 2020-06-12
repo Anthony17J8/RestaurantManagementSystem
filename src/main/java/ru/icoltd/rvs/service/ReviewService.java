@@ -1,13 +1,13 @@
 package ru.icoltd.rvs.service;
 
 import ru.icoltd.rvs.dtos.ReviewDto;
-import ru.icoltd.rvs.entity.Review;
+import ru.icoltd.rvs.entity.User;
 
 import java.util.List;
 
 public interface ReviewService {
 
-    Review save(Review review);
+    ReviewDto save(ReviewDto review, User currentUser);
 
     List<ReviewDto> findAllByRestaurantId(Long restaurantId);
 }

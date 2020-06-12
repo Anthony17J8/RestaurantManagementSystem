@@ -55,7 +55,7 @@ public class DishController {
 
     @PostMapping
     public String saveDish(@ModelAttribute("menu") MenuDto menu,
-                           @Valid @ModelAttribute("dish") DishDto dish, BindingResult bindingResult, Model model) {
+                           @Valid @ModelAttribute("dish") DishDto dish, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             log.error("Dish save error: {}", bindingResult);
             return "dish-new";

@@ -4,14 +4,14 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.icoltd.rvs.dtos.CurrentUser;
-import ru.icoltd.rvs.dtos.ReviewListDto;
 import ru.icoltd.rvs.dtos.RestaurantDto;
-import ru.icoltd.rvs.entity.Restaurant;
-import ru.icoltd.rvs.entity.Review;
+import ru.icoltd.rvs.dtos.ReviewDto;
+import ru.icoltd.rvs.dtos.ReviewListDto;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.ReviewService;
@@ -39,8 +39,8 @@ public class ReviewController {
     }
 
     @PostMapping
-    public String saveReview(@ModelAttribute("newReview") @Valid Review review,
-                             BindingResult bindingResult, Restaurant restaurant,
+    public String saveReview(@ModelAttribute @Valid ReviewDto review,
+                             BindingResult bindingResult, @ModelAttribute("restaurant") RestaurantDto restaurant,
                              @CurrentUser User currentUser) {
         if (bindingResult.hasErrors()) {
             bindingResult.getFieldErrors()
@@ -48,15 +48,20 @@ public class ReviewController {
             return "reviews";
         }
 
-        review.setUser(currentUser);
         review.setRestaurant(restaurant);
-        reviewService.save(review);
-        return "redirect:/restaurants/{restId}/reviews";
+        reviewService.save(review, currentUser);
+        return "redirect:/restaurants/{restId}/menus";
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public ReviewListDto showReviews(@PathVariable("restId") Long restaurantId) {
         return ReviewListDto.builder().reviews(reviewService.findAllByRestaurantId(restaurantId)).build();
+    }
+
+    @GetMapping("/new")
+    public String showAddReviewForm(Model model) {
+        model.addAttribute("review", ReviewDto.builder().build());
+        return "review-new";
     }
 }

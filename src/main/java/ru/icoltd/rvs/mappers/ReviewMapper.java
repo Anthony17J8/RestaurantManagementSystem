@@ -10,10 +10,11 @@ import ru.icoltd.rvs.entity.User;
 @Mapper
 public interface ReviewMapper {
 
+    @Mapping(source = "restaurant", target = "restaurant", ignore = true)
     ReviewDto fromReview(Review review);
 
     Review toReview(ReviewDto reviewDto);
-    
+
     @Mapping(source = "roles", target = "roles", ignore = true)
     UserDto fromUser(User user);
 
