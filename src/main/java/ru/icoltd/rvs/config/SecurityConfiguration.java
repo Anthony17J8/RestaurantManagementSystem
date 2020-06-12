@@ -1,6 +1,6 @@
 package ru.icoltd.rvs.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -18,17 +18,12 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private UserService userService;
+    private final UserService userService;
 
-    private DataSource dataSource;
-
-    @Autowired
-    public SecurityConfiguration(UserService userService, DataSource dataSource) {
-        this.userService = userService;
-        this.dataSource = dataSource;
-    }
+    private final DataSource dataSource;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {

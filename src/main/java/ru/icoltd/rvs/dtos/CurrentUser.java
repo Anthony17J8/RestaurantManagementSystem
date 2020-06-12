@@ -1,4 +1,4 @@
-package ru.icoltd.rvs.user;
+package ru.icoltd.rvs.dtos;
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 

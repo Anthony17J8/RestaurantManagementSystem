@@ -10,16 +10,15 @@ import ru.icoltd.rvs.entity.RestaurantDetail;
 @Mapper
 public interface RestaurantMapper {
 
-    RestaurantDto restaurantToRestaurantDto(Restaurant restaurant);
+    RestaurantDto fromRestaurant(Restaurant restaurant);
 
     @Mapping(source = "phone", target = "phoneNumber")
     @Mapping(source = "site", target = "url")
-    RestaurantDetailDto restaurantDetailToRestaurantDetailDto(RestaurantDetail restaurantDetail);
+    RestaurantDetailDto fromRestaurantDetail(RestaurantDetail restaurantDetail);
 
-    Restaurant restaurantDtoToRestaurant(RestaurantDto restaurantDto);
+    Restaurant toRestaurant(RestaurantDto restaurantDto);
 
     @Mapping(source = "phoneNumber", target = "phone")
     @Mapping(source = "url", target = "site")
-    RestaurantDetail restaurantDetailDtoToRestaurantDetail(RestaurantDetailDto restaurantDetailDto);
-
+    RestaurantDetail toRestaurantDetail(RestaurantDetailDto restaurantDetailDto);
 }

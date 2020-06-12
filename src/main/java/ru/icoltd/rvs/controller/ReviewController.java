@@ -2,23 +2,19 @@ package ru.icoltd.rvs.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import ru.icoltd.rvs.dtos.CurrentUser;
+import ru.icoltd.rvs.dtos.ReviewListDto;
 import ru.icoltd.rvs.dtos.RestaurantDto;
 import ru.icoltd.rvs.entity.Restaurant;
 import ru.icoltd.rvs.entity.Review;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.RestaurantService;
 import ru.icoltd.rvs.service.ReviewService;
-import ru.icoltd.rvs.user.CurrentUser;
 
 import javax.validation.Valid;
 
@@ -58,10 +54,9 @@ public class ReviewController {
         return "redirect:/restaurants/{restId}/reviews";
     }
 
-    @GetMapping
-    public String showReviews(Model model) {
-        Review review = new Review();
-        model.addAttribute("newReview", review);
-        return "reviews";
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseBody
+    public ReviewListDto showReviews(@PathVariable("restId") Long restaurantId) {
+        return ReviewListDto.builder().reviews(reviewService.findAllByRestaurantId(restaurantId)).build();
     }
 }

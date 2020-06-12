@@ -23,7 +23,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional
     public MenuDto save(MenuDto menu) {
-        return mapper.menuToMenuDto(menuDAO.makePersistent(mapper.menuDtoToMenu(menu)));
+        return mapper.fromMenu(menuDAO.makePersistent(mapper.toMenu(menu)));
     }
 
     @Override
@@ -35,13 +35,13 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuDto> findAllByRestaurantId(Long restId) {
         return StreamSupport.stream(menuDAO.findAllByRestaurantId(restId).spliterator(), false)
-                .map(mapper::menuToMenuDto)
+                .map(mapper::fromMenu)
                 .collect(Collectors.toList());
     }
 
     @Override
     public MenuDto findById(Long menuId) {
-        return mapper.menuToMenuDto(menuDAO.findById(menuId).orElseThrow(
+        return mapper.fromMenu(menuDAO.findById(menuId).orElseThrow(
                 () -> new ObjNotFoundException("Menu id not found: " + menuId)
         ));
     }

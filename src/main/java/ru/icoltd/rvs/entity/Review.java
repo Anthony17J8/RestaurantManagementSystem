@@ -1,20 +1,8 @@
 package ru.icoltd.rvs.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
-import javax.validation.constraints.NotBlank;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Getter
@@ -30,7 +18,6 @@ public class Review extends BaseEntity {
 
     @Lob
     @Column(name = "review_text")
-    @NotBlank
     private String text;
 
     @Column(name = "created_at")
@@ -45,7 +32,8 @@ public class Review extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Review(String text, Restaurant restaurant, User user) {
+    public Review(Long id, String text, Restaurant restaurant, User user) {
+        super(id);
         this.text = text;
         this.restaurant = restaurant;
         this.user = user;

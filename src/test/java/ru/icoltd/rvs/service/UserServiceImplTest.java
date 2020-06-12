@@ -7,16 +7,18 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import ru.icoltd.rvs.dao.RoleDAO;
 import ru.icoltd.rvs.dao.UserDAO;
+import ru.icoltd.rvs.dtos.UserDto;
 import ru.icoltd.rvs.entity.User;
+import ru.icoltd.rvs.mappers.UserMapper;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import static ru.icoltd.rvs.util.MockDataUtils.getMockUser;
-import static ru.icoltd.rvs.util.MockDataUtils.withId;
+import static ru.icoltd.rvs.util.MockDataUtils.*;
 
 @ExtendWith(MockitoExtension.class)
 class UserServiceImplTest {
@@ -25,20 +27,32 @@ class UserServiceImplTest {
     private UserServiceImpl service;
 
     @Mock
-    private UserDAO dao;
+    private PasswordEncoder passwordEncoder;
+
+    @Mock
+    private UserMapper mapper;
+
+    @Mock
+    private UserDAO userDAO;
+
+    @Mock
+    private RoleDAO roleDAO;
 
     private User mockUser;
+
+    private UserDto mockUserDto;
 
     @BeforeEach
     void setUp() {
         mockUser = withId(getMockUser());
+        mockUserDto = getMockUserDto();
     }
 
     @Test
     void testLoadUserByUsername() {
-        when(dao.findUserByUserName(anyString())).thenReturn(mockUser);
+        when(userDAO.findUserByUserName(anyString())).thenReturn(mockUser);
         service.loadUserByUsername(mockUser.getEmail());
-        verify(dao).findUserByUserName(anyString());
+        verify(userDAO).findUserByUserName(anyString());
     }
 
     @Test
@@ -48,13 +62,20 @@ class UserServiceImplTest {
 
     @Test
     void testSaveUser() {
-        service.saveUser(mockUser);
-        verify(dao).makePersistent(eq(mockUser));
+        when(passwordEncoder.encode(any(CharSequence.class))).thenReturn("password");
+        when(mapper.toUser(any(UserDto.class))).thenReturn(mockUser);
+
+        service.saveUser(mockUserDto, passwordEncoder);
+
+        verify(userDAO).makePersistent(eq(mockUser));
+        verify(passwordEncoder).encode(any(CharSequence.class));
+        verify(mapper).toUser(any(UserDto.class));
     }
 
     @Test
     void testFindUserByEmail() {
         service.findUserByEmail(mockUser.getEmail());
-        verify(dao).findUserByEmail(anyString());
+        verify(userDAO).findUserByEmail(anyString());
+
     }
 }

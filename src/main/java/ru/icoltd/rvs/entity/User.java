@@ -1,23 +1,15 @@
 package ru.icoltd.rvs.entity;
 
+import lombok.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import javax.persistence.*;
 import java.sql.Date;
 import java.util.Collection;
 import java.util.Set;
 import java.util.stream.Collectors;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
 @Getter
 @Setter
@@ -52,8 +44,9 @@ public class User extends BaseEntity implements UserDetails {
     private Set<Role> roles;
 
     @Builder
-    public User(String username, String password, String firstName, String lastName,
+    public User(Long id, String username, String password, String firstName, String lastName,
                 String email, Date dateOfBirth, Set<Role> roles) {
+        super(id);
         this.username = username;
         this.password = password;
         this.firstName = firstName;

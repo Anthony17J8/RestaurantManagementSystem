@@ -52,10 +52,10 @@ class RestaurantServiceImplTest {
     @Test
     void testGetRestaurant() {
         when(restaurantDAO.findById(anyLong())).thenReturn(Optional.of(restaurantMock));
-        when(mapper.restaurantToRestaurantDto(eq(restaurantMock))).thenReturn(getMockRestaurantDto());
+        when(mapper.fromRestaurant(eq(restaurantMock))).thenReturn(getMockRestaurantDto());
         RestaurantDto result = service.findById(restaurantMock.getId());
         assertNotNull(result);
-        verify(mapper).restaurantToRestaurantDto(any(Restaurant.class));
+        verify(mapper).fromRestaurant(any(Restaurant.class));
         verify(restaurantDAO).findById(anyLong());
     }
 
@@ -66,17 +66,17 @@ class RestaurantServiceImplTest {
 
     @Test
     void testSaveRestaurant() {
-        when(mapper.restaurantDtoToRestaurant(any(RestaurantDto.class))).thenReturn(new Restaurant());
+        when(mapper.toRestaurant(any(RestaurantDto.class))).thenReturn(new Restaurant());
         service.save(new RestaurantDto());
-        verify(mapper).restaurantDtoToRestaurant(any(RestaurantDto.class));
+        verify(mapper).toRestaurant(any(RestaurantDto.class));
         verify(restaurantDAO).makePersistent(any(Restaurant.class));
     }
 
     @Test
     void testDeleteRestaurant() {
-        when(mapper.restaurantDtoToRestaurant(any(RestaurantDto.class))).thenReturn(new Restaurant());
+        when(mapper.toRestaurant(any(RestaurantDto.class))).thenReturn(new Restaurant());
         service.remove(new RestaurantDto());
-        verify(mapper).restaurantDtoToRestaurant(any(RestaurantDto.class));
+        verify(mapper).toRestaurant(any(RestaurantDto.class));
         verify(restaurantDAO).remove(any(Restaurant.class));
     }
 }

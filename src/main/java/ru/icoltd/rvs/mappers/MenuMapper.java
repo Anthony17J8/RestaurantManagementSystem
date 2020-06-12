@@ -9,7 +9,7 @@ import ru.icoltd.rvs.entity.Menu;
 public interface MenuMapper {
 
     @Mapping(target = "restaurant", ignore = true)
-    MenuDto menuToMenuDto(Menu menu);
+    MenuDto fromMenu(Menu menu);
 
-    Menu menuDtoToMenu(MenuDto menuDto);
+    Menu toMenu(MenuDto menuDto);
 }

@@ -14,8 +14,9 @@ import ru.icoltd.rvs.dtos.VoteDto;
 import ru.icoltd.rvs.entity.User;
 import ru.icoltd.rvs.service.MenuService;
 import ru.icoltd.rvs.service.RestaurantService;
+import ru.icoltd.rvs.service.ReviewService;
 import ru.icoltd.rvs.service.VoteService;
-import ru.icoltd.rvs.user.CurrentUser;
+import ru.icoltd.rvs.dtos.CurrentUser;
 import ru.icoltd.rvs.util.DateTimeUtils;
 
 import javax.validation.Valid;
@@ -37,6 +38,8 @@ public class MenuController {
 
     private final RestaurantService restaurantService;
 
+    private final ReviewService reviewService;
+
     @InitBinder("restaurant")
     public void initRestaurantBinder(WebDataBinder dataBinder) {
         dataBinder.setDisallowedFields("id", "name");
@@ -49,6 +52,7 @@ public class MenuController {
 
     @GetMapping
     public String listMenus(@PathVariable("restId") Long restId, Model model) {
+
         List<MenuDto> menus = menuService.findAllByRestaurantId(restId);
         model.addAttribute("menus", menus);
         return "menus";

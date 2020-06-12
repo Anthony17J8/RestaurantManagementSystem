@@ -44,7 +44,7 @@ class MenuServiceImplTest {
     void testGetMenu() {
         Menu returned = getMockMenu();
         when(dao.findById(anyLong())).thenReturn(Optional.of(returned));
-        when(mapper.menuToMenuDto(eq(returned))).thenReturn(mockMenu);
+        when(mapper.fromMenu(eq(returned))).thenReturn(mockMenu);
         MenuDto menu = menuService.findById(ID);
         assertEquals(mockMenu, menu);
         verify(dao).findById(anyLong());
@@ -58,7 +58,7 @@ class MenuServiceImplTest {
 
     @Test
     void testSaveMenu() {
-        when(mapper.menuDtoToMenu(any(MenuDto.class))).thenReturn(Menu.builder().build());
+        when(mapper.toMenu(any(MenuDto.class))).thenReturn(Menu.builder().build());
         menuService.save(mockMenu);
         verify(dao).makePersistent(any(Menu.class));
     }

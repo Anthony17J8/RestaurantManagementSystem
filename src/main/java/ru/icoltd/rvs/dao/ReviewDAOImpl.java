@@ -9,4 +9,11 @@ public class ReviewDAOImpl extends GenericDAOImpl<Review, Long> implements Revie
     public ReviewDAOImpl() {
         super(Review.class);
     }
+
+    @Override
+    public Iterable<Review> findAllByRestaurantId(Long restaurantId) {
+        return em.createQuery("SELECT rev FROM Review rev WHERE rev.restaurant.id = :restaurantId", Review.class)
+                .setParameter("restaurantId", restaurantId)
+                .getResultList();
+    }
 }

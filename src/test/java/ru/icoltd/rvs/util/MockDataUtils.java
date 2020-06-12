@@ -139,6 +139,17 @@ public class MockDataUtils {
                 .build();
     }
 
+    public static UserDto getMockUserDto() {
+        User user = withId(getMockUser());
+        return UserDto.builder()
+                .username(user.getUsername())
+                .firstName(user.getFirstName())
+                .lastName(user.getLastName())
+                .email(user.getEmail())
+                .dateOfBirth(user.getDateOfBirth())
+                .password(user.getPassword()).build();
+    }
+
     public static Vote getMockVote() {
         return Vote.builder().dateTime(LocalDateTime.now()).build();
     }

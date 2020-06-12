@@ -1,8 +1,6 @@
-package ru.icoltd.rvs.user;
+package ru.icoltd.rvs.dtos;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import ru.icoltd.rvs.validation.FieldMatch;
 import ru.icoltd.rvs.validation.UniqueUsername;
 import ru.icoltd.rvs.validation.ValidEmail;
@@ -10,17 +8,20 @@ import ru.icoltd.rvs.validation.ValidEmail;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.io.Serializable;
 import java.sql.Date;
 import java.util.Set;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
+@AllArgsConstructor
 @FieldMatch(
         first = "password",
         second = "matchingPassword",
         message = "Passwords must match")
-public class RegisteredUser {
+public class UserDto implements Serializable {
 
     @NotNull
     @Size(min = 1)
@@ -31,7 +32,7 @@ public class RegisteredUser {
     private String lastName;
 
     @UniqueUsername
-    private String userName;
+    private String username;
 
     @NotNull
     @Size(min = 1)

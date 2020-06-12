@@ -23,13 +23,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public List<RestaurantDto> findAll() {
         return StreamSupport.stream(restaurantDAO.findAll().spliterator(), false)
-                .map(restaurantMapper::restaurantToRestaurantDto)
+                .map(restaurantMapper::fromRestaurant)
                 .collect(Collectors.toList());
     }
 
     @Override
     public RestaurantDto findById(Long restaurantId) {
-        return restaurantMapper.restaurantToRestaurantDto(
+        return restaurantMapper.fromRestaurant(
                 restaurantDAO.findById(restaurantId).orElseThrow(
                         () -> new ObjNotFoundException("Restaurant not found with id: " + restaurantId)
                 )
@@ -39,14 +39,14 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     @Transactional
     public RestaurantDto save(RestaurantDto restaurant) {
-        return restaurantMapper.restaurantToRestaurantDto(
-                restaurantDAO.makePersistent(restaurantMapper.restaurantDtoToRestaurant(restaurant))
+        return restaurantMapper.fromRestaurant(
+                restaurantDAO.makePersistent(restaurantMapper.toRestaurant(restaurant))
         );
     }
 
     @Override
     @Transactional
     public void remove(RestaurantDto restaurant) {
-        restaurantDAO.remove(restaurantMapper.restaurantDtoToRestaurant(restaurant));
+        restaurantDAO.remove(restaurantMapper.toRestaurant(restaurant));
     }
 }

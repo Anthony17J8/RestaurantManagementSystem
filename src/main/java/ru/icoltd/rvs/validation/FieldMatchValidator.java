@@ -2,13 +2,13 @@ package ru.icoltd.rvs.validation;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanWrapperImpl;
-import ru.icoltd.rvs.user.RegisteredUser;
+import ru.icoltd.rvs.dtos.UserDto;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 
 @Slf4j
-public class FieldMatchValidator implements ConstraintValidator<FieldMatch, RegisteredUser> {
+public class FieldMatchValidator implements ConstraintValidator<FieldMatch, UserDto> {
 
     private String password;
 
@@ -17,7 +17,7 @@ public class FieldMatchValidator implements ConstraintValidator<FieldMatch, Regi
     private String message;
 
     @Override
-    public boolean isValid(RegisteredUser value, ConstraintValidatorContext context) {
+    public boolean isValid(UserDto value, ConstraintValidatorContext context) {
         boolean valid = true;
         try {
             Object first = new BeanWrapperImpl(value).getPropertyValue(password);

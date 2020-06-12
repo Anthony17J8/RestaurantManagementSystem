@@ -42,8 +42,8 @@
 
                 <div class="form-group">
                     <label for="uName">User name</label>
-                    <form:input path="userName" id="uName" cssClass="form-control"/>
-                    <form:errors path="userName"/>
+                    <form:input path="username" id="uName" cssClass="form-control"/>
+                    <form:errors path="username"/>
                 </div>
 
                 <div class="form-group">
