@@ -4,6 +4,8 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
 
+//    public static final String APP_CONTEXT = "/app/*";
+
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return null;

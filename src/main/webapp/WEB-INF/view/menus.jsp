@@ -9,8 +9,10 @@
 <html>
 <head>
     <title>Menus</title>
-    <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
-    <link rel='stylesheet' href='<wj:locate path="css/font-awesome.css" relativeTo="META-INF/resources"/>'>
+    <link rel='stylesheet'
+          href='${pageContext.request.contextPath}<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
+    <link rel='stylesheet'
+          href='${pageContext.request.contextPath}<wj:locate path="css/font-awesome.css" relativeTo="META-INF/resources"/>'>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
 
@@ -54,8 +56,9 @@
                 <div class="container pt-1">
                     <div class="row mt-3 justify-content-between">
                         <div class="col-4"><a id="show-reviews" class="btn btn-prm btn-sm">Show Reviews</a></div>
-                        <div class="col-4"><a href="${pageContext.request.contextPath}/restaurants/${restaurant.id}/reviews/new"
-                                              class="btn btn-warning btn-sm">Add New Review</a></div>
+                        <div class="col-4"><a
+                                href="${pageContext.request.contextPath}/restaurants/${restaurant.id}/reviews/new"
+                                class="btn btn-warning btn-sm">New Review</a></div>
                     </div>
                 </div>
             </div>
@@ -128,11 +131,31 @@
         </div>
     </section>
 
-
-    <script type='text/javascript' src='<wj:locate path="jquery.min.js" relativeTo="META-INF/resources"/>'></script>
     <script type='text/javascript'
-            src='<wj:locate path="js/bootstrap.min.js" relativeTo="META-INF/resources"/>'></script>
-    <script type="text/javascript"
-            src="${pageContext.request.contextPath}/resources/assets/js/review-list.js"></script>
+            src='${pageContext.request.contextPath}<wj:locate path="jquery.min.js" relativeTo="META-INF/resources"/>'></script>
+    <script type='text/javascript'
+            src='${pageContext.request.contextPath}<wj:locate path="js/bootstrap.min.js" relativeTo="META-INF/resources"/>'></script>
+    <script type="text/javascript">
+        $("#show-reviews").click(function () {
+            let review = $("#review-list");
+            if (review.length) {
+                review.remove();
+            } else {
+                $.getJSON("${pageContext.request.contextPath}/restaurants/${restaurant.id}/reviews", function (data) {
+                    let header = $("<div id='review-list' class='col-5 px-0'>")
+                        .append($("<h2>Reviews</h2>"));
+                    data.reviews.forEach(function (review) {
+                        header.append($("<div class='card border-secondary mb-3'>")
+                            .append($("<div class='card-header text-left'>")
+                                .append(review.user.username + ": " + Date.now()))
+                            .append($("<div class='card-body text-dark'>")
+                                .append("<p class='card-text text-left'>")
+                                .append(review.text)
+                            )).appendTo("#review");
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>

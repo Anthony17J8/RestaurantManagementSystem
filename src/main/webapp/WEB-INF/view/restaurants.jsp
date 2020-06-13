@@ -8,8 +8,10 @@
 <html>
 <head>
     <title>Restaurants</title>
-    <link rel='stylesheet' href='<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
-    <link rel='stylesheet' href='<wj:locate path="css/font-awesome.css" relativeTo="META-INF/resources"/>'>
+    <link rel='stylesheet'
+          href='${pageContext.request.contextPath}<wj:locate path="css/bootstrap.min.css" relativeTo="META-INF/resources"/>'>
+    <link rel='stylesheet'
+          href='${pageContext.request.contextPath}<wj:locate path="css/font-awesome.css" relativeTo="META-INF/resources"/>'>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/assets/css/style.css">
 </head>
 <body>
@@ -75,8 +77,9 @@
     </div>
 </div>
 
-<script type='text/javascript' src='<wj:locate path="jquery.min.js" relativeTo="META-INF/resources"/>'></script>
 <script type='text/javascript'
-        src='<wj:locate path="js/bootstrap.min.js" relativeTo="META-INF/resources"/>'></script>
+        src='${pageContext.request.contextPath}<wj:locate path="jquery.min.js" relativeTo="META-INF/resources"/>'></script>
+<script type='text/javascript'
+        src='${pageContext.request.contextPath}<wj:locate path="js/bootstrap.min.js" relativeTo="META-INF/resources"/>'></script>
 </body>
 </html>
