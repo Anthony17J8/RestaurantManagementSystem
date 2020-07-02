@@ -1,7 +1,7 @@
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/e881334d3a3243f9a2be5f4d1e71e0f4)](https://app.codacy.com/app/kiselev.anton.ev/RestaurantManagementSystem?utm_source=github.com&utm_medium=referral&utm_content=Anthony17J8/RestaurantManagementSystem&utm_campaign=Badge_Grade_Dashboard)
 [![CircleCI](https://circleci.com/gh/Anthony17J8/RestaurantManagementSystem.svg?style=svg)](https://circleci.com/gh/Anthony17J8/RestaurantManagementSystem)
 
-#Requirement
+# Requirement
 <p>Design and implement API using Hibernate/Spring/SpringMVC </p>
 <p>The task is:</p>
 <p>Build a voting system for deciding where to have lunch.</p>
@@ -22,7 +22,7 @@
 <p>As a result, provide a link to github repository.</p>
 
 #Run Application
-#####1. Setup Tomcat
+##### 1. Setup Tomcat
  * Download and install [Tomcat9](https://tomcat.apache.org/download-90.cgi)
  * Add user with access to deployment an application:   
  File **$CATALINA_HOME/conf/tomcat-users.xml** :
@@ -48,10 +48,10 @@ File **.m2/settings.xml**
     </servers>
     ```
 
-#####2. Run tomcat
+##### 2. Run tomcat
 * Run $CATALINA_HOME/bin/catalina.sh run
 
-#####3. Deploy App
+##### 3. Deploy App
 * Run command from ROOT of the project:
 `` mvn tomcat7:deploy``    
-#####4. Check application at the context path: [http://localhost:8080/app](http://localhost:8080/app )
+##### 4. Check application at the context path: [http://localhost:8080/app](http://localhost:8080/app )
